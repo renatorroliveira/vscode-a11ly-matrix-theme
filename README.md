@@ -21,7 +21,7 @@ Dark High Contrast defaults and lifts every color that falls short.
 
 ```sh
 corepack enable pnpm            # picks pnpm 11.22.0 from the packageManager field
-pnpm install --frozen-lockfile  # exact pins, 30-day minimum release age, no build scripts
+pnpm install --frozen-lockfile  # exact pins, 15-day minimum release age, no build scripts
 pnpm dev                        # regenerate themes/ on every source change
 pnpm build                      # generate + contrast gate
 pnpm check                      # typecheck + lint + test + build

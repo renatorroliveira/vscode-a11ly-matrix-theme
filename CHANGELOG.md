@@ -15,6 +15,8 @@ All notable changes to the Ally Dark theme are documented here. The format follo
 
 - Palette rebased on VS Code's Dark High Contrast defaults; theme base is now `hc-black`.
 - Contrast gate raised from AA to AAA (7:1 text, 4.5:1 UI); 13 seed colors lifted to comply.
+- Minimum dependency release age lowered from 30 to 15 days; all age-rule waivers removed.
+- Tooling moved to pnpm 12.1.0, ESLint 10.9.1 and typescript-eslint 8.69.0.
 
 ### Fixed
 
