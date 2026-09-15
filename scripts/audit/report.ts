@@ -5,7 +5,13 @@
 
 import type { AuditResult, DistinguishabilityResult, PairResult, TokenResult } from './evaluate.ts';
 
-const STATUS_ICON: Readonly<Record<string, string>> = { pass: 'PASS', fail: 'FAIL', missing: 'MISSING', ok: 'ok', warn: 'WARN' };
+const STATUS_ICON: Readonly<Record<string, string>> = {
+    pass: 'PASS',
+    fail: 'FAIL',
+    missing: 'MISSING',
+    ok: 'ok',
+    warn: 'WARN',
+};
 
 /**
  * Produces the Markdown report written to `docs/contrast-report.md`.
@@ -61,10 +67,12 @@ export function renderConsole(result: AuditResult): readonly string[] {
                 `${STATUS_ICON[item.status] ?? ''} ${item.pair.description}: ${item.pair.foreground} ${item.foregroundHex ?? '?'} on ${item.pair.background} ${item.backgroundHex ?? '?'} = ${item.ratio.toFixed(2)}:1 (needs ${String(item.required)}:1)`,
         ),
         ...failingTokens.map(
-            (item) => `FAIL token[${String(item.index)}] ${item.scope}: ${item.foregroundHex} = ${item.ratio.toFixed(2)}:1 (needs ${String(item.required)}:1)`,
+            (item) =>
+                `FAIL token[${String(item.index)}] ${item.scope}: ${item.foregroundHex} = ${item.ratio.toFixed(2)}:1 (needs ${String(item.required)}:1)`,
         ),
         ...warnings.map(
-            (item) => `WARN ${item.group} under ${item.vision}: ${item.closestPair[0]} vs ${item.closestPair[1]} delta E ${item.deltaE.toFixed(1)}`,
+            (item) =>
+                `WARN ${item.group} under ${item.vision}: ${item.closestPair[0]} vs ${item.closestPair[1]} delta E ${item.deltaE.toFixed(1)}`,
         ),
         `pairs: ${String(result.pairs.length - failingPairs.length)}/${String(result.pairs.length)} pass, tokens: ${String(result.tokens.length - failingTokens.length)}/${String(result.tokens.length)} pass, distinguishability warnings: ${String(warnings.length)}`,
     ];

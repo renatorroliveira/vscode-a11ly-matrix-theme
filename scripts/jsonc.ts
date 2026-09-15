@@ -11,18 +11,18 @@ const COMMENTED_ENTRY = /^\s*\/\/\s*"([^"]+)"\s*:\s*("[^"]*"|[^,\n]+)\s*,?\s*$/g
 
 /** A key/value pair that was commented out in the source file. */
 export interface CommentedEntry {
-  readonly key: string;
-  readonly value: string;
+    readonly key: string;
+    readonly value: string;
 }
 
 /**
  * Parses JSONC text into a value, discarding comments and trailing commas.
  * @param text Raw JSONC document.
- * @returns The parsed JSON value.
+ * @returns The parsed JSON value; callers narrow the type.
  */
-export function parseJsonc<T>(text: string): T {
-  const stripped = text.replace(FULL_LINE_COMMENT, '').replace(TRAILING_COMMA, '$1');
-  return JSON.parse(stripped) as T;
+export function parseJsonc(text: string): unknown {
+    const stripped = text.replace(FULL_LINE_COMMENT, '').replace(TRAILING_COMMA, '$1');
+    return JSON.parse(stripped) as unknown;
 }
 
 /**
@@ -31,12 +31,12 @@ export function parseJsonc<T>(text: string): T {
  * @returns Commented entries in file order.
  */
 export function extractCommentedEntries(text: string): readonly CommentedEntry[] {
-  const entries: CommentedEntry[] = [];
-  for (const match of text.matchAll(COMMENTED_ENTRY)) {
-    const [, key, rawValue] = match;
-    if (key !== undefined && rawValue !== undefined) {
-      entries.push({ key, value: rawValue.trim().replace(/^"|"$/g, '') });
+    const entries: CommentedEntry[] = [];
+    for (const match of text.matchAll(COMMENTED_ENTRY)) {
+        const [, key, rawValue] = match;
+        if (key !== undefined && rawValue !== undefined) {
+            entries.push({ key, value: rawValue.trim().replace(/^"|"$/g, '') });
+        }
     }
-  }
-  return entries;
+    return entries;
 }

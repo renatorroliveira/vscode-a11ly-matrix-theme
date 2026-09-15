@@ -15,8 +15,8 @@ import type { Rgb, Rgba } from './types.ts';
  * @returns The resulting opaque color.
  */
 export function compositeOver(source: Rgba, backdrop: Rgb): Rgb {
-  const blend = (top: number, bottom: number): number => top * source.a + bottom * (1 - source.a);
-  return { r: blend(source.r, backdrop.r), g: blend(source.g, backdrop.g), b: blend(source.b, backdrop.b) };
+    const blend = (top: number, bottom: number): number => top * source.a + bottom * (1 - source.a);
+    return { r: blend(source.r, backdrop.r), g: blend(source.g, backdrop.g), b: blend(source.b, backdrop.b) };
 }
 
 /**
@@ -26,6 +26,6 @@ export function compositeOver(source: Rgba, backdrop: Rgb): Rgb {
  * @returns The opaque foreground as it would render.
  */
 export function flattenHex(foregroundHex: string, backgroundHex: string): Rgb {
-  const background = compositeOver(parseHex(backgroundHex), { r: 0, g: 0, b: 0 });
-  return compositeOver(parseHex(foregroundHex), background);
+    const background = compositeOver(parseHex(backgroundHex), { r: 0, g: 0, b: 0 });
+    return compositeOver(parseHex(foregroundHex), background);
 }

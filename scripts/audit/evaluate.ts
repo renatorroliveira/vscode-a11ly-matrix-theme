@@ -5,7 +5,13 @@
  */
 
 import type { ColorTheme, TokenColorRule } from '../../src/types.ts';
-import { classifyContrast, type ConformanceLevel, type ContentKind, contrastRatio, minimumRatio } from '../color/contrast.ts';
+import {
+    classifyContrast,
+    type ConformanceLevel,
+    type ContentKind,
+    contrastRatio,
+    minimumRatio,
+} from '../color/contrast.ts';
 import { deltaE, simulateCvd, type CvdType } from '../color/cvd.ts';
 import { flattenHex } from '../color/composite.ts';
 import { parseHex } from '../color/hex.ts';
@@ -110,7 +116,10 @@ function evaluateTokens(theme: ColorTheme): readonly TokenResult[] {
         if (foregroundHex === undefined) {
             return [];
         }
-        const ratio = contrastRatio(flattenHex(foregroundHex, editorBackground), flattenHex(editorBackground, '#000000'));
+        const ratio = contrastRatio(
+            flattenHex(foregroundHex, editorBackground),
+            flattenHex(editorBackground, '#000000'),
+        );
         const status = ratio >= required ? 'pass' : 'fail';
         return [{ index, scope: describeScope(rule), foregroundHex, ratio, required, status }];
     });
@@ -132,7 +141,13 @@ function closestInGroup(
         .map((key) => ({ key, hex: theme.colors[key] }))
         .filter((entry): entry is { key: string; hex: `#${string}` } => entry.hex !== undefined)
         .map((entry) => ({ key: entry.key, rgb: perceive(parseHex(entry.hex), vision) }));
-    let closest: DistinguishabilityResult = { group, vision, closestPair: ['', ''], deltaE: Number.POSITIVE_INFINITY, status: 'ok' };
+    let closest: DistinguishabilityResult = {
+        group,
+        vision,
+        closestPair: ['', ''],
+        deltaE: Number.POSITIVE_INFINITY,
+        status: 'ok',
+    };
     for (let i = 0; i < colors.length; i += 1) {
         for (let j = i + 1; j < colors.length; j += 1) {
             const first = colors[i];
@@ -142,7 +157,13 @@ function closestInGroup(
             }
             const distance = deltaE(first.rgb, second.rgb);
             if (distance < closest.deltaE) {
-                closest = { group, vision, closestPair: [first.key, second.key], deltaE: distance, status: distance < DELTA_E_WARN_THRESHOLD ? 'warn' : 'ok' };
+                closest = {
+                    group,
+                    vision,
+                    closestPair: [first.key, second.key],
+                    deltaE: distance,
+                    status: distance < DELTA_E_WARN_THRESHOLD ? 'warn' : 'ok',
+                };
             }
         }
     }

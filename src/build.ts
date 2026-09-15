@@ -16,10 +16,10 @@ const OUTPUT_DIR = resolve(import.meta.dirname, '..', 'themes');
  * @returns Absolute path of the written theme file.
  */
 export function buildTheme(): string {
-  mkdirSync(OUTPUT_DIR, { recursive: true });
-  const outputPath = resolve(OUTPUT_DIR, THEME_FILE_NAME);
-  writeFileSync(outputPath, `${JSON.stringify(theme, null, 4)}\n`);
-  return outputPath;
+    mkdirSync(OUTPUT_DIR, { recursive: true });
+    const outputPath = resolve(OUTPUT_DIR, THEME_FILE_NAME);
+    writeFileSync(outputPath, `${JSON.stringify(theme, null, 4)}\n`);
+    return outputPath;
 }
 
 console.log(`theme written: ${buildTheme()}`);

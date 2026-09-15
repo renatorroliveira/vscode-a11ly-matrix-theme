@@ -29,7 +29,7 @@ export interface Repair {
 export function planRepairs(theme: ColorTheme, audit: AuditResult): readonly Repair[] {
     const byKey = new Map<string, Repair>();
     const consider = (repair: Repair | undefined): void => {
-        if (repair === undefined || !repair.result.changed) {
+        if (!repair?.result.changed) {
             return;
         }
         const existing = byKey.get(`${repair.target}:${repair.key}`);
@@ -37,8 +37,12 @@ export function planRepairs(theme: ColorTheme, audit: AuditResult): readonly Rep
             byKey.set(`${repair.target}:${repair.key}`, repair);
         }
     };
-    audit.pairs.filter((item) => item.status === 'fail').forEach((item) => consider(repairPair(theme, item)));
-    audit.tokens.filter((item) => item.status === 'fail').forEach((item) => consider(repairToken(theme, item)));
+    for (const item of audit.pairs.filter((candidate) => candidate.status === 'fail')) {
+        consider(repairPair(theme, item));
+    }
+    for (const item of audit.tokens.filter((candidate) => candidate.status === 'fail')) {
+        consider(repairToken(theme, item));
+    }
     return [...byKey.values()];
 }
 
@@ -52,7 +56,10 @@ export function applyRepairs(repairs: readonly Repair[], paths: { workbench: str
     let tokens = readFileSync(paths.tokens, 'utf8');
     for (const repair of repairs) {
         if (repair.target === 'workbench') {
-            const pattern = new RegExp(`("${escapeRegExp(repair.key)}":\\s*)"${escapeRegExp(repair.result.original)}"`, 'i');
+            const pattern = new RegExp(
+                `("${escapeRegExp(repair.key)}":\\s*)"${escapeRegExp(repair.result.original)}"`,
+                'i',
+            );
             workbench = workbench.replace(pattern, `$1"${repair.result.adjusted}"`);
         } else {
             const pattern = new RegExp(`(foreground:\\s*)"${escapeRegExp(repair.result.original)}"`, 'gi');
@@ -71,14 +78,29 @@ function repairPair(theme: ColorTheme, item: PairResult): Repair | undefined {
     const isOverlay = backdrop !== undefined && parseHex(item.backgroundHex).a < 1;
     if (isOverlay) {
         const result = fadeOverlayToContrast(item.backgroundHex, backdrop, item.foregroundHex, item.required);
-        return { target: 'workbench', key: item.pair.background, reason: `${item.pair.description}: fade overlay`, result };
+        return {
+            target: 'workbench',
+            key: item.pair.background,
+            reason: `${item.pair.description}: fade overlay`,
+            result,
+        };
     }
     const foregroundRepair = nudgeToContrast(item.foregroundHex, item.backgroundHex, item.required);
     if (foregroundRepair.satisfied) {
-        return { target: 'workbench', key: item.pair.foreground, reason: `${item.pair.description}: adjust foreground`, result: foregroundRepair };
+        return {
+            target: 'workbench',
+            key: item.pair.foreground,
+            reason: `${item.pair.description}: adjust foreground`,
+            result: foregroundRepair,
+        };
     }
     const backgroundRepair = nudgeToContrast(item.backgroundHex, item.foregroundHex, item.required);
-    return { target: 'workbench', key: item.pair.background, reason: `${item.pair.description}: adjust background`, result: backgroundRepair };
+    return {
+        target: 'workbench',
+        key: item.pair.background,
+        reason: `${item.pair.description}: adjust background`,
+        result: backgroundRepair,
+    };
 }
 
 function repairToken(theme: ColorTheme, item: TokenResult): Repair {

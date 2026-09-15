@@ -1,12 +1,12 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "type": "shell",
-      "label": "pnpm: build",
-      "command": "pnpm build",
-      "problemMatcher": [],
-      "group": { "kind": "build", "isDefault": true }
-    }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "pnpm: build",
+            "command": "pnpm build",
+            "problemMatcher": [],
+            "group": { "kind": "build", "isDefault": true }
+        }
+    ]
 }

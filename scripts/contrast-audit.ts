@@ -31,15 +31,17 @@ const SOURCE_PATHS = {
 export function runAudit(fix: boolean): number {
     const result = evaluateTheme(theme);
     writeFileSync(REPORT_PATH, renderMarkdown(result, new Date()));
-    renderConsole(result).forEach((line) => console.log(line));
+    for (const line of renderConsole(result)) {
+        console.log(line);
+    }
     if (fix && result.failures > 0) {
         const repairs = planRepairs(theme, result);
         applyRepairs(repairs, SOURCE_PATHS);
-        repairs.forEach((repair) =>
+        for (const repair of repairs) {
             console.log(
                 `FIXED ${repair.key}: ${repair.result.original} -> ${repair.result.adjusted} (${repair.result.ratioBefore.toFixed(2)} -> ${repair.result.ratioAfter.toFixed(2)}) ${repair.reason}`,
-            ),
-        );
+            );
+        }
         console.log(`applied ${String(repairs.length)} repair(s); re-run the audit to confirm`);
     }
     return result.failures === 0 ? 0 : 1;
