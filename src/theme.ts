@@ -12,7 +12,7 @@ export const THEME_FILE_NAME = 'ally-dark-color-theme.json';
 export const theme: ColorTheme = {
     $schema: 'vscode://schemas/color-theme',
     name: THEME_LABEL,
-    type: 'dark',
+    type: 'hcDark',
     semanticHighlighting: true,
     colors: workbenchColors,
     tokenColors,

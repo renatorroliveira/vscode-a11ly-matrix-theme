@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { classifyContrast, contrastRatio, contrastRatioHex, minimumRatio } from '../scripts/color/contrast.ts';
+import {
+    classifyContrast,
+    contrastRatio,
+    contrastRatioHex,
+    minimumRatio,
+    TARGET_LEVEL,
+} from '../scripts/color/contrast.ts';
 import { channelToLinear, linearToChannel, relativeLuminance } from '../scripts/color/luminance.ts';
 
 describe('relativeLuminance', () => {
@@ -49,16 +55,19 @@ describe('classifyContrast', () => {
     });
 
     it('applies the non-text and large-text thresholds', () => {
-        expect(classifyContrast(3, 'ui')).toBe('AAA');
+        expect(classifyContrast(3, 'ui')).toBe('AA');
+        expect(classifyContrast(4.5, 'ui')).toBe('AAA');
         expect(classifyContrast(2.99, 'ui')).toBe('fail');
         expect(classifyContrast(3, 'large-text')).toBe('AA');
         expect(classifyContrast(4.5, 'large-text')).toBe('AAA');
         expect(classifyContrast(3, 'dimmed')).toBe('AA');
     });
 
-    it('exposes the AA minimum per kind', () => {
-        expect(minimumRatio('text')).toBe(4.5);
-        expect(minimumRatio('ui')).toBe(3);
-        expect(minimumRatio('dimmed')).toBe(3);
+    it('exposes the target-level minimum per kind', () => {
+        expect(TARGET_LEVEL).toBe('AAA');
+        expect(minimumRatio('text')).toBe(7);
+        expect(minimumRatio('large-text')).toBe(4.5);
+        expect(minimumRatio('ui')).toBe(4.5);
+        expect(minimumRatio('dimmed')).toBe(4.5);
     });
 });

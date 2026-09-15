@@ -1,7 +1,7 @@
 {
     "name": "ally-dark",
     "displayName": "Ally Dark",
-    "description": "An accessibility-first dark theme for VS Code with build-time WCAG AA contrast verification.",
+    "description": "An accessibility-first high contrast dark theme for VS Code with build-time WCAG AAA contrast verification.",
     "version": "0.1.0",
     "publisher": "oliveren",
     "author": "Renato Oliveira",
@@ -18,12 +18,13 @@
     "keywords": [
         "theme",
         "dark",
+        "high contrast",
         "accessibility",
         "wcag",
         "contrast"
     ],
     "galleryBanner": {
-        "color": "#121314",
+        "color": "#000000",
         "theme": "dark"
     },
     "extensionKind": [
@@ -41,7 +42,7 @@
             {
                 "id": "Ally Dark",
                 "label": "Ally Dark",
-                "uiTheme": "vs-dark",
+                "uiTheme": "hc-black",
                 "path": "./themes/ally-dark-color-theme.json"
             }
         ]

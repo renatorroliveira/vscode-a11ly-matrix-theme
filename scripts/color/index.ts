@@ -10,6 +10,7 @@ export {
     contrastRatio,
     contrastRatioHex,
     minimumRatio,
+    TARGET_LEVEL,
     WCAG_THRESHOLDS,
     type ConformanceLevel,
     type ContentKind,
