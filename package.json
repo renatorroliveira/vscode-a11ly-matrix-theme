@@ -4,7 +4,14 @@
     "description": "An accessibility-first high contrast dark theme for VS Code with build-time WCAG AAA contrast verification.",
     "version": "0.1.0",
     "publisher": "oliveren",
-    "author": "Renato Oliveira",
+    "author": {
+        "name": "Renato Oliveira",
+        "email": "renatorroliveira@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/renatorroliveira/vscode-a11ly-matrix-theme.git"
+    },
     "license": "MIT",
     "private": true,
     "type": "module",
