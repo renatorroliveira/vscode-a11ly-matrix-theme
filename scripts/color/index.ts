@@ -6,13 +6,13 @@
 export { fadeOverlayToContrast, nudgeToContrast, type NudgeResult } from './adjust.ts';
 export { compositeOver, flattenHex } from './composite.ts';
 export {
-  classifyContrast,
-  contrastRatio,
-  contrastRatioHex,
-  minimumRatio,
-  WCAG_THRESHOLDS,
-  type ConformanceLevel,
-  type ContentKind,
+    classifyContrast,
+    contrastRatio,
+    contrastRatioHex,
+    minimumRatio,
+    WCAG_THRESHOLDS,
+    type ConformanceLevel,
+    type ContentKind,
 } from './contrast.ts';
 export { deltaE, rgbToLab, simulateCvd, type CvdType } from './cvd.ts';
 export { clamp, formatHex, isHexColor, parseHex } from './hex.ts';

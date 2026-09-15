@@ -1037,7 +1037,6 @@
             "scope": "carriage-return",
             "settings": {
                 "foreground": "#F0F6FC",
-                "background": "#8B1111",
                 "fontStyle": "italic underline"
             }
         },
@@ -1169,8 +1168,7 @@
                 "punctuation.definition.deleted"
             ],
             "settings": {
-                "foreground": "#FFA198",
-                "background": "#490202"
+                "foreground": "#FFA198"
             }
         },
         {
@@ -1188,8 +1186,7 @@
                 "punctuation.definition.inserted"
             ],
             "settings": {
-                "foreground": "#7EE787",
-                "background": "#04260F"
+                "foreground": "#7EE787"
             }
         },
         {
@@ -1198,8 +1195,7 @@
                 "punctuation.definition.changed"
             ],
             "settings": {
-                "foreground": "#FFA657",
-                "background": "#5A1E02"
+                "foreground": "#FFA657"
             }
         },
         {
@@ -1208,8 +1204,7 @@
                 "markup.untracked"
             ],
             "settings": {
-                "foreground": "#637fa7",
-                "background": "#79C0FF"
+                "foreground": "#637fa7"
             }
         },
         {

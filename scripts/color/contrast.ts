@@ -20,10 +20,10 @@ export type ConformanceLevel = 'AAA' | 'AA' | 'fail';
  * exempts but low-vision users still need to read.
  */
 export const WCAG_THRESHOLDS: Readonly<Record<ContentKind, { readonly AA: number; readonly AAA: number }>> = {
-  text: { AA: 4.5, AAA: 7 },
-  'large-text': { AA: 3, AAA: 4.5 },
-  ui: { AA: 3, AAA: 3 },
-  dimmed: { AA: 3, AAA: 4.5 },
+    'text': { AA: 4.5, AAA: 7 },
+    'large-text': { AA: 3, AAA: 4.5 },
+    'ui': { AA: 3, AAA: 3 },
+    'dimmed': { AA: 3, AAA: 4.5 },
 };
 
 /**
@@ -33,11 +33,11 @@ export const WCAG_THRESHOLDS: Readonly<Record<ContentKind, { readonly AA: number
  * @returns Ratio in the range 1..21.
  */
 export function contrastRatio(first: Rgb, second: Rgb): number {
-  const l1 = relativeLuminance(first);
-  const l2 = relativeLuminance(second);
-  const lighter = Math.max(l1, l2);
-  const darker = Math.min(l1, l2);
-  return (lighter + 0.05) / (darker + 0.05);
+    const l1 = relativeLuminance(first);
+    const l2 = relativeLuminance(second);
+    const lighter = Math.max(l1, l2);
+    const darker = Math.min(l1, l2);
+    return (lighter + 0.05) / (darker + 0.05);
 }
 
 /**
@@ -48,9 +48,9 @@ export function contrastRatio(first: Rgb, second: Rgb): number {
  * @returns Ratio in the range 1..21.
  */
 export function contrastRatioHex(foregroundHex: string, backgroundHex: string): number {
-  const foreground = flattenHex(foregroundHex, backgroundHex);
-  const background = flattenHex(backgroundHex, '#000000');
-  return contrastRatio(foreground, background);
+    const foreground = flattenHex(foregroundHex, backgroundHex);
+    const background = flattenHex(backgroundHex, '#000000');
+    return contrastRatio(foreground, background);
 }
 
 /**
@@ -61,11 +61,11 @@ export function contrastRatioHex(foregroundHex: string, backgroundHex: string): 
  * @returns The highest level the ratio satisfies.
  */
 export function classifyContrast(ratio: number, kind: ContentKind): ConformanceLevel {
-  const thresholds = WCAG_THRESHOLDS[kind];
-  if (ratio >= thresholds.AAA) {
-    return 'AAA';
-  }
-  return ratio >= thresholds.AA ? 'AA' : 'fail';
+    const thresholds = WCAG_THRESHOLDS[kind];
+    if (ratio >= thresholds.AAA) {
+        return 'AAA';
+    }
+    return ratio >= thresholds.AA ? 'AA' : 'fail';
 }
 
 /**
@@ -74,5 +74,5 @@ export function classifyContrast(ratio: number, kind: ContentKind): ConformanceL
  * @returns Minimum ratio.
  */
 export function minimumRatio(kind: ContentKind): number {
-  return WCAG_THRESHOLDS[kind].AA;
+    return WCAG_THRESHOLDS[kind].AA;
 }

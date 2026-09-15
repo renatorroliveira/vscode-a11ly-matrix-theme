@@ -17,10 +17,8 @@ const LUMA_BLUE = 0.0722;
  * @returns Linear value 0..1.
  */
 export function channelToLinear(channel: number): number {
-  const normalized = channel / 255;
-  return normalized <= LINEAR_THRESHOLD
-    ? normalized / 12.92
-    : Math.pow((normalized + 0.055) / 1.055, 2.4);
+    const normalized = channel / 255;
+    return normalized <= LINEAR_THRESHOLD ? normalized / 12.92 : Math.pow((normalized + 0.055) / 1.055, 2.4);
 }
 
 /**
@@ -29,8 +27,8 @@ export function channelToLinear(channel: number): number {
  * @returns Channel 0..255.
  */
 export function linearToChannel(linear: number): number {
-  const encoded = linear <= 0.0031308 ? linear * 12.92 : 1.055 * Math.pow(linear, 1 / 2.4) - 0.055;
-  return encoded * 255;
+    const encoded = linear <= 0.0031308 ? linear * 12.92 : 1.055 * Math.pow(linear, 1 / 2.4) - 0.055;
+    return encoded * 255;
 }
 
 /**
@@ -39,9 +37,9 @@ export function linearToChannel(linear: number): number {
  * @returns Luminance 0 (black) .. 1 (white).
  */
 export function relativeLuminance(color: Rgb): number {
-  return (
-    LUMA_RED * channelToLinear(color.r) +
-    LUMA_GREEN * channelToLinear(color.g) +
-    LUMA_BLUE * channelToLinear(color.b)
-  );
+    return (
+        LUMA_RED * channelToLinear(color.r) +
+        LUMA_GREEN * channelToLinear(color.g) +
+        LUMA_BLUE * channelToLinear(color.b)
+    );
 }

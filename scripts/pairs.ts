@@ -81,7 +81,12 @@ const WIDGET_PAIRS: readonly ContrastPair[] = [
     ui('editorSuggestWidget.focusOutline', 'editorSuggestWidget.background', 'Suggest focus outline'),
     text('peekViewResult.fileForeground', 'peekViewResult.background', 'Peek result file names'),
     text('peekViewResult.lineForeground', 'peekViewResult.background', 'Peek result lines'),
-    text('peekViewResult.selectionForeground', 'peekViewResult.selectionBackground', 'Peek selected result', 'peekViewResult.background'),
+    text(
+        'peekViewResult.selectionForeground',
+        'peekViewResult.selectionBackground',
+        'Peek selected result',
+        'peekViewResult.background',
+    ),
     text('peekViewTitleLabel.foreground', 'peekViewTitle.background', 'Peek title'),
     text('peekViewTitleDescription.foreground', 'peekViewTitle.background', 'Peek title description'),
     text('notifications.foreground', 'notifications.background', 'Notification text'),
@@ -91,8 +96,18 @@ const WIDGET_PAIRS: readonly ContrastPair[] = [
     ui('notificationsWarningIcon.foreground', 'notifications.background', 'Notification warning icon'),
     ui('notificationsInfoIcon.foreground', 'notifications.background', 'Notification info icon'),
     text('quickInput.foreground', 'quickInput.background', 'Quick input text'),
-    text('quickInputList.focusForeground', 'quickInputList.focusBackground', 'Quick input focused row', 'quickInput.background'),
-    text('quickInputList.focusHighlightForeground', 'quickInputList.focusBackground', 'Quick input focused match', 'quickInput.background'),
+    text(
+        'quickInputList.focusForeground',
+        'quickInputList.focusBackground',
+        'Quick input focused row',
+        'quickInput.background',
+    ),
+    text(
+        'quickInputList.focusHighlightForeground',
+        'quickInputList.focusBackground',
+        'Quick input focused match',
+        'quickInput.background',
+    ),
     text('pickerGroup.foreground', 'quickInput.background', 'Quick input group labels'),
     text('menu.foreground', 'menu.background', 'Menu items'),
     text('menu.selectionForeground', 'menu.selectionBackground', 'Menu selected item', 'menu.background'),
@@ -168,7 +183,12 @@ const CHROME_PAIRS: readonly ContrastPair[] = [
     ui('agentsChatInput.focusBorder', 'agentsChatInput.background', 'Agents chat focus ring'),
     text('agentsBadge.foreground', 'agentsBadge.background', 'Agents badge'),
     text('agentsUnreadBadge.foreground', 'agentsUnreadBadge.background', 'Agents unread badge'),
-    text('agentsNewSessionButton.foreground', 'agentsNewSessionButton.background', 'Agents new session button', 'agentsPanel.background'),
+    text(
+        'agentsNewSessionButton.foreground',
+        'agentsNewSessionButton.background',
+        'Agents new session button',
+        'agentsPanel.background',
+    ),
 ];
 
 const CONTROL_PAIRS: readonly ContrastPair[] = [
