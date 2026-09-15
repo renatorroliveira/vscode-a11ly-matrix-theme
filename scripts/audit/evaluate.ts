@@ -105,7 +105,7 @@ function evaluatePair(theme: ColorTheme, pair: ContrastPair): PairResult {
     const foreground = flattenHex(foregroundHex, formatRgb(background));
     const ratio = contrastRatio(foreground, background);
     const level = classifyContrast(ratio, pair.kind);
-    return { pair, foregroundHex, backgroundHex, ratio, required, level, status: level === 'fail' ? 'fail' : 'pass' };
+    return { pair, foregroundHex, backgroundHex, ratio, required, level, status: ratio >= required ? 'pass' : 'fail' };
 }
 
 function evaluateTokens(theme: ColorTheme): readonly TokenResult[] {
