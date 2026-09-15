@@ -9,4 +9,13 @@ All notable changes to the Ally Dark theme are documented here. The format follo
 ### Added
 
 - Initial bootstrap generated from the `dark-2026` seed theme.
-- Build-time WCAG 2.x AA contrast gate over curated foreground/background pairs.
+- Build-time WCAG 2.x contrast gate over curated foreground/background pairs.
+
+### Changed
+
+- Palette rebased on VS Code's Dark High Contrast defaults; theme base is now `hc-black`.
+- Contrast gate raised from AA to AAA (7:1 text, 4.5:1 UI); 13 seed colors lifted to comply.
+
+### Fixed
+
+- A pair that reached AA was reported as passing regardless of the target level.
