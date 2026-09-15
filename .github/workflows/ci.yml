@@ -1,0 +1,73 @@
+# Continuous integration for the A11y Matrix Theme extension.
+#
+# Every action is pinned to a full commit SHA (the tag is kept in a comment)
+# and, like every other dependency in this repository, a release must be at
+# least 15 days old before it is adopted.
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check, build and package
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # vsce runs the vscode:prepublish hook through `npm run`, so Node.js
+      # comes from setup-node (which bundles npm) rather than from pnpm's
+      # runtime manager (which does not).
+      - name: Set up Node.js 24
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+
+      # Reads the pnpm version from the packageManager field, restores the
+      # store cache keyed on pnpm-lock.yaml and runs `pnpm install --frozen-lockfile`.
+      - name: Set up pnpm and install dependencies
+        uses: pnpm/setup@703c52620218391530e48b9e8870d5c0082e1b9b # v2.1.0
+        with:
+          cache: true
+          require-lockfile: true
+
+      - name: Audit dependencies
+        run: pnpm audit
+
+      - name: Typecheck, lint, test and build
+        run: pnpm check
+
+      - name: Verify the generated theme and contrast report are committed
+        run: git diff --exit-code -- themes docs/contrast-report.md
+
+      - name: Package the extension
+        run: pnpm exec vsce package
+
+      - name: Upload the VSIX
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: vsix
+          path: '*.vsix'
+          if-no-files-found: error
+
+      - name: Upload the contrast report
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: contrast-report
+          path: docs/contrast-report.md
+          if-no-files-found: error

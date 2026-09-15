@@ -82,6 +82,10 @@ the dependency pinning report and the generated contrast report.
 - Commit `pnpm-lock.yaml`; install with `--frozen-lockfile` in CI and before packaging.
 - `package.json` sets `"vsce": { "dependencies": false }` so `node_modules` never enters the `.vsix`.
 - Re-verify versions quarterly using the procedure in `docs/dependency-versions.md`.
+- GitHub Actions in `.github/workflows/ci.yml` are pinned to full commit SHAs with the tag in a comment, and
+  follow the same 15-day age rule. `pnpm/setup` installs pnpm from `packageManager`; Node comes from
+  `actions/setup-node` because `vsce` runs `vscode:prepublish` through `npm run` and pnpm's runtime manager
+  does not bundle npm.
 
 ## Coding conventions
 
