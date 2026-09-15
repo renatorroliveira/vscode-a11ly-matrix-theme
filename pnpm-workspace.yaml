@@ -1,0 +1,11 @@
+packages:
+  - .
+
+allowBuilds:
+  keytar: false
+  '@vscode/vsce-sign': false
+
+minimumReleaseAge: 43200
+minimumReleaseAgeExclude:
+  - vitest
+  - '@vitest/*'
