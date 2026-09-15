@@ -25,9 +25,9 @@
 - **Matrix green, measured.** Borders and highlights are Matrix Code Green, focus rings are P3 amber phosphor, the
   pairing that shipped on VT220 tubes. Both were chosen from 40 candidates by contrast and color-vision-deficiency
   separation; see [`docs/palette-research.md`](docs/palette-research.md).
-- **Color is never the only signal.** Selection is opaque green with black text, highlights use outlines instead of
-  fills, and semantically related colors are checked for separation under protanopia, deuteranopia and tritanopia
-  simulation.
+- **Color is never the only signal.** Selection and hover are a dark green fill under white text, highlights use
+  outlines instead of fills, and semantically related colors are checked for separation under protanopia,
+  deuteranopia and tritanopia simulation.
 - **Nothing but a JSON file.** The extension has no runtime code and no runtime dependencies. It works in Restricted Mode,
   virtual workspaces and remote sessions.
 

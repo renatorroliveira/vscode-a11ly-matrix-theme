@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { contrastRatioHex, minimumRatio } from '../scripts/color/contrast.ts';
+import { contrastRatioHex, minimumRatio, WCAG_THRESHOLDS } from '../scripts/color/contrast.ts';
 import { deltaE, simulateCvd, type CvdType } from '../scripts/color/cvd.ts';
 import { parseHex } from '../scripts/color/hex.ts';
 import type { Rgb } from '../scripts/color/types.ts';
@@ -23,13 +23,10 @@ describe('accent palette', () => {
         }
     });
 
-    it('supports black text on the selection fills', () => {
-        expect(contrastRatioHex('#000000', accent.primary)).toBeGreaterThanOrEqual(minimumRatio('text'));
-        expect(contrastRatioHex('#000000', accent.border)).toBeGreaterThanOrEqual(minimumRatio('text'));
-    });
-
-    it('supports white text on the workbench selection fill', () => {
-        expect(contrastRatioHex('#ffffff', accent.selection)).toBeGreaterThanOrEqual(minimumRatio('text'));
+    it('keeps the fill as visible as 7:1 white text allows, just under the 3:1 UI AA floor', () => {
+        expect(contrastRatioHex('#ffffff', accent.fill)).toBeGreaterThanOrEqual(minimumRatio('text'));
+        expect(contrastRatioHex(accent.fill, SURFACE)).toBeGreaterThan(WCAG_THRESHOLDS.ui.AA - 0.01);
+        expect(contrastRatioHex(accent.fill, SURFACE)).toBeLessThan(WCAG_THRESHOLDS.ui.AA);
     });
 
     it('keeps every accent distinguishable from the others and from the semantic added green', () => {

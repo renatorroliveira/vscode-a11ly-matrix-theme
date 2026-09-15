@@ -43,8 +43,10 @@ the dependency pinning report and the generated contrast report.
    `docs/accessibility-manual-for-web-interfaces.md`.
 4. Translucent colors (8-digit hex) are measured after alpha compositing onto the real surface. In
    this High Contrast palette many background ids are unset on purpose, so pairs measure against the
-   surface that shows through (`editor.background`). Selection is opaque Matrix green with
-   `editor.selectionForeground` black; highlights use green borders instead of fills, focus rings are amber.
+   surface that shows through (`editor.background`). Text selection and hovered rows use the dark green
+   `accent.fill` `#00681b` with white text (7.01:1); the fill itself is 2.996:1 on black, the most a 7:1
+   white-text fill can reach (21 / 7 = 3), so it sits just under the WCAG 1.4.11 AA floor by design.
+   Highlights use green borders instead of fills, focus rings are amber.
 5. Terminal ANSI colors are not gated: VS Code enforces `terminal.integrated.minimumContrastRatio`
    on them at render time. Everything else that renders text, an icon or a border is.
 6. Color is never the only signal. Colors inside a `DISTINGUISHABLE_GROUPS` set must stay apart
@@ -59,7 +61,7 @@ the dependency pinning report and the generated contrast report.
 10. APCA numbers may inform design but never replace WCAG 2.x ratios for conformance.
 11. `themes/` is generated. Edit `src/workbench-colors.ts` and `src/token-colors.ts`, then `pnpm build`. Accent
     ids reference the roles in `src/palette.ts` (`accent.primary`, `accent.border`, `accent.secondary`,
-    `accent.selection`); change a role there, never by scattering a new literal.
+    `accent.fill`); change a role there, never by scattering a new literal.
 12. A pair's pass/fail is `ratio >= required`, never "level is not fail": a pair that reaches AA
     still fails an AAA gate.
 
