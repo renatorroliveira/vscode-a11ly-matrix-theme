@@ -9,268 +9,206 @@ Ratios are never rounded up.
 
 | Status | Description | Kind | Foreground | Background | Ratio | Required | Level |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| PASS | Editor body text | text | `editor.foreground` #bbbebf | `editor.background` #121314 | 9.95 | 4.5 | AAA |
-| PASS | Default workbench text | text | `foreground` #bfbfbf | `editor.background` #121314 | 10.12 | 4.5 | AAA |
-| PASS | Error messages | text | `errorForeground` #f48771 | `editor.background` #121314 | 7.57 | 4.5 | AAA |
-| PASS | Secondary description text | text | `descriptionForeground` #8c8c8c | `editor.background` #121314 | 5.53 | 4.5 | AA |
-| PASS | Disabled controls | dimmed | `disabledForeground` #616161 | `editor.background` #121314 | 3.00 | 3 | AA |
-| PASS | Line numbers | text | `editorLineNumber.foreground` #858889 | `editor.background` #121314 | 5.21 | 4.5 | AA |
-| PASS | Active line number | text | `editorLineNumber.activeForeground` #bbbebf | `editor.background` #121314 | 9.95 | 4.5 | AAA |
-| PASS | CodeLens annotations | text | `editorCodeLens.foreground` #8c8c8c | `editor.background` #121314 | 5.53 | 4.5 | AA |
-| PASS | Editor links | text | `editorLink.activeForeground` #3a94bc | `editor.background` #121314 | 5.44 | 4.5 | AA |
-| PASS | Text over selection | text | `editor.foreground` #bbbebf | `editor.selectionBackground` #276782c1 | 4.51 | 4.5 | AA |
-| PASS | Text over inactive selection | text | `editor.foreground` #bbbebf | `editor.inactiveSelectionBackground` #27678260 | 7.11 | 4.5 | AAA |
-| PASS | Text over current find match | text | `editor.foreground` #bbbebf | `editor.findMatchBackground` #27678290 | 5.71 | 4.5 | AA |
-| PASS | Text over other find matches | text | `editor.foreground` #bbbebf | `editor.findMatchHighlightBackground` #27678280 | 6.16 | 4.5 | AA |
-| PASS | Text over current line | text | `editor.foreground` #bbbebf | `editor.lineHighlightBackground` #242526 | 8.21 | 4.5 | AAA |
-| PASS | Text over word highlight | text | `editor.foreground` #bbbebf | `editor.wordHighlightBackground` #27678250 | 7.61 | 4.5 | AAA |
-| PASS | Text over write-access highlight | text | `editor.foreground` #bbbebf | `editor.wordHighlightStrongBackground` #27678280 | 6.16 | 4.5 | AA |
-| PASS | Caret | ui | `editorCursor.foreground` #bbbebf | `editor.background` #121314 | 9.95 | 3 | AAA |
-| PASS | Bracket match outline | ui | `editorBracketMatch.border` #5f6264 | `editor.background` #121314 | 3.03 | 3 | AAA |
-| PASS | Gutter added marker | ui | `editorGutter.addedBackground` #72c892 | `editor.background` #121314 | 9.21 | 3 | AAA |
-| PASS | Gutter modified marker | ui | `editorGutter.modifiedBackground` #0078d4 | `editor.background` #121314 | 4.11 | 3 | AAA |
-| PASS | Gutter deleted marker | ui | `editorGutter.deletedBackground` #f28772 | `editor.background` #121314 | 7.51 | 3 | AAA |
-| PASS | Active indent guide | ui | `editorIndentGuide.activeBackground1` #707070 | `editor.background` #121314 | 3.76 | 3 | AAA |
-| PASS | Focus ring on editor surface | ui | `focusBorder` #3994bcb3 | `editor.background` #121314 | 3.27 | 3 | AAA |
-| PASS | Links in text | text | `textLink.foreground` #48a0c7 | `editor.background` #121314 | 6.31 | 4.5 | AA |
-| PASS | Active links in text | text | `textLink.activeForeground` #53a5ca | `editor.background` #121314 | 6.73 | 4.5 | AA |
-| PASS | Inline code | text | `textPreformat.foreground` #8c8c8c | `textPreformat.background` #262626 | 4.50 | 4.5 | AA |
-| PASS | Settings headers | text | `settings.headerForeground` #ffffff | `editor.background` #121314 | 18.60 | 4.5 | AAA |
-| PASS | Keybinding labels | text | `keybindingLabel.foreground` #cccccc | `editor.background` #121314 | 11.58 | 4.5 | AAA |
-| PASS | Chat edited file label | text | `chat.editedFileForeground` #e2c08d | `editor.background` #121314 | 10.77 | 4.5 | AAA |
-| PASS | Chat slash command | text | `chat.slashCommandForeground` #85b6ff | `chat.slashCommandBackground` #26477866 | 7.19 | 4.5 | AAA |
-| PASS | Editor widgets | text | `editorWidget.foreground` #bfbfbf | `editorWidget.background` #202122 | 8.77 | 4.5 | AAA |
-| PASS | Hover widget | text | `editorWidget.foreground` #bfbfbf | `editorHoverWidget.background` #202122 | 8.77 | 4.5 | AAA |
-| PASS | Suggest widget | text | `editorSuggestWidget.foreground` #bfbfbf | `editorSuggestWidget.background` #202122 | 8.77 | 4.5 | AAA |
-| PASS | Suggest match highlight | text | `editorSuggestWidget.highlightForeground` #bfbfbf | `editorSuggestWidget.background` #202122 | 8.77 | 4.5 | AAA |
-| PASS | Suggest selected row | text | `editorSuggestWidget.foreground` #bfbfbf | `editorSuggestWidget.selectedBackground` #ffffff26 | 8.23 | 4.5 | AAA |
-| PASS | Suggest focus outline | ui | `editorSuggestWidget.focusOutline` #3994bcb3 | `editorSuggestWidget.background` #202122 | 3.01 | 3 | AAA |
-| PASS | Peek result file names | text | `peekViewResult.fileForeground` #bfbfbf | `peekViewResult.background` #191a1b | 9.48 | 4.5 | AAA |
-| PASS | Peek result lines | text | `peekViewResult.lineForeground` #8c8c8c | `peekViewResult.background` #191a1b | 5.18 | 4.5 | AA |
-| PASS | Peek selected result | text | `peekViewResult.selectionForeground` #bfbfbf | `peekViewResult.selectionBackground` #3994bc26 | 7.79 | 4.5 | AAA |
-| PASS | Peek title | text | `peekViewTitleLabel.foreground` #bfbfbf | `peekViewTitle.background` #242526 | 8.35 | 4.5 | AAA |
-| PASS | Peek title description | text | `peekViewTitleDescription.foreground` #8c8c8c | `peekViewTitle.background` #242526 | 4.57 | 4.5 | AA |
-| PASS | Notification text | text | `notifications.foreground` #bfbfbf | `notifications.background` #202122 | 8.77 | 4.5 | AAA |
-| PASS | Notification links | text | `notificationLink.foreground` #3a94bc | `notifications.background` #202122 | 4.72 | 4.5 | AA |
-| PASS | Notification center header | text | `notificationCenterHeader.foreground` #bfbfbf | `notificationCenterHeader.background` #242526 | 8.35 | 4.5 | AAA |
-| PASS | Notification error icon | ui | `notificationsErrorIcon.foreground` #f48771 | `notifications.background` #202122 | 6.57 | 3 | AAA |
-| PASS | Notification warning icon | ui | `notificationsWarningIcon.foreground` #cca700 | `notifications.background` #202122 | 6.99 | 3 | AAA |
-| PASS | Notification info icon | ui | `notificationsInfoIcon.foreground` #3a94bc | `notifications.background` #202122 | 4.72 | 3 | AAA |
-| PASS | Quick input text | text | `quickInput.foreground` #bfbfbf | `quickInput.background` #202122 | 8.77 | 4.5 | AAA |
-| PASS | Quick input focused row | text | `quickInputList.focusForeground` #ffffff | `quickInputList.focusBackground` #297aa0 | 4.79 | 4.5 | AA |
-| PASS | Quick input focused match | text | `quickInputList.focusHighlightForeground` #ffffff | `quickInputList.focusBackground` #297aa0 | 4.79 | 4.5 | AA |
-| PASS | Quick input group labels | text | `pickerGroup.foreground` #bfbfbf | `quickInput.background` #202122 | 8.77 | 4.5 | AAA |
-| PASS | Menu items | text | `menu.foreground` #bfbfbf | `menu.background` #202122 | 8.77 | 4.5 | AAA |
-| PASS | Menu selected item | text | `menu.selectionForeground` #bfbfbf | `menu.selectionBackground` #3994bc26 | 7.18 | 4.5 | AAA |
-| PASS | Menubar selected item | text | `menubar.selectionForeground` #bfbfbf | `menubar.selectionBackground` #242526 | 8.35 | 4.5 | AAA |
-| PASS | Side bar text | text | `sideBar.foreground` #bfbfbf | `sideBar.background` #191a1b | 9.48 | 4.5 | AAA |
-| PASS | Side bar title | text | `sideBarTitle.foreground` #bfbfbf | `sideBar.background` #191a1b | 9.48 | 4.5 | AAA |
-| PASS | Section headers | text | `sideBarSectionHeader.foreground` #bfbfbf | `sideBarSectionHeader.background` #191a1b | 9.48 | 4.5 | AAA |
-| PASS | Side bar descriptions | text | `descriptionForeground` #8c8c8c | `sideBar.background` #191a1b | 5.18 | 4.5 | AA |
-| PASS | Icons | ui | `icon.foreground` #8c8c8c | `sideBar.background` #191a1b | 5.18 | 3 | AAA |
-| PASS | Focus ring on side bar | ui | `focusBorder` #3994bcb3 | `sideBar.background` #191a1b | 3.16 | 3 | AAA |
-| PASS | Active list selection | text | `list.activeSelectionForeground` #ededed | `list.activeSelectionBackground` #ffffff22 | 9.95 | 4.5 | AAA |
-| PASS | Active selection icon | ui | `list.activeSelectionIconForeground` #ffffff | `list.activeSelectionBackground` #ffffff22 | 11.65 | 3 | AAA |
-| PASS | Inactive list selection | text | `list.inactiveSelectionForeground` #ededed | `list.inactiveSelectionBackground` #2c2d2e | 11.79 | 4.5 | AAA |
-| PASS | Hovered list row | text | `list.hoverForeground` #bfbfbf | `list.hoverBackground` #ffffff14 | 7.61 | 4.5 | AAA |
-| PASS | Focused list row | text | `list.focusForeground` #bfbfbf | `list.focusBackground` #ffffff22 | 6.34 | 4.5 | AA |
-| PASS | List focus outline | ui | `list.focusOutline` #3994bcb3 | `sideBar.background` #191a1b | 3.16 | 3 | AAA |
-| PASS | List filter match | text | `list.highlightForeground` #48a0c7 | `sideBar.background` #191a1b | 5.92 | 4.5 | AA |
-| PASS | List error items | text | `list.errorForeground` #f48771 | `sideBar.background` #191a1b | 7.10 | 4.5 | AAA |
-| PASS | List warning items | text | `list.warningForeground` #e5ba7d | `sideBar.background` #191a1b | 9.67 | 4.5 | AAA |
-| PASS | List invalid items | text | `list.invalidItemForeground` #828282 | `sideBar.background` #191a1b | 4.54 | 4.5 | AA |
-| PASS | Git added | text | `gitDecoration.addedResourceForeground` #73c991 | `sideBar.background` #191a1b | 8.71 | 4.5 | AAA |
-| PASS | Git modified | text | `gitDecoration.modifiedResourceForeground` #e5ba7d | `sideBar.background` #191a1b | 9.67 | 4.5 | AAA |
-| PASS | Git deleted | text | `gitDecoration.deletedResourceForeground` #f48771 | `sideBar.background` #191a1b | 7.10 | 4.5 | AAA |
-| PASS | Git untracked | text | `gitDecoration.untrackedResourceForeground` #73c991 | `sideBar.background` #191a1b | 8.71 | 4.5 | AAA |
-| PASS | Git conflicting | text | `gitDecoration.conflictingResourceForeground` #f48771 | `sideBar.background` #191a1b | 7.10 | 4.5 | AAA |
-| PASS | Git staged deleted | text | `gitDecoration.stageDeletedResourceForeground` #f48771 | `sideBar.background` #191a1b | 7.10 | 4.5 | AAA |
-| PASS | Git staged modified | text | `gitDecoration.stageModifiedResourceForeground` #e5ba7d | `sideBar.background` #191a1b | 9.67 | 4.5 | AAA |
-| PASS | Git ignored | dimmed | `gitDecoration.ignoredResourceForeground` #8c8c8c | `sideBar.background` #191a1b | 5.18 | 3 | AAA |
-| PASS | Activity bar active icon | ui | `activityBar.foreground` #bfbfbf | `activityBar.background` #191a1b | 9.48 | 3 | AAA |
-| PASS | Activity bar inactive icon | ui | `activityBar.inactiveForeground` #8c8c8c | `activityBar.background` #191a1b | 5.18 | 3 | AAA |
-| PASS | Activity bar active indicator | ui | `activityBar.activeBorder` #bfbfbf | `activityBar.background` #191a1b | 9.48 | 3 | AAA |
-| PASS | Activity bar badge | text | `activityBarBadge.foreground` #ffffff | `activityBarBadge.background` #307e9f | 4.55 | 4.5 | AA |
-| PASS | Activity error badge | text | `activityErrorBadge.foreground` #ffffff | `activityErrorBadge.background` #df3411 | 4.53 | 4.5 | AA |
-| PASS | Activity warning badge | text | `activityWarningBadge.foreground` #202020 | `activityWarningBadge.background` #cca700 | 7.06 | 4.5 | AAA |
-| PASS | Badges | text | `badge.foreground` #ffffff | `badge.background` #307e9f | 4.55 | 4.5 | AA |
-| PASS | Status bar text | text | `statusBar.foreground` #8c8c8c | `statusBar.background` #191a1b | 5.18 | 4.5 | AA |
-| PASS | Status bar while debugging | text | `statusBar.debuggingForeground` #ffffff | `statusBar.debuggingBackground` #317ea1 | 4.54 | 4.5 | AA |
-| PASS | Status bar without folder | text | `statusBar.noFolderForeground` #8c8c8c | `statusBar.noFolderBackground` #191a1b | 5.18 | 4.5 | AA |
-| PASS | Prominent status item | text | `statusBarItem.prominentForeground` #ffffff | `statusBarItem.prominentBackground` #317ea1 | 4.54 | 4.5 | AA |
-| PASS | Remote status item | text | `statusBarItem.remoteForeground` #ffffff | `statusBarItem.remoteBackground` #0078d4 | 4.53 | 4.5 | AA |
-| PASS | Hovered status item | text | `statusBarItem.hoverForeground` #ffffff | `statusBarItem.hoverBackground` #323233 | 12.81 | 4.5 | AAA |
-| PASS | Status bar focus ring | ui | `statusBar.focusBorder` #3994bcb3 | `statusBar.background` #191a1b | 3.16 | 3 | AAA |
-| PASS | Active tab | text | `tab.activeForeground` #bfbfbf | `tab.activeBackground` #121314 | 10.12 | 4.5 | AAA |
-| PASS | Inactive tab | text | `tab.inactiveForeground` #8c8c8c | `tab.inactiveBackground` #191a1b | 5.18 | 4.5 | AA |
-| PASS | Selected tab | text | `tab.selectedForeground` #ffffff | `tab.selectedBackground` #37373d | 11.82 | 4.5 | AAA |
-| PASS | Hovered tab | text | `tab.hoverForeground` #bfbfbf | `tab.hoverBackground` #121314 | 10.12 | 4.5 | AAA |
-| PASS | Unfocused active tab | text | `tab.unfocusedActiveForeground` #8c8c8c | `tab.unfocusedActiveBackground` #121314 | 5.53 | 4.5 | AA |
-| PASS | Unfocused inactive tab | text | `tab.unfocusedInactiveForeground` #828282 | `tab.unfocusedInactiveBackground` #191a1b | 4.54 | 4.5 | AA |
-| PASS | Active tab indicator | ui | `tab.activeBorderTop` #3994bc | `tab.activeBackground` #121314 | 5.44 | 3 | AAA |
-| PASS | Breadcrumbs | text | `breadcrumb.foreground` #8c8c8c | `breadcrumb.background` #121314 | 5.53 | 4.5 | AA |
-| PASS | Focused breadcrumb | text | `breadcrumb.focusForeground` #bfbfbf | `breadcrumb.background` #121314 | 10.12 | 4.5 | AAA |
-| PASS | Selected breadcrumb | text | `breadcrumb.activeSelectionForeground` #bfbfbf | `breadcrumb.background` #121314 | 10.12 | 4.5 | AAA |
-| PASS | Active panel title | text | `panelTitle.activeForeground` #bfbfbf | `panel.background` #191a1b | 9.48 | 4.5 | AAA |
-| PASS | Inactive panel title | text | `panelTitle.inactiveForeground` #8c8c8c | `panel.background` #191a1b | 5.18 | 4.5 | AA |
-| PASS | Active panel indicator | ui | `panelTitle.activeBorder` #3994bc | `panel.background` #191a1b | 5.09 | 3 | AAA |
-| PASS | Title bar | text | `titleBar.activeForeground` #8c8c8c | `titleBar.activeBackground` #191a1b | 5.18 | 4.5 | AA |
-| PASS | Inactive title bar | text | `titleBar.inactiveForeground` #8c8c8c | `titleBar.inactiveBackground` #191a1b | 5.18 | 4.5 | AA |
-| PASS | Command center | text | `commandCenter.foreground` #bfbfbf | `commandCenter.background` #191a1b | 9.48 | 4.5 | AAA |
-| PASS | Active command center | text | `commandCenter.activeForeground` #bfbfbf | `commandCenter.activeBackground` #ffffff0f | 8.09 | 4.5 | AAA |
-| PASS | Command center border | ui | `commandCenter.border` #626668 | `titleBar.activeBackground` #191a1b | 3.00 | 3 | AAA |
-| PASS | Terminal text | text | `terminal.foreground` #cccccc | `terminal.background` #191a1b | 10.85 | 4.5 | AAA |
-| PASS | Terminal caret | ui | `terminalCursor.foreground` #bfbfbf | `terminal.background` #191a1b | 9.48 | 3 | AAA |
-| PASS | Agents panel | text | `agentsPanel.foreground` #bfbfbf | `agentsPanel.background` #191a1b | 9.48 | 4.5 | AAA |
-| PASS | Surface text | text | `surface.foreground` #bfbfbf | `surface.background` #191a1b | 9.48 | 4.5 | AAA |
-| PASS | Agents chat input | text | `agentsChatInput.foreground` #bfbfbf | `agentsChatInput.background` #202122 | 8.77 | 4.5 | AAA |
-| PASS | Agents chat placeholder | text | `agentsChatInput.placeholderForeground` #888888 | `agentsChatInput.background` #202122 | 4.55 | 4.5 | AA |
-| PASS | Agents chat focus ring | ui | `agentsChatInput.focusBorder` #3994bcb3 | `agentsChatInput.background` #202122 | 3.01 | 3 | AAA |
-| PASS | Agents badge | text | `agentsBadge.foreground` #ffffff | `agentsBadge.background` #307e9f | 4.55 | 4.5 | AA |
-| PASS | Agents unread badge | text | `agentsUnreadBadge.foreground` #ffffff | `agentsUnreadBadge.background` #307e9f | 4.55 | 4.5 | AA |
-| PASS | Agents new session button | text | `agentsNewSessionButton.foreground` #bfbfbf | `agentsNewSessionButton.background` #00000000 | 9.48 | 4.5 | AAA |
-| PASS | Input text | text | `input.foreground` #bfbfbf | `input.background` #191a1b | 9.48 | 4.5 | AAA |
-| PASS | Input placeholder | text | `input.placeholderForeground` #828282 | `input.background` #191a1b | 4.54 | 4.5 | AA |
-| PASS | Input border | ui | `input.border` #626667 | `input.background` #191a1b | 3.00 | 3 | AAA |
-| PASS | Focus ring on inputs | ui | `focusBorder` #3994bcb3 | `input.background` #191a1b | 3.16 | 3 | AAA |
-| PASS | Active input option | text | `inputOption.activeForeground` #bfbfbf | `inputOption.activeBackground` #313233 | 6.99 | 4.5 | AA |
-| PASS | Active input option border | ui | `inputOption.activeBorder` #636668 | `input.background` #191a1b | 3.01 | 3 | AAA |
-| PASS | Input error message | text | `inputValidation.errorForeground` #bfbfbf | `inputValidation.errorBackground` #3a1d1d | 8.32 | 4.5 | AAA |
-| PASS | Input warning message | text | `inputValidation.warningForeground` #bfbfbf | `inputValidation.warningBackground` #352a05 | 7.69 | 4.5 | AAA |
-| PASS | Input info message | text | `inputValidation.infoForeground` #bfbfbf | `inputValidation.infoBackground` #1e3a47 | 6.52 | 4.5 | AA |
-| PASS | Checkbox mark | text | `checkbox.foreground` #8c8c8c | `checkbox.background` #242526 | 4.57 | 4.5 | AA |
-| PASS | Checkbox border | ui | `checkbox.border` #707070 | `checkbox.background` #242526 | 3.10 | 3 | AAA |
-| PASS | Dropdown text | text | `dropdown.foreground` #bfbfbf | `dropdown.background` #191a1b | 9.48 | 4.5 | AAA |
-| PASS | Dropdown border | ui | `dropdown.border` #626667 | `dropdown.background` #191a1b | 3.00 | 3 | AAA |
-| PASS | Primary button | text | `button.foreground` #ffffff | `button.background` #297aa0 | 4.79 | 4.5 | AA |
-| PASS | Primary button hover | text | `button.foreground` #ffffff | `button.hoverBackground` #2b7da3 | 4.60 | 4.5 | AA |
-| PASS | Secondary button | text | `button.secondaryForeground` #cccccc | `button.secondaryBackground` #00000000 | 11.58 | 4.5 | AAA |
-| PASS | Secondary button border | ui | `button.secondaryBorder` #5e6263 | `editor.background` #121314 | 3.01 | 3 | AAA |
-| PASS | Extension install button | text | `extensionButton.prominentForeground` #ffffff | `extensionButton.prominentBackground` #297aa0 | 4.79 | 4.5 | AA |
-| PASS | Chart labels | text | `charts.foreground` #cccccc | `editor.background` #121314 | 11.58 | 4.5 | AAA |
-| PASS | Chart blue series | ui | `charts.blue` #57a3f8 | `editor.background` #121314 | 7.09 | 3 | AAA |
-| PASS | Chart green series | ui | `charts.green` #86cf86 | `editor.background` #121314 | 9.99 | 3 | AAA |
-| PASS | Chart orange series | ui | `charts.orange` #cd861a | `editor.background` #121314 | 6.22 | 3 | AAA |
-| PASS | Chart purple series | ui | `charts.purple` #ad80d7 | `editor.background` #121314 | 6.06 | 3 | AAA |
-| PASS | Chart red series | ui | `charts.red` #ef8773 | `editor.background` #121314 | 7.43 | 3 | AAA |
-| PASS | Chart yellow series | ui | `charts.yellow` #e0b97f | `editor.background` #121314 | 10.11 | 3 | AAA |
+| PASS | Editor body text | text | `editor.foreground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Default workbench text | text | `foreground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Error messages | text | `errorForeground` #f48771 | `editor.background` #000000 | 8.55 | 7 | AAA |
+| PASS | Secondary description text | text | `descriptionForeground` #ffffffb3 | `editor.background` #000000 | 10.02 | 7 | AAA |
+| PASS | Disabled controls | dimmed | `disabledForeground` #a5a5a5 | `editor.background` #000000 | 8.53 | 4.5 | AAA |
+| PASS | Line numbers | text | `editorLineNumber.foreground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Active line number | text | `editorLineNumber.activeForeground` #f38518 | `editor.background` #000000 | 8.18 | 7 | AAA |
+| PASS | CodeLens annotations | text | `editorCodeLens.foreground` #999999 | `editor.background` #000000 | 7.37 | 7 | AAA |
+| PASS | Editor links | text | `editorLink.activeForeground` #00ffff | `editor.background` #000000 | 16.75 | 7 | AAA |
+| PASS | Selected text | text | `editor.selectionForeground` #000000 | `editor.selectionBackground` #ffffff | 21.00 | 7 | AAA |
+| PASS | Current find match outline | ui | `editor.findMatchBorder` #f38518 | `editor.background` #000000 | 8.18 | 4.5 | AAA |
+| PASS | Other find matches outline | ui | `editor.findMatchHighlightBorder` #f38518 | `editor.background` #000000 | 8.18 | 4.5 | AAA |
+| PASS | Current line outline | ui | `editor.lineHighlightBorder` #f38518 | `editor.background` #000000 | 8.18 | 4.5 | AAA |
+| PASS | Word highlight outline | ui | `editor.wordHighlightBorder` #f38518 | `editor.background` #000000 | 8.18 | 4.5 | AAA |
+| PASS | Write-access highlight outline | ui | `editor.wordHighlightStrongBorder` #f38518 | `editor.background` #000000 | 8.18 | 4.5 | AAA |
+| PASS | Selection highlight outline | ui | `editor.selectionHighlightBorder` #f38518 | `editor.background` #000000 | 8.18 | 4.5 | AAA |
+| PASS | Range highlight outline | ui | `editor.rangeHighlightBorder` #f38518 | `editor.background` #000000 | 8.18 | 4.5 | AAA |
+| PASS | Caret | ui | `editorCursor.foreground` #ffffff | `editor.background` #000000 | 21.00 | 4.5 | AAA |
+| PASS | Bracket match outline | ui | `editorBracketMatch.border` #6fc3df | `editor.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Gutter added marker | ui | `editorGutter.addedBackground` #4b8302 | `editor.background` #000000 | 4.55 | 4.5 | AAA |
+| PASS | Gutter modified marker | ui | `editorGutter.modifiedBackground` #1b81a8 | `editor.background` #000000 | 4.75 | 4.5 | AAA |
+| PASS | Gutter deleted marker | ui | `editorGutter.deletedBackground` #f48771 | `editor.background` #000000 | 8.55 | 4.5 | AAA |
+| PASS | Active indent guide | ui | `editorIndentGuide.activeBackground1` #ffffff | `editor.background` #000000 | 21.00 | 4.5 | AAA |
+| PASS | Indent guides | ui | `editorIndentGuide.background1` #ffffff | `editor.background` #000000 | 21.00 | 4.5 | AAA |
+| PASS | Rendered whitespace | ui | `editorWhitespace.foreground` #7c7c7c | `editor.background` #000000 | 5.03 | 4.5 | AAA |
+| PASS | Editor rulers | ui | `editorRuler.foreground` #ffffff | `editor.background` #000000 | 21.00 | 4.5 | AAA |
+| PASS | Error squiggle | ui | `editorError.foreground` #f48771 | `editor.background` #000000 | 8.55 | 4.5 | AAA |
+| PASS | Warning squiggle | ui | `editorWarning.foreground` #ffd370 | `editor.background` #000000 | 14.80 | 4.5 | AAA |
+| PASS | Info squiggle | ui | `editorInfo.foreground` #59a4f9 | `editor.background` #000000 | 8.10 | 4.5 | AAA |
+| PASS | Focus ring on editor surface | ui | `focusBorder` #f38518 | `editor.background` #000000 | 8.18 | 4.5 | AAA |
+| PASS | High contrast element outline | ui | `contrastBorder` #6fc3df | `editor.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | High contrast active element outline | ui | `contrastActiveBorder` #f38518 | `editor.background` #000000 | 8.18 | 4.5 | AAA |
+| PASS | Links in text | text | `textLink.foreground` #21a6ff | `editor.background` #000000 | 7.96 | 7 | AAA |
+| PASS | Active links in text | text | `textLink.activeForeground` #21a6ff | `editor.background` #000000 | 7.96 | 7 | AAA |
+| PASS | Inline code | text | `textPreformat.foreground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Settings headers | text | `settings.headerForeground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Keybinding labels | text | `keybindingLabel.foreground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Chat edited file label | text | `chat.editedFileForeground` #e2c08d | `editor.background` #000000 | 12.16 | 7 | AAA |
+| PASS | Chat slash command | text | `chat.slashCommandForeground` #000000 | `chat.slashCommandBackground` #ffffff | 21.00 | 7 | AAA |
+| PASS | Editor widgets | text | `editorWidget.foreground` #ffffff | `editorWidget.background` #0c141f | 18.49 | 7 | AAA |
+| PASS | Hover widget | text | `editorWidget.foreground` #ffffff | `editorHoverWidget.background` #0c141f | 18.49 | 7 | AAA |
+| PASS | Suggest widget | text | `editorSuggestWidget.foreground` #ffffff | `editorSuggestWidget.background` #0c141f | 18.49 | 7 | AAA |
+| PASS | Suggest match highlight | text | `editorSuggestWidget.highlightForeground` #f38518 | `editorSuggestWidget.background` #0c141f | 7.20 | 7 | AAA |
+| PASS | Suggest selected row | text | `editorSuggestWidget.selectedForeground` #0c141f | `editorSuggestWidget.selectedBackground` #ffffff | 18.49 | 7 | AAA |
+| PASS | Suggest focus outline | ui | `editorSuggestWidget.focusOutline` #f38518 | `editorSuggestWidget.background` #0c141f | 7.20 | 4.5 | AAA |
+| PASS | Peek result file names | text | `peekViewResult.fileForeground` #ffffff | `peekViewResult.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Peek result lines | text | `peekViewResult.lineForeground` #ffffff | `peekViewResult.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Peek selected result | text | `peekViewResult.selectionForeground` #ffffff | `peekViewResult.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Peek title | text | `peekViewTitleLabel.foreground` #ffffff | `peekViewTitle.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Peek title description | text | `peekViewTitleDescription.foreground` #ffffff99 | `peekViewTitle.background` #000000 | 7.37 | 7 | AAA |
+| PASS | Notification text | text | `notifications.foreground` #ffffff | `notifications.background` #0c141f | 18.49 | 7 | AAA |
+| PASS | Notification links | text | `notificationLink.foreground` #21a6ff | `notifications.background` #0c141f | 7.01 | 7 | AAA |
+| PASS | Notification error icon | ui | `notificationsErrorIcon.foreground` #f48771 | `notifications.background` #0c141f | 7.53 | 4.5 | AAA |
+| PASS | Notification warning icon | ui | `notificationsWarningIcon.foreground` #ffd370 | `notifications.background` #0c141f | 13.04 | 4.5 | AAA |
+| PASS | Notification info icon | ui | `notificationsInfoIcon.foreground` #59a4f9 | `notifications.background` #0c141f | 7.14 | 4.5 | AAA |
+| PASS | Quick input text | text | `quickInput.foreground` #ffffff | `quickInput.background` #0c141f | 18.49 | 7 | AAA |
+| PASS | Quick input focused match | text | `quickInputList.focusHighlightForeground` #f38518 | `quickInput.background` #0c141f | 7.20 | 7 | AAA |
+| PASS | Quick input group labels | text | `pickerGroup.foreground` #ffffff | `quickInput.background` #0c141f | 18.49 | 7 | AAA |
+| PASS | Menu items | text | `menu.foreground` #ffffff | `menu.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Menu selected item outline | ui | `menu.selectionBorder` #f38518 | `menu.background` #000000 | 8.18 | 4.5 | AAA |
+| PASS | Menubar selected item | text | `menubar.selectionForeground` #ffffff | `titleBar.activeBackground` #000000 | 21.00 | 7 | AAA |
+| PASS | Menubar selected item outline | ui | `menubar.selectionBorder` #f38518 | `titleBar.activeBackground` #000000 | 8.18 | 4.5 | AAA |
+| PASS | Side bar text | text | `foreground` #ffffff | `sideBar.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Side bar title | text | `sideBarTitle.foreground` #ffffff | `sideBar.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Side bar descriptions | text | `descriptionForeground` #ffffffb3 | `sideBar.background` #000000 | 10.02 | 7 | AAA |
+| PASS | Side bar border | ui | `sideBar.border` #6fc3df | `sideBar.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Section header border | ui | `sideBarSectionHeader.border` #6fc3df | `sideBar.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Icons | ui | `icon.foreground` #ffffff | `sideBar.background` #000000 | 21.00 | 4.5 | AAA |
+| PASS | Focus ring on side bar | ui | `focusBorder` #f38518 | `sideBar.background` #000000 | 8.18 | 4.5 | AAA |
+| PASS | List focus outline | ui | `list.focusOutline` #f38518 | `sideBar.background` #000000 | 8.18 | 4.5 | AAA |
+| PASS | Hovered list row | text | `foreground` #ffffff | `list.hoverBackground` #ffffff1a | 17.40 | 7 | AAA |
+| PASS | List filter match | text | `list.highlightForeground` #f38518 | `sideBar.background` #000000 | 8.18 | 7 | AAA |
+| PASS | List invalid items | text | `list.invalidItemForeground` #b89500 | `sideBar.background` #000000 | 7.34 | 7 | AAA |
+| PASS | List de-emphasized items | dimmed | `list.deemphasizedForeground` #a7a8a9 | `sideBar.background` #000000 | 8.82 | 4.5 | AAA |
+| PASS | Git added | text | `gitDecoration.addedResourceForeground` #a1e3ad | `sideBar.background` #000000 | 14.11 | 7 | AAA |
+| PASS | Git modified | text | `gitDecoration.modifiedResourceForeground` #e2c08d | `sideBar.background` #000000 | 12.16 | 7 | AAA |
+| PASS | Git deleted | text | `gitDecoration.deletedResourceForeground` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | AAA |
+| PASS | Git untracked | text | `gitDecoration.untrackedResourceForeground` #73c991 | `sideBar.background` #000000 | 10.49 | 7 | AAA |
+| PASS | Git conflicting | text | `gitDecoration.conflictingResourceForeground` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | AAA |
+| PASS | Git staged deleted | text | `gitDecoration.stageDeletedResourceForeground` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | AAA |
+| PASS | Git staged modified | text | `gitDecoration.stageModifiedResourceForeground` #e2c08d | `sideBar.background` #000000 | 12.16 | 7 | AAA |
+| PASS | Git ignored | dimmed | `gitDecoration.ignoredResourceForeground` #a7a8a9 | `sideBar.background` #000000 | 8.82 | 4.5 | AAA |
+| PASS | Activity bar active icon | ui | `activityBar.foreground` #ffffff | `activityBar.background` #000000 | 21.00 | 4.5 | AAA |
+| PASS | Activity bar inactive icon | ui | `activityBar.inactiveForeground` #ffffff | `activityBar.background` #000000 | 21.00 | 4.5 | AAA |
+| PASS | Activity bar active indicator | ui | `activityBar.activeBorder` #6fc3df | `activityBar.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Activity bar badge | text | `activityBarBadge.foreground` #ffffff | `activityBarBadge.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Badges | text | `badge.foreground` #ffffff | `badge.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Status bar text | text | `statusBar.foreground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Status bar border | ui | `statusBar.border` #6fc3df | `editor.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Status bar while debugging | text | `statusBar.debuggingForeground` #ffffff | `statusBar.debuggingBackground` #8e4421 | 7.00 | 7 | AAA |
+| PASS | Status bar without folder | text | `statusBar.noFolderForeground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Prominent status item | text | `statusBarItem.prominentForeground` #ffffff | `statusBarItem.prominentBackground` #00000080 | 21.00 | 7 | AAA |
+| PASS | Remote status item | text | `statusBarItem.remoteForeground` #ffffff | `statusBarItem.remoteBackground` #00000000 | 21.00 | 7 | AAA |
+| PASS | Hovered status item | text | `statusBarItem.hoverForeground` #ffffff | `statusBarItem.hoverBackground` #000000 | 21.00 | 7 | AAA |
+| PASS | Error status item | text | `statusBarItem.errorForeground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Warning status item | text | `statusBarItem.warningForeground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Active tab | text | `tab.activeForeground` #ffffff | `tab.activeBackground` #000000 | 21.00 | 7 | AAA |
+| PASS | Inactive tab | text | `tab.inactiveForeground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Selected tab | text | `tab.selectedForeground` #ffffff | `tab.activeBackground` #000000 | 21.00 | 7 | AAA |
+| PASS | Unfocused active tab | text | `tab.unfocusedActiveForeground` #ffffff | `tab.unfocusedActiveBackground` #000000 | 21.00 | 7 | AAA |
+| PASS | Unfocused inactive tab | text | `tab.unfocusedInactiveForeground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Tab borders | ui | `tab.border` #6fc3df | `editor.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Breadcrumbs | text | `breadcrumb.foreground` #ffffffcc | `breadcrumb.background` #000000 | 13.08 | 7 | AAA |
+| PASS | Focused breadcrumb | text | `breadcrumb.focusForeground` #ffffff | `breadcrumb.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Selected breadcrumb | text | `breadcrumb.activeSelectionForeground` #ffffff | `breadcrumb.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Active panel title | text | `panelTitle.activeForeground` #ffffff | `panel.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Inactive panel title | text | `panelTitle.inactiveForeground` #ffffff | `panel.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Active panel indicator | ui | `panelTitle.activeBorder` #6fc3df | `panel.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Panel border | ui | `panel.border` #6fc3df | `panel.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Title bar | text | `titleBar.activeForeground` #ffffff | `titleBar.activeBackground` #000000 | 21.00 | 7 | AAA |
+| PASS | Title bar border | ui | `titleBar.border` #6fc3df | `titleBar.activeBackground` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Command center | text | `commandCenter.foreground` #ffffff | `titleBar.activeBackground` #000000 | 21.00 | 7 | AAA |
+| PASS | Active command center | text | `commandCenter.activeForeground` #ffffff | `titleBar.activeBackground` #000000 | 21.00 | 7 | AAA |
+| PASS | Command center border | ui | `commandCenter.border` #6fc3df | `titleBar.activeBackground` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Terminal text | text | `terminal.foreground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Input text | text | `input.foreground` #ffffff | `input.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Input placeholder | text | `input.placeholderForeground` #ffffffb3 | `input.background` #000000 | 10.02 | 7 | AAA |
+| PASS | Input border | ui | `input.border` #6fc3df | `input.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Focus ring on inputs | ui | `focusBorder` #f38518 | `input.background` #000000 | 8.18 | 4.5 | AAA |
+| PASS | Active input option | text | `inputOption.activeForeground` #ffffff | `inputOption.activeBackground` #00000000 | 21.00 | 7 | AAA |
+| PASS | Active input option border | ui | `inputOption.activeBorder` #6fc3df | `input.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Input error outline | ui | `inputValidation.errorBorder` #6fc3df | `inputValidation.errorBackground` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Input warning outline | ui | `inputValidation.warningBorder` #6fc3df | `inputValidation.warningBackground` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Input info outline | ui | `inputValidation.infoBorder` #6fc3df | `inputValidation.infoBackground` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Checkbox mark | text | `checkbox.foreground` #ffffff | `checkbox.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Checkbox border | ui | `checkbox.border` #6fc3df | `checkbox.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Dropdown text | text | `dropdown.foreground` #ffffff | `dropdown.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Dropdown border | ui | `dropdown.border` #6fc3df | `dropdown.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Primary button | text | `button.foreground` #ffffff | `button.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Primary button hover | text | `button.foreground` #ffffff | `button.hoverBackground` #000000 | 21.00 | 7 | AAA |
+| PASS | Primary button border | ui | `button.border` #6fc3df | `editor.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Secondary button | text | `button.secondaryForeground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Secondary button border | ui | `button.secondaryBorder` #6fc3df | `editor.background` #000000 | 10.55 | 4.5 | AAA |
+| PASS | Chart labels | text | `charts.foreground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Chart lines | ui | `charts.lines` #ffffff80 | `editor.background` #000000 | 5.32 | 4.5 | AAA |
+| PASS | Chart blue series | ui | `charts.blue` #59a4f9 | `editor.background` #000000 | 8.10 | 4.5 | AAA |
+| PASS | Chart green series | ui | `charts.green` #89d185 | `editor.background` #000000 | 11.52 | 4.5 | AAA |
+| PASS | Chart purple series | ui | `charts.purple` #b180d7 | `editor.background` #000000 | 6.94 | 4.5 | AAA |
+| PASS | Chart red series | ui | `charts.red` #f48771 | `editor.background` #000000 | 8.55 | 4.5 | AAA |
+| PASS | Chart yellow series | ui | `charts.yellow` #ffd370 | `editor.background` #000000 | 14.80 | 4.5 | AAA |
+| PASS | Problems error icon | ui | `problemsErrorIcon.foreground` #f48771 | `editor.background` #000000 | 8.55 | 4.5 | AAA |
+| PASS | Problems warning icon | ui | `problemsWarningIcon.foreground` #ffd370 | `editor.background` #000000 | 14.80 | 4.5 | AAA |
+| PASS | Problems info icon | ui | `problemsInfoIcon.foreground` #59a4f9 | `editor.background` #000000 | 8.10 | 4.5 | AAA |
 
 ## Syntax token foregrounds on `editor.background`
 
 | Status | Rule | Foreground | Ratio | Required |
 | --- | --- | --- | --- | --- |
-| PASS | meta.embedded (+3) | #D4D4D4 | 12.55 | 4.5 |
-| PASS | header | #6a6aff | 4.53 | 4.5 |
-| PASS | comment | #6A9955 | 5.58 | 4.5 |
-| PASS | constant.language | #569CD6 | 6.31 | 4.5 |
-| PASS | constant.numeric (+3) | #B5CEA8 | 10.95 | 4.5 |
-| PASS | constant.regexp | #787aa4 | 4.53 | 4.5 |
-| PASS | entity.name.tag | #569CD6 | 6.31 | 4.5 |
-| PASS | entity.name.tag.css (+1) | #D7BA7D | 9.93 | 4.5 |
-| PASS | entity.other.attribute-name | #9CDCFE | 12.47 | 4.5 |
-| PASS | entity.other.attribute-name.class.css (+8) | #D7BA7D | 9.93 | 4.5 |
-| PASS | invalid | #F44747 | 5.17 | 4.5 |
-| PASS | markup.bold | #569CD6 | 6.31 | 4.5 |
-| PASS | markup.heading | #569CD6 | 6.31 | 4.5 |
-| PASS | markup.italic | #C586C0 | 6.68 | 4.5 |
-| PASS | markup.inserted | #B5CEA8 | 10.95 | 4.5 |
-| PASS | markup.deleted | #CE9178 | 7.04 | 4.5 |
-| PASS | markup.changed | #569CD6 | 6.31 | 4.5 |
-| PASS | punctuation.definition.quote.begin.markdown | #6A9955 | 5.58 | 4.5 |
-| PASS | punctuation.definition.list.begin.markdown | #6796E6 | 6.27 | 4.5 |
-| PASS | markup.inline.raw | #CE9178 | 7.04 | 4.5 |
-| PASS | punctuation.definition.tag | #808080 | 4.71 | 4.5 |
-| PASS | meta.preprocessor (+1) | #569CD6 | 6.31 | 4.5 |
-| PASS | meta.preprocessor.string | #CE9178 | 7.04 | 4.5 |
-| PASS | meta.preprocessor.numeric | #B5CEA8 | 10.95 | 4.5 |
-| PASS | meta.structure.dictionary.key.python | #9CDCFE | 12.47 | 4.5 |
-| PASS | meta.diff.header | #569CD6 | 6.31 | 4.5 |
-| PASS | storage | #569CD6 | 6.31 | 4.5 |
-| PASS | storage.type | #569CD6 | 6.31 | 4.5 |
-| PASS | storage.modifier (+1) | #569CD6 | 6.31 | 4.5 |
-| PASS | string (+1) | #CE9178 | 7.04 | 4.5 |
-| PASS | string.tag | #CE9178 | 7.04 | 4.5 |
-| PASS | string.value | #CE9178 | 7.04 | 4.5 |
-| PASS | string.regexp | #D16969 | 5.26 | 4.5 |
-| PASS | punctuation.definition.template-expression.begin (+2) | #569CD6 | 6.31 | 4.5 |
-| PASS | meta.template.expression | #D4D4D4 | 12.55 | 4.5 |
-| PASS | support.type.vendored.property-name (+3) | #9CDCFE | 12.47 | 4.5 |
-| PASS | keyword | #569CD6 | 6.31 | 4.5 |
-| PASS | keyword.control | #569CD6 | 6.31 | 4.5 |
-| PASS | keyword.operator | #D4D4D4 | 12.55 | 4.5 |
-| PASS | keyword.operator.new (+9) | #569CD6 | 6.31 | 4.5 |
-| PASS | keyword.other.unit | #B5CEA8 | 10.95 | 4.5 |
-| PASS | punctuation.section.embedded.begin.php (+1) | #569CD6 | 6.31 | 4.5 |
-| PASS | support.function.git-rebase | #9CDCFE | 12.47 | 4.5 |
-| PASS | constant.sha.git-rebase | #B5CEA8 | 10.95 | 4.5 |
-| PASS | storage.modifier.import.java (+2) | #D4D4D4 | 12.55 | 4.5 |
-| PASS | variable.language | #569CD6 | 6.31 | 4.5 |
-| PASS | entity.name.function (+4) | #DCDCAA | 13.16 | 4.5 |
-| PASS | support.class (+31) | #4EC9B0 | 9.13 | 4.5 |
-| PASS | meta.type.cast.expr (+6) | #4EC9B0 | 9.13 | 4.5 |
-| PASS | keyword.control (+6) | #C586C0 | 6.68 | 4.5 |
-| PASS | variable (+4) | #9CDCFE | 12.47 | 4.5 |
-| PASS | variable.other.constant (+1) | #4FC1FF | 9.22 | 4.5 |
-| PASS | meta.object-literal.key | #9CDCFE | 12.47 | 4.5 |
-| PASS | support.constant.property-value (+6) | #CE9178 | 7.04 | 4.5 |
-| PASS | punctuation.definition.group.regexp (+6) | #CE9178 | 7.04 | 4.5 |
-| PASS | constant.character.character-class.regexp (+3) | #D16969 | 5.26 | 4.5 |
-| PASS | keyword.operator.or.regexp (+1) | #DCDCAA | 13.16 | 4.5 |
-| PASS | keyword.operator.quantifier.regexp | #D7BA7D | 9.93 | 4.5 |
-| PASS | constant.character (+1) | #569CD6 | 6.31 | 4.5 |
-| PASS | constant.character.escape | #D7BA7D | 9.93 | 4.5 |
-| PASS | entity.name.label | #C8C8C8 | 11.12 | 4.5 |
-| PASS | comment (+2) | #8B949E | 6.05 | 4.5 |
-| PASS | constant.other.placeholder (+1) | #FF7B72 | 7.38 | 4.5 |
-| PASS | constant (+5) | #79C0FF | 9.56 | 4.5 |
-| PASS | entity.name (+2) | #FFA657 | 9.61 | 4.5 |
-| PASS | variable.parameter.function (+6) | #C9D1D9 | 12.05 | 4.5 |
-| PASS | entity.name.function | #D2A8FF | 9.55 | 4.5 |
-| PASS | entity.name.tag (+1) | #7EE787 | 12.11 | 4.5 |
-| PASS | keyword | #FF7B72 | 7.38 | 4.5 |
-| PASS | storage (+1) | #FF7B72 | 7.38 | 4.5 |
-| PASS | storage.modifier.package (+2) | #C9D1D9 | 12.05 | 4.5 |
-| PASS | string (+1) | #A5D6FF | 12.10 | 4.5 |
-| PASS | support | #79C0FF | 9.56 | 4.5 |
-| PASS | meta.property-name | #79C0FF | 9.56 | 4.5 |
-| PASS | variable | #FFA657 | 9.61 | 4.5 |
-| PASS | variable.other | #C9D1D9 | 12.05 | 4.5 |
-| PASS | invalid.broken | #FFA198 | 9.57 | 4.5 |
-| PASS | invalid.deprecated | #FFA198 | 9.57 | 4.5 |
-| PASS | invalid.illegal | #FFA198 | 9.57 | 4.5 |
-| PASS | invalid.unimplemented | #FFA198 | 9.57 | 4.5 |
-| PASS | carriage-return | #F0F6FC | 17.09 | 4.5 |
-| PASS | message.error | #FFA198 | 9.57 | 4.5 |
-| PASS | string variable | #79C0FF | 9.56 | 4.5 |
-| PASS | source.regexp (+1) | #A5D6FF | 12.10 | 4.5 |
-| PASS | string.regexp.character-class (+3) | #A5D6FF | 12.10 | 4.5 |
-| PASS | string.regexp constant.character.escape | #7EE787 | 12.11 | 4.5 |
-| PASS | support.constant | #79C0FF | 9.56 | 4.5 |
-| PASS | support.variable | #79C0FF | 9.56 | 4.5 |
-| PASS | support.type.property-name.json | #7EE787 | 12.11 | 4.5 |
-| PASS | meta.module-reference | #79C0FF | 9.56 | 4.5 |
-| PASS | punctuation.definition.list.begin.markdown | #FFA657 | 9.61 | 4.5 |
-| PASS | markup.heading (+1) | #79C0FF | 9.56 | 4.5 |
-| PASS | markup.quote | #7EE787 | 12.11 | 4.5 |
-| PASS | markup.italic | #C9D1D9 | 12.05 | 4.5 |
-| PASS | markup.bold | #C9D1D9 | 12.05 | 4.5 |
-| PASS | markup.inline.raw | #79C0FF | 9.56 | 4.5 |
-| PASS | markup.deleted (+2) | #FFA198 | 9.57 | 4.5 |
-| PASS | punctuation.section.embedded | #FF7B72 | 7.38 | 4.5 |
-| PASS | markup.inserted (+2) | #7EE787 | 12.11 | 4.5 |
-| PASS | markup.changed (+1) | #FFA657 | 9.61 | 4.5 |
-| PASS | markup.ignored (+1) | #637fa7 | 4.54 | 4.5 |
-| PASS | meta.diff.range | #D2A8FF | 9.55 | 4.5 |
-| PASS | meta.diff.header | #79C0FF | 9.56 | 4.5 |
-| PASS | meta.separator | #79C0FF | 9.56 | 4.5 |
-| PASS | meta.output | #79C0FF | 9.56 | 4.5 |
-| PASS | brackethighlighter.tag (+5) | #8B949E | 6.05 | 4.5 |
-| PASS | brackethighlighter.unmatched | #FFA198 | 9.57 | 4.5 |
-| PASS | constant.other.reference.link (+1) | #A5D6FF | 12.10 | 4.5 |
-| PASS | token.info-token | #6796E6 | 6.27 | 4.5 |
-| PASS | token.warn-token | #CD9731 | 7.15 | 4.5 |
-| PASS | token.error-token | #F44747 | 5.17 | 4.5 |
-| PASS | token.debug-token | #B267E6 | 5.29 | 4.5 |
+| PASS | meta.embedded (+3) | #FFFFFF | 21.00 | 7 |
+| PASS | meta.diff.header | #8888ff | 7.01 | 7 |
+| PASS | comment | #7CA668 | 7.51 | 7 |
+| PASS | constant.language | #569CD6 | 7.12 | 7 |
+| PASS | constant.numeric (+3) | #B5CEA8 | 12.36 | 7 |
+| PASS | constant.regexp | #c182a8 | 7.03 | 7 |
+| PASS | constant.character | #569CD6 | 7.12 | 7 |
+| PASS | entity.name.tag | #569CD6 | 7.12 | 7 |
+| PASS | entity.name.tag.css (+1) | #D7BA7D | 11.21 | 7 |
+| PASS | entity.other.attribute-name | #9CDCFE | 14.08 | 7 |
+| PASS | entity.other.attribute-name.class.css (+8) | #D7BA7D | 11.21 | 7 |
+| PASS | invalid | #f66666 | 7.01 | 7 |
+| PASS | markup.heading | #6796E6 | 7.08 | 7 |
+| PASS | markup.inserted | #B5CEA8 | 12.36 | 7 |
+| PASS | markup.deleted | #CE9178 | 7.95 | 7 |
+| PASS | markup.changed | #569CD6 | 7.12 | 7 |
+| PASS | punctuation.definition.tag | #959595 | 7.01 | 7 |
+| PASS | meta.preprocessor | #569CD6 | 7.12 | 7 |
+| PASS | meta.preprocessor.string | #CE9178 | 7.95 | 7 |
+| PASS | meta.preprocessor.numeric | #B5CEA8 | 12.36 | 7 |
+| PASS | meta.structure.dictionary.key.python | #9CDCFE | 14.08 | 7 |
+| PASS | storage | #569CD6 | 7.12 | 7 |
+| PASS | storage.type | #569CD6 | 7.12 | 7 |
+| PASS | storage.modifier | #569CD6 | 7.12 | 7 |
+| PASS | string | #CE9178 | 7.95 | 7 |
+| PASS | string.tag | #CE9178 | 7.95 | 7 |
+| PASS | string.value | #CE9178 | 7.95 | 7 |
+| PASS | string.regexp | #d77b7b | 7.01 | 7 |
+| PASS | punctuation.definition.template-expression.begin (+2) | #569CD6 | 7.12 | 7 |
+| PASS | meta.template.expression | #FFFFFF | 21.00 | 7 |
+| PASS | support.type.vendored.property-name (+3) | #D4D4D4 | 14.17 | 7 |
+| PASS | keyword | #569CD6 | 7.12 | 7 |
+| PASS | keyword.control | #569CD6 | 7.12 | 7 |
+| PASS | keyword.operator | #D4D4D4 | 14.17 | 7 |
+| PASS | keyword.operator.new (+4) | #569CD6 | 7.12 | 7 |
+| PASS | keyword.other.unit | #B5CEA8 | 12.36 | 7 |
+| PASS | support.function.git-rebase | #D4D4D4 | 14.17 | 7 |
+| PASS | constant.sha.git-rebase | #B5CEA8 | 12.36 | 7 |
+| PASS | storage.modifier.import.java (+2) | #D4D4D4 | 14.17 | 7 |
+| PASS | variable.language.this | #569CD6 | 7.12 | 7 |
+| PASS | entity.name.function (+3) | #DCDCAA | 14.86 | 7 |
+| PASS | support.class (+23) | #4EC9B0 | 10.31 | 7 |
+| PASS | meta.type.cast.expr (+6) | #4EC9B0 | 10.31 | 7 |
+| PASS | keyword.control (+5) | #C586C0 | 7.55 | 7 |
+| PASS | variable (+2) | #9CDCFE | 14.08 | 7 |
+| PASS | meta.object-literal.key | #9CDCFE | 14.08 | 7 |
+| PASS | support.constant.property-value (+6) | #CE9178 | 7.95 | 7 |
+| PASS | meta.resultLinePrefix.contextLinePrefix.search | #CBEDCB | 16.52 | 7 |
+| PASS | token.info-token | #6796E6 | 7.08 | 7 |
+| PASS | token.warn-token | #00ae00 | 7.05 | 7 |
+| PASS | token.error-token | #ff5e5e | 7.01 | 7 |
+| PASS | token.debug-token | #bb79e9 | 7.02 | 7 |
 
 ## Distinguishability (informational)
 
@@ -278,15 +216,15 @@ Closest pair inside each semantic group, per vision type. Delta E (CIE76) below 
 
 | Status | Group | Vision | Closest pair | Delta E |
 | --- | --- | --- | --- | --- |
-| WARN | gitDecorations | normal | `gitDecoration.addedResourceForeground` vs `gitDecoration.untrackedResourceForeground` | 0.0 |
-| WARN | gitDecorations | protanopia | `gitDecoration.addedResourceForeground` vs `gitDecoration.untrackedResourceForeground` | 0.0 |
-| WARN | gitDecorations | deuteranopia | `gitDecoration.addedResourceForeground` vs `gitDecoration.untrackedResourceForeground` | 0.0 |
-| WARN | gitDecorations | tritanopia | `gitDecoration.addedResourceForeground` vs `gitDecoration.untrackedResourceForeground` | 0.0 |
-| ok | charts | normal | `charts.red` vs `charts.yellow` | 33.5 |
-| WARN | charts | protanopia | `charts.green` vs `charts.yellow` | 3.4 |
-| WARN | charts | deuteranopia | `charts.green` vs `charts.red` | 7.9 |
-| ok | charts | tritanopia | `charts.orange` vs `charts.red` | 12.3 |
-| ok | listSeverity | normal | `list.errorForeground` vs `list.warningForeground` | 33.9 |
-| ok | listSeverity | protanopia | `list.errorForeground` vs `list.warningForeground` | 18.6 |
-| WARN | listSeverity | deuteranopia | `list.errorForeground` vs `list.warningForeground` | 9.0 |
-| ok | listSeverity | tritanopia | `list.errorForeground` vs `list.warningForeground` | 31.3 |
+| WARN | gitDecorations | normal | `gitDecoration.deletedResourceForeground` vs `gitDecoration.conflictingResourceForeground` | 0.0 |
+| WARN | gitDecorations | protanopia | `gitDecoration.deletedResourceForeground` vs `gitDecoration.conflictingResourceForeground` | 0.0 |
+| WARN | gitDecorations | deuteranopia | `gitDecoration.deletedResourceForeground` vs `gitDecoration.conflictingResourceForeground` | 0.0 |
+| WARN | gitDecorations | tritanopia | `gitDecoration.deletedResourceForeground` vs `gitDecoration.conflictingResourceForeground` | 0.0 |
+| ok | charts | normal | `charts.blue` vs `charts.purple` | 35.0 |
+| ok | charts | protanopia | `charts.blue` vs `charts.purple` | 10.1 |
+| WARN | charts | deuteranopia | `charts.green` vs `charts.red` | 8.4 |
+| ok | charts | tritanopia | `charts.blue` vs `charts.green` | 20.6 |
+| ok | diagnostics | normal | `editorError.foreground` vs `editorWarning.foreground` | 46.5 |
+| ok | diagnostics | protanopia | `editorError.foreground` vs `editorWarning.foreground` | 38.9 |
+| ok | diagnostics | deuteranopia | `editorError.foreground` vs `editorWarning.foreground` | 26.2 |
+| ok | diagnostics | tritanopia | `editorError.foreground` vs `editorWarning.foreground` | 38.6 |

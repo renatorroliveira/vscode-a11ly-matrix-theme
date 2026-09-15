@@ -16,15 +16,20 @@ export type ConformanceLevel = 'AAA' | 'AA' | 'fail';
 
 /**
  * Minimum ratios per success criterion 1.4.3, 1.4.6 and 1.4.11.
- * `dimmed` is the project policy for disabled and ignored items, which WCAG
- * exempts but low-vision users still need to read.
+ * WCAG defines no AAA tier for non-text; the `ui` AAA value of 4.5 is the
+ * project policy for a high contrast theme. `dimmed` is the project policy
+ * for disabled and ignored items, which WCAG exempts but low-vision users
+ * still need to read.
  */
 export const WCAG_THRESHOLDS: Readonly<Record<ContentKind, { readonly AA: number; readonly AAA: number }>> = {
     'text': { AA: 4.5, AAA: 7 },
     'large-text': { AA: 3, AAA: 4.5 },
-    'ui': { AA: 3, AAA: 3 },
+    'ui': { AA: 3, AAA: 4.5 },
     'dimmed': { AA: 3, AAA: 4.5 },
 };
+
+/** Conformance level the build gate enforces. */
+export const TARGET_LEVEL: Exclude<ConformanceLevel, 'fail'> = 'AAA';
 
 /**
  * Computes the contrast ratio between two opaque colors.
@@ -69,10 +74,10 @@ export function classifyContrast(ratio: number, kind: ContentKind): ConformanceL
 }
 
 /**
- * Returns the AA minimum ratio for a content kind.
+ * Returns the minimum ratio a content kind must reach at the target level.
  * @param kind Content kind.
  * @returns Minimum ratio.
  */
 export function minimumRatio(kind: ContentKind): number {
-    return WCAG_THRESHOLDS[kind].AA;
+    return WCAG_THRESHOLDS[kind][TARGET_LEVEL];
 }
