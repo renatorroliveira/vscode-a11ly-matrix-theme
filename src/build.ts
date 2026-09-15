@@ -18,7 +18,7 @@ const OUTPUT_DIR = resolve(import.meta.dirname, '..', 'themes');
 export function buildTheme(): string {
   mkdirSync(OUTPUT_DIR, { recursive: true });
   const outputPath = resolve(OUTPUT_DIR, THEME_FILE_NAME);
-  writeFileSync(outputPath, `${JSON.stringify(theme, null, 2)}\n`);
+  writeFileSync(outputPath, `${JSON.stringify(theme, null, 4)}\n`);
   return outputPath;
 }
 
