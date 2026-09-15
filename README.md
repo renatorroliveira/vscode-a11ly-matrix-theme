@@ -1,4 +1,4 @@
-# Ally Dark
+# A11y Matrix Theme
 
 An accessibility-first high contrast dark color theme for Visual Studio Code,
 built on the `hc-black` base. Every shipped foreground/background pair is verified
@@ -37,7 +37,7 @@ reloads the theme file automatically.
 ## Packaging
 
 ```sh
-pnpm package      # produces ally-dark-<version>.vsix
+pnpm package      # produces vscode-a11ly-matrix-theme-<version>.vsix
 ```
 
 ## Accessibility rules

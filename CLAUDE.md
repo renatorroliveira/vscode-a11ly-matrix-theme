@@ -1,8 +1,8 @@
-# Ally Dark
+# A11y Matrix Theme
 
 Accessibility-first high contrast dark color theme for VS Code (`uiTheme: hc-black`, theme type
 `hcDark`). The theme source is TypeScript under `src/`, compiled to
-`themes/ally-dark-color-theme.json` by `src/build.ts`, and gated by a WCAG 2.x AAA contrast audit
+`themes/a11y-matrix-dark-color-theme.json` by `src/build.ts`, and gated by a WCAG 2.x AAA contrast audit
 that fails the build on any violation. The palette derives from VS Code's Dark High Contrast defaults
 (`docs/dark-high-contrast.json`); the earlier `dark-2026` seed is kept in `docs/` as history. Node 24 runs the TypeScript scripts natively
 (type stripping), so there is no transpiler and all source must use erasable syntax only.
@@ -16,7 +16,7 @@ the dependency pinning report and the generated contrast report.
 | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | `corepack enable pnpm && pnpm install --frozen-lockfile` | Install pinned dependencies.                                                                        |
 | `pnpm dev`                                               | Watch `src/` and regenerate `themes/` on every change. Pair with `F5` (Extension Development Host). |
-| `pnpm generate`                                          | Emit `themes/ally-dark-color-theme.json` once.                                                      |
+| `pnpm generate`                                          | Emit `themes/a11y-matrix-dark-color-theme.json` once.                                               |
 | `pnpm audit:contrast`                                    | Run the contrast gate, write `docs/contrast-report.md`, exit 1 on failure.                          |
 | `pnpm audit:contrast --fix`                              | Same, then write minimal color repairs into `src/`. Re-run without `--fix` to confirm.              |
 | `pnpm build`                                             | `generate` + `audit:contrast`. This is what `vscode:prepublish` runs.                               |

@@ -1,6 +1,6 @@
 {
     "$schema": "vscode://schemas/color-theme",
-    "name": "Ally Dark",
+    "name": "A11y Matrix Dark",
     "type": "hcDark",
     "semanticHighlighting": true,
     "colors": {

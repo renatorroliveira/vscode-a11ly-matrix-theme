@@ -2,7 +2,7 @@
 // Edit freely: this file is the source of truth from now on.
 import type { TokenColorRule } from './types.ts';
 
-/** TextMate token color rules for the Ally Dark theme. */
+/** TextMate token color rules for the A11y Matrix Dark theme. */
 export const tokenColors: readonly TokenColorRule[] = [
     {
         scope: [

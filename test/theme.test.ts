@@ -8,7 +8,7 @@ import manifest from '../package.json' with { type: 'json' };
 describe('theme document', () => {
     it('declares the required top-level fields', () => {
         expect(theme.$schema).toBe('vscode://schemas/color-theme');
-        expect(theme.name).toBe('Ally Dark');
+        expect(theme.name).toBe('A11y Matrix Dark');
         expect(theme.type).toBe('hcDark');
         expect(theme.semanticHighlighting).toBe(true);
     });
@@ -17,7 +17,7 @@ describe('theme document', () => {
         const contributed = manifest.contributes.themes[0];
         expect(contributed?.label).toBe(theme.name);
         expect(contributed?.uiTheme).toBe('hc-black');
-        expect(contributed?.path).toBe('./themes/ally-dark-color-theme.json');
+        expect(contributed?.path).toBe('./themes/a11y-matrix-dark-color-theme.json');
     });
 
     it('only contains valid hex colors', () => {

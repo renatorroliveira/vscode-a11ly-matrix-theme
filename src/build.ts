@@ -1,5 +1,5 @@
 /**
- * Emits the theme document to `themes/ally-dark-color-theme.json`.
+ * Emits the theme document to `themes/a11y-matrix-dark-color-theme.json`.
  *
  * Usage: `node src/build.ts`
  * @module

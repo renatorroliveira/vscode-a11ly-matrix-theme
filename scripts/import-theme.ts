@@ -75,7 +75,7 @@ function renderWorkbenchColors(colors: Readonly<Record<string, HexColor>>): stri
     return `${GENERATED_HEADER}
 import type { WorkbenchColors } from './types.ts';
 
-/** Workbench color assignments for the Ally Dark theme. */
+/** Workbench color assignments for the A11y Matrix Dark theme. */
 export const workbenchColors = {
 ${lines.join('\n')}
 } as const satisfies WorkbenchColors;
@@ -88,7 +88,7 @@ function renderTokenColors(rules: readonly TokenColorRule[]): string {
     return `${GENERATED_HEADER}
 import type { TokenColorRule } from './types.ts';
 
-/** TextMate token color rules for the Ally Dark theme. */
+/** TextMate token color rules for the A11y Matrix Dark theme. */
 export const tokenColors: readonly TokenColorRule[] = ${body};
 `;
 }
