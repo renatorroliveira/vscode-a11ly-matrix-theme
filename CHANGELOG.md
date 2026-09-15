@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the Ally Dark theme are documented here. The format follows
+All notable changes to the A11y Matrix Theme are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
@@ -17,6 +17,7 @@ All notable changes to the Ally Dark theme are documented here. The format follo
 - Contrast gate raised from AA to AAA (7:1 text, 4.5:1 UI); 13 seed colors lifted to comply.
 - Minimum dependency release age lowered from 30 to 15 days; all age-rule waivers removed.
 - Tooling moved to pnpm 12.1.0, ESLint 10.9.1 and typescript-eslint 8.69.0.
+- Extension renamed to `vscode-a11ly-matrix-theme` ("A11y Matrix Theme"); the theme is now "A11y Matrix Dark".
 
 ### Fixed
 

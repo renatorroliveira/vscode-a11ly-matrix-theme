@@ -1,6 +1,6 @@
 {
-    "name": "ally-dark",
-    "displayName": "Ally Dark",
+    "name": "vscode-a11ly-matrix-theme",
+    "displayName": "A11y Matrix Theme",
     "description": "An accessibility-first high contrast dark theme for VS Code with build-time WCAG AAA contrast verification.",
     "version": "0.1.0",
     "publisher": "oliveren",
@@ -47,10 +47,10 @@
     "contributes": {
         "themes": [
             {
-                "id": "Ally Dark",
-                "label": "Ally Dark",
+                "id": "A11y Matrix Dark",
+                "label": "A11y Matrix Dark",
                 "uiTheme": "hc-black",
-                "path": "./themes/ally-dark-color-theme.json"
+                "path": "./themes/a11y-matrix-dark-color-theme.json"
             }
         ]
     },

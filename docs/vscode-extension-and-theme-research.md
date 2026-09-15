@@ -1,6 +1,6 @@
 # VS Code Extension and Color Theme Development: Technical Reference
 
-Research date: 2026-09-15. Current stable VS Code: 1.137 (released 2026-09-09). Scope: what a theme-only extension such as Ally Dark (`oliveren.ally-dark`) needs to know about the extension manifest, the color theme file format, the development workflow, packaging and publishing, 2026 TypeScript tooling, accessibility, and common pitfalls. Every claim below is traced to a source in the References section; source code claims cite the `microsoft/vscode` `main` branch as read on the research date.
+Research date: 2026-09-15. Current stable VS Code: 1.137 (released 2026-09-09). Scope: what a theme-only extension such as A11y Matrix Theme (`oliveren.vscode-a11ly-matrix-theme`) needs to know about the extension manifest, the color theme file format, the development workflow, packaging and publishing, 2026 TypeScript tooling, accessibility, and common pitfalls. Every claim below is traced to a source in the References section; source code claims cite the `microsoft/vscode` `main` branch as read on the research date.
 
 ## Executive summary
 
@@ -38,8 +38,8 @@ The contribution point schema in `themeExtensionPoints.ts` defines four properti
 
 ```json
 {
-    "name": "ally-dark",
-    "displayName": "Ally Dark",
+    "name": "vscode-a11ly-matrix-theme",
+    "displayName": "A11y Matrix Theme",
     "description": "Accessible dark color theme with WCAG AA verified contrast.",
     "version": "0.1.0",
     "publisher": "oliveren",
@@ -57,10 +57,10 @@ The contribution point schema in `themeExtensionPoints.ts` defines four properti
     "contributes": {
         "themes": [
             {
-                "id": "Ally Dark",
-                "label": "Ally Dark",
+                "id": "A11y Matrix Dark",
+                "label": "A11y Matrix Dark",
                 "uiTheme": "vs-dark",
-                "path": "./themes/ally-dark-color-theme.json"
+                "path": "./themes/a11y-matrix-dark-color-theme.json"
             }
         ]
     }
@@ -132,7 +132,7 @@ The schema documents `foreground`, `fontStyle`, `fontFamily`, `fontSize` (multip
 
 Standard token types: `namespace`, `class`, `enum`, `interface`, `struct`, `typeParameter`, `type`, `parameter`, `variable`, `property`, `enumMember`, `decorator`, `event`, `function`, `method`, `macro`, `label`, `comment`, `string`, `keyword`, `number`, `regexp`, `operator`. Standard modifiers: `declaration`, `definition`, `readonly`, `static`, `deprecated`, `abstract`, `async`, `modification`, `documentation`, `defaultLibrary` [20].
 
-Resolution order in `colorThemeData.ts`: theme `semanticTokenRules`, then user `customSemanticTokenRules`. If no semantic rule matches, the token's default definition supplies TextMate `scopesToProbe` (for example `variable.readonly` probes `variable.other.constant`) and the theme's `tokenColors` rules are consulted [6][20]. The user setting `editor.semanticHighlighting.enabled` defaults to `configuredByTheme`; users can force a theme on with `"editor.semanticTokenColorCustomizations": { "[Ally Dark]": { "enabled": true } }` [22].
+Resolution order in `colorThemeData.ts`: theme `semanticTokenRules`, then user `customSemanticTokenRules`. If no semantic rule matches, the token's default definition supplies TextMate `scopesToProbe` (for example `variable.readonly` probes `variable.other.constant`) and the theme's `tokenColors` rules are consulted [6][20]. The user setting `editor.semanticHighlighting.enabled` defaults to `configuredByTheme`; users can force a theme on with `"editor.semanticTokenColorCustomizations": { "[A11y Matrix Dark]": { "enabled": true } }` [22].
 
 ### JSONC support and limits
 
@@ -197,7 +197,7 @@ Scripts then read `pnpm exec vsce package` and `pnpm exec vsce publish`. Because
 
 ### VSIX structure
 
-A VSIX is a ZIP following the Open Packaging Conventions. vsce writes `extension.vsixmanifest` (XML metadata derived from `package.json`), `[Content_Types].xml`, and an `extension/` folder that contains `package.json`, `extension/readme.md`, `extension/changelog.md`, the license, the icon, and every non-ignored file such as `themes/ally-dark-color-theme.json` [15][29]. Users install with `code --install-extension ally-dark-0.1.0.vsix` or "Install from VSIX..." in the Extensions view [8].
+A VSIX is a ZIP following the Open Packaging Conventions. vsce writes `extension.vsixmanifest` (XML metadata derived from `package.json`), `[Content_Types].xml`, and an `extension/` folder that contains `package.json`, `extension/readme.md`, `extension/changelog.md`, the license, the icon, and every non-ignored file such as `themes/a11y-matrix-dark-color-theme.json` [15][29]. Users install with `code --install-extension vscode-a11ly-matrix-theme-0.1.0.vsix` or "Install from VSIX..." in the Extensions view [8].
 
 ### Marketplace authentication
 
@@ -211,7 +211,7 @@ A VSIX is a ZIP following the Open Packaging Conventions. vsce writes `extension
 - Tooling: `ovsx` 1.2.0, `engines.node >= 22.0.0` [11][30].
 - Create an access token at open-vsx.org (avatar > Settings > Access Tokens). Pass it with `-p <token>` or the `OVSX_PAT` environment variable [11].
 - The `publisher` field is the namespace. Create it once: `ovsx create-namespace oliveren`. Creating a namespace does not grant exclusive rights; claim ownership through the open-vsx.org UI for verified status [11].
-- Publish an existing package: `ovsx publish ally-dark-0.1.0.vsix -p $OVSX_PAT`. Without a file argument, `ovsx publish` invokes vsce to package first, which reintroduces the pnpm problem, so always pass the prebuilt `.vsix` [11][30].
+- Publish an existing package: `ovsx publish vscode-a11ly-matrix-theme-0.1.0.vsix -p $OVSX_PAT`. Without a file argument, `ovsx publish` invokes vsce to package first, which reintroduces the pnpm problem, so always pass the prebuilt `.vsix` [11][30].
 - Open VSX also supports short-lived tokens through OIDC "trusted publishers" registered by the namespace owner, and `ovsx unpublish` [30].
 
 ## 5. Recommended tooling in 2026 for a TypeScript build script
@@ -278,7 +278,7 @@ Consequences for `node src/build.ts` on Node 24 LTS (this host runs 24.21.0):
 ## Recommendations for this repo
 
 1. **Manifest.** Add `package.json` with the fields shown in section 1, `"vsce": { "dependencies": false }`, and scripts `build` = `node src/build.ts`, `vscode:prepublish` = `node src/build.ts`, `package` = `pnpm exec vsce package`, `publish:marketplace` = `pnpm exec vsce publish`, `publish:openvsx` = `pnpm exec ovsx publish *.vsix`. Set `engines.vscode` to `^1.137.0` or the oldest version whose color ids the theme relies on (the agent session ids are new, so older engines would simply ignore them).
-2. **Theme `id`.** Set `contributes.themes[0].id` explicitly to `"Ally Dark"` now, so later label changes do not break saved settings.
+2. **Theme `id`.** Set `contributes.themes[0].id` explicitly to `"A11y Matrix Dark"` now, so later label changes do not break saved settings.
 3. **Types.** `src/types.ts` currently allows `background` in `TokenColorSettings`; VS Code ignores it, so remove it or the build gives a false sense of coverage. Consider adding the schema's `fontFamily`, `fontSize` and `lineHeight` only if the theme intends to use them.
 4. **Contrast checks.** Extend the WCAG AA check to composite `editor.selectionBackground`, `editor.inactiveSelectionBackground` and the word/find highlight layers over `editor.background` before comparing against `editor.foreground`, and to cover `list.inactiveSelectionBackground` and `terminal.ansi*` against `terminal.background` at 4.5:1.
 5. **Build-time id validation.** Fetch or vendor the id list from the Theme Color reference (or `vscode://schemas/workbench-colors` via a small VS Code task) and fail the build on unknown ids; this catches typos that VS Code will never report.

@@ -2,7 +2,7 @@
 // Edit freely: this file is the source of truth from now on.
 import type { WorkbenchColors } from './types.ts';
 
-/** Workbench color assignments for the Ally Dark theme. */
+/** Workbench color assignments for the A11y Matrix Dark theme. */
 export const workbenchColors = {
     'actionBar.toggledBackground': '#383a49',
     'activeSessionView.background': '#000000',
