@@ -30,7 +30,7 @@ const SOURCE_PATHS = {
  */
 export function runAudit(fix: boolean): number {
     const result = evaluateTheme(theme);
-    writeFileSync(REPORT_PATH, renderMarkdown(result, new Date()));
+    writeFileSync(REPORT_PATH, renderMarkdown(result));
     for (const line of renderConsole(result)) {
         console.log(line);
     }
