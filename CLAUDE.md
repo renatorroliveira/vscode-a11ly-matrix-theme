@@ -16,15 +16,15 @@ the dependency pinning report and the generated contrast report.
 | `pnpm dev`                                               | Watch `src/` and regenerate `themes/` on every change. Pair with `F5` (Extension Development Host). |
 | `pnpm generate`                                          | Emit `themes/ally-dark-color-theme.json` once.                                                      |
 | `pnpm audit:contrast`                                    | Run the contrast gate, write `docs/contrast-report.md`, exit 1 on failure.                          |
-| `pnpm audit:contrast -- --fix`                           | Same, then write minimal color repairs into `src/`. Re-run without `--fix` to confirm.              |
+| `pnpm audit:contrast --fix`                              | Same, then write minimal color repairs into `src/`. Re-run without `--fix` to confirm.              |
 | `pnpm build`                                             | `generate` + `audit:contrast`. This is what `vscode:prepublish` runs.                               |
 | `pnpm typecheck`                                         | `tsc --noEmit` with the strict config.                                                              |
 | `pnpm lint` / `pnpm lint:fix`                            | ESLint (flat config, type-checked) and Prettier check / fix.                                        |
 | `pnpm format`                                            | Prettier write.                                                                                     |
 | `pnpm test` / `pnpm test:watch` / `pnpm test:coverage`   | Vitest unit tests.                                                                                  |
 | `pnpm check`                                             | typecheck + lint + test + build. Run before every commit.                                           |
-| `pnpm package`                                           | `check` then `vsce package --no-dependencies` producing the release `.vsix`.                        |
-| `pnpm publish:marketplace`                               | `check` then `vsce publish --no-dependencies` (needs `VSCE_PAT`).                                   |
+| `pnpm package`                                           | `check` then `vsce package` producing the release `.vsix` in the repo root.                         |
+| `pnpm publish:marketplace`                               | `check` then `vsce publish`. Prefer `--oidc` or `--azure-credential` over a PAT.                    |
 | `pnpm import:seed`                                       | Re-import `docs/dark-2026.json` into `src/`. Destructive: overwrites hand edits.                    |
 
 ## Color accessibility rules (enforced by the build)
