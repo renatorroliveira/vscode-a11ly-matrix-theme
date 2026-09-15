@@ -1,0 +1,67 @@
+{
+  "name": "ally-dark",
+  "displayName": "Ally Dark",
+  "description": "An accessibility-first dark theme for VS Code with build-time WCAG AA contrast verification.",
+  "version": "0.1.0",
+  "publisher": "oliveren",
+  "author": "Renato Oliveira",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "vscode": "^1.100.0",
+    "node": ">=24.0.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "theme",
+    "dark",
+    "accessibility",
+    "wcag",
+    "contrast"
+  ],
+  "galleryBanner": {
+    "color": "#121314",
+    "theme": "dark"
+  },
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Ally Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/ally-dark-color-theme.json"
+      }
+    ]
+  },
+  "scripts": {
+    "generate": "node src/build.ts",
+    "audit:contrast": "node scripts/contrast-audit.ts",
+    "build": "pnpm generate && pnpm audit:contrast",
+    "dev": "node --watch src/build.ts",
+    "import:seed": "node scripts/import-theme.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . && prettier --check .",
+    "lint:fix": "eslint . --fix && prettier --write .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build",
+    "package": "pnpm check && vsce package --no-dependencies",
+    "publish:marketplace": "pnpm check && vsce publish --no-dependencies",
+    "vscode:prepublish": "pnpm build"
+  },
+  "devDependencies": {}
+}
