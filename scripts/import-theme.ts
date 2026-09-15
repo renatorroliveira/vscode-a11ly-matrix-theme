@@ -43,7 +43,7 @@ export function importTheme(seedPath: string): void {
 
 function renderWorkbenchColors(colors: Readonly<Record<string, HexColor>>): string {
   const sortedKeys = Object.keys(colors).sort((a, b) => a.localeCompare(b));
-  const lines = sortedKeys.map((key) => `  ${JSON.stringify(key)}: ${JSON.stringify(colors[key])},`);
+  const lines = sortedKeys.map((key) => `    ${JSON.stringify(key)}: ${JSON.stringify(colors[key])},`);
   return `${GENERATED_HEADER}
 import type { WorkbenchColors } from './types.ts';
 
@@ -55,7 +55,7 @@ ${lines.join('\n')}
 }
 
 function renderTokenColors(rules: readonly TokenColorRule[]): string {
-  const body = JSON.stringify(rules, null, 2).replace(/"([A-Za-z_$][\w$]*)":/g, '$1:');
+  const body = JSON.stringify(rules, null, 4).replace(/"([A-Za-z_$][\w$]*)":/g, '$1:');
   return `${GENERATED_HEADER}
 import type { TokenColorRule } from './types.ts';
 

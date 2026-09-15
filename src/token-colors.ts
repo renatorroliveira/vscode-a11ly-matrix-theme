@@ -30,7 +30,7 @@ export const tokenColors: readonly TokenColorRule[] = [
   {
     scope: "header",
     settings: {
-      foreground: "#000080"
+      foreground: "#6a6aff"
     }
   },
   {
@@ -59,7 +59,7 @@ export const tokenColors: readonly TokenColorRule[] = [
   {
     scope: "constant.regexp",
     settings: {
-      foreground: "#646695"
+      foreground: "#787aa4"
     }
   },
   {
@@ -883,7 +883,7 @@ export const tokenColors: readonly TokenColorRule[] = [
       "markup.untracked"
     ],
     settings: {
-      foreground: "#0D1117",
+      foreground: "#637fa7",
       background: "#79C0FF"
     }
   },
