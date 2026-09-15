@@ -5,13 +5,4 @@ allowBuilds:
   keytar: false
   '@vscode/vsce-sign': false
 
-minimumReleaseAge: 43200
-minimumReleaseAgeExclude:
-  - vitest
-  - '@vitest/*'
-  - qs
-  - fast-uri
-  - js-yaml
-
-overrides:
-  'fast-uri@3': 3.1.6
+minimumReleaseAge: 21600
