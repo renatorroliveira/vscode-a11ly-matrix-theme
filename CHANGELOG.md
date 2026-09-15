@@ -19,3 +19,8 @@ All notable changes to the Ally Dark theme are documented here. The format follo
 ### Fixed
 
 - A pair that reached AA was reported as passing regardless of the target level.
+
+### Security
+
+- Resolved seven `pnpm audit` findings (qs, fast-uri, js-yaml) reached through `@vscode/vsce`, with
+  dated age-rule waivers on the first patched releases.
