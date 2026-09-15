@@ -1,5 +1,6 @@
-themes/
-docs/dark-2026.json
-pnpm-lock.yaml
 CHANGELOG.md
 docs/accessibility-manual-for-web-interfaces.md
+docs/contrast-report.md
+docs/dark-2026.json
+pnpm-lock.yaml
+themes/
