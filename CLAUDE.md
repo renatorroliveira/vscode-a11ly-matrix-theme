@@ -64,9 +64,19 @@ the dependency pinning report and the generated contrast report.
 - A version must be at least 30 days old before it is adopted. `pnpm-workspace.yaml` enforces this
   for the whole dependency tree with `minimumReleaseAge: 43200` (minutes); `pnpm install` fails on
   younger transitive packages too.
-- Waivers to the age rule go in `minimumReleaseAgeExclude` with a dated note here. Current waiver:
-  `vitest` and `@vitest/*` 4.1.11 (published 2026-08-18) because every older release since 2.1.0
-  carries GHSA-82fw-gwwq-j7x9. The waiver is unnecessary from 2026-09-17; remove it then.
+- Waivers to the age rule go in `minimumReleaseAgeExclude` with a dated note here. A waiver always
+  selects the first patched release, never the newest; when the first patched release is not the
+  newest in its range, pin it with a scoped `overrides` entry. Current waivers:
+    - `vitest` and `@vitest/*` 4.1.11 (published 2026-08-18): every older release since 2.1.0 carries
+      GHSA-82fw-gwwq-j7x9. Unnecessary from 2026-09-17.
+    - `fast-uri` 3.1.6 (published 2026-08-23, pinned by `overrides: 'fast-uri@3': 3.1.6`), transitive
+      via `@vscode/vsce` > secretlint > ajv: GHSA-5jgf-p345-68v8, GHSA-f65p-4m7j-42xc,
+      GHSA-fph4-wmhf-6fwf, GHSA-jqff-g426-hqxp. Waiver and override unnecessary from 2026-09-22.
+    - `js-yaml` 4.3.2 (published 2026-08-26), transitive via `@vscode/vsce` > secretlint:
+      GHSA-2883-xcg3-v3hh. Unnecessary from 2026-09-25.
+    - `qs` 6.16.0 (published 2026-08-29), transitive via `@vscode/vsce` > typed-rest-client:
+      GHSA-x5fp-wj9c-mxmx, GHSA-4mjr-xmp4-gh2g. Unnecessary from 2026-09-28.
+- `pnpm audit --prod=false` must report zero findings before every commit that touches the lockfile.
 - Dependency build scripts are denied by default. `allowBuilds` in `pnpm-workspace.yaml` lists every
   package that asked to run one and whether it may (`keytar` and `@vscode/vsce-sign` are denied;
   vsce-sign's postinstall downloads a binary over the network and is only needed for publish-time
