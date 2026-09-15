@@ -10,6 +10,8 @@ All notable changes to the A11y Matrix Theme are documented here. The format fol
 
 - Initial bootstrap generated from the `dark-2026` seed theme.
 - Build-time WCAG 2.x contrast gate over curated foreground/background pairs.
+- GitHub Actions CI workflow that audits dependencies, runs `pnpm check`, verifies the generated files are
+  committed and uploads the packaged VSIX and the contrast report as artifacts.
 
 ### Changed
 
