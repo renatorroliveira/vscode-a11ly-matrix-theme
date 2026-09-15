@@ -1,8 +1,10 @@
 # Ally Dark
 
-Accessibility-first dark color theme for VS Code. The theme source is TypeScript under `src/`,
-compiled to `themes/ally-dark-color-theme.json` by `src/build.ts`, and gated by a WCAG 2.x AA
-contrast audit that fails the build on any violation. Node 24 runs the TypeScript scripts natively
+Accessibility-first high contrast dark color theme for VS Code (`uiTheme: hc-black`, theme type
+`hcDark`). The theme source is TypeScript under `src/`, compiled to
+`themes/ally-dark-color-theme.json` by `src/build.ts`, and gated by a WCAG 2.x AAA contrast audit
+that fails the build on any violation. The palette derives from VS Code's Dark High Contrast defaults
+(`docs/dark-high-contrast.json`); the earlier `dark-2026` seed is kept in `docs/` as history. Node 24 runs the TypeScript scripts natively
 (type stripping), so there is no transpiler and all source must use erasable syntax only.
 
 Read `README.md` for the layout and `docs/` for the research reports, the accessibility manual,
@@ -25,30 +27,36 @@ the dependency pinning report and the generated contrast report.
 | `pnpm check`                                             | typecheck + lint + test + build. Run before every commit.                                           |
 | `pnpm package`                                           | `check` then `vsce package` producing the release `.vsix` in the repo root.                         |
 | `pnpm publish:marketplace`                               | `check` then `vsce publish`. Prefer `--oidc` or `--azure-credential` over a PAT.                    |
-| `pnpm import:seed`                                       | Re-import `docs/dark-2026.json` into `src/`. Destructive: overwrites hand edits.                    |
+| `pnpm import:seed`                                       | Re-import `docs/dark-high-contrast.json` into `src/`, promoting commented defaults. Destructive.    |
 
 ## Color accessibility rules (enforced by the build)
 
-1. Text on its background must reach 4.5:1 (WCAG 1.4.3 AA). Large text may use 3:1.
-2. UI boundaries, icons, focus rings, carets, gutter markers and chart series must reach 3:1 against
-   every surface they sit on (WCAG 1.4.11).
-3. Disabled and ignored items are WCAG-exempt but must still reach 3:1 (project policy, `dimmed`).
-4. Placeholder text is NOT exempt: 4.5:1.
-5. Never round up. 4.49:1 fails. The audit uses the exact WCAG formula from
+1. The gate runs at `TARGET_LEVEL = 'AAA'` (`scripts/color/contrast.ts`): text 7:1 (WCAG 1.4.6),
+   large text 4.5:1, UI boundaries, icons, focus rings, carets, gutter markers, squiggles and chart
+   series 4.5:1 (project policy; WCAG 1.4.11 has no AAA tier), disabled and ignored items 4.5:1
+   (`dimmed`, project policy for WCAG-exempt content).
+2. Placeholder text is NOT exempt: it is text, 7:1.
+3. Never round up. 6.99:1 fails. The audit uses the exact WCAG formula from
    `docs/accessibility-manual-for-web-interfaces.md`.
-6. Translucent colors (8-digit hex) are measured after alpha compositing onto the real surface.
-   Overlay backgrounds (selection, find match, hover) are checked with `editor.foreground` on top;
-   repair them by lowering alpha, never by changing the text color.
-7. Color is never the only signal. Colors inside a `DISTINGUISHABLE_GROUPS` set must stay apart
+4. Translucent colors (8-digit hex) are measured after alpha compositing onto the real surface. In
+   this High Contrast palette many background ids are unset on purpose, so pairs measure against the
+   surface that shows through (`editor.background`). Selection is opaque white with
+   `editor.selectionForeground` black; highlights use orange borders instead of fills.
+5. Terminal ANSI colors are not gated: VS Code enforces `terminal.integrated.minimumContrastRatio`
+   on them at render time. Everything else that renders text, an icon or a border is.
+6. Color is never the only signal. Colors inside a `DISTINGUISHABLE_GROUPS` set must stay apart
    (delta E >= 10) under normal vision and protanopia, deuteranopia and tritanopia simulation. Today
    this is informational (WARN); treat new warnings as defects.
-8. Every new workbench color that renders text, an icon or a border gets a pair in `scripts/pairs.ts`
+7. Every new workbench color that renders text, an icon or a border gets a pair in `scripts/pairs.ts`
    in the same change. The pair list is the accessibility contract; coverage only grows.
-9. Prefer changing a background over a foreground when the foreground is shared across many
+8. Prefer changing a background over a foreground when the foreground is shared across many
    surfaces (for example `editor.foreground`, `foreground`, `focusBorder`).
-10. Keep hue when repairing contrast; move lightness only. `nudgeToContrast` does this.
-11. APCA numbers may inform design but never replace WCAG 2.x ratios for conformance.
-12. `themes/` is generated. Edit `src/workbench-colors.ts` and `src/token-colors.ts`, then `pnpm build`.
+9. Keep hue when repairing contrast; move lightness only. `nudgeToContrast` does this; overlays are
+   repaired by lowering alpha, never by changing the text color.
+10. APCA numbers may inform design but never replace WCAG 2.x ratios for conformance.
+11. `themes/` is generated. Edit `src/workbench-colors.ts` and `src/token-colors.ts`, then `pnpm build`.
+12. A pair's pass/fail is `ratio >= required`, never "level is not fail": a pair that reaches AA
+    still fails an AAA gate.
 
 ## Dependency security constraints
 

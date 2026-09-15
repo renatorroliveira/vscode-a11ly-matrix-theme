@@ -1,8 +1,10 @@
 # Ally Dark
 
-An accessibility-first dark color theme for Visual Studio Code. Every shipped
-foreground/background pair is verified against WCAG 2.x AA at build time, so the
-theme cannot drift below 4.5:1 for text or 3:1 for UI boundaries and focus rings.
+An accessibility-first high contrast dark color theme for Visual Studio Code,
+built on the `hc-black` base. Every shipped foreground/background pair is verified
+against WCAG 2.x AAA at build time, so the theme cannot drift below 7:1 for text or
+4.5:1 for UI boundaries, icons and focus rings. The palette starts from VS Code's own
+Dark High Contrast defaults and lifts every color that falls short.
 
 ## Layout
 
@@ -10,10 +12,10 @@ theme cannot drift below 4.5:1 for text or 3:1 for UI boundaries and focus rings
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `src/`           | Theme source of truth in TypeScript (`workbench-colors.ts`, `token-colors.ts`, `theme.ts`) and the `build.ts` emitter.           |
 | `scripts/color/` | Pure color math: hex parsing, alpha compositing, luminance, WCAG contrast, contrast nudging, color-vision-deficiency simulation. |
-| `scripts/`       | CLIs: `contrast-audit.ts` (build gate), `import-theme.ts` (seed importer).                                                       |
+| `scripts/`       | CLIs: `contrast-audit.ts` (build gate, `--fix` repairs), `import-theme.ts` (seed importer).                                      |
 | `themes/`        | Generated theme JSON consumed by VS Code. Never edit by hand.                                                                    |
 | `test/`          | Vitest unit tests for the color library.                                                                                         |
-| `docs/`          | Research reports, the accessibility manual, the original seed theme and the contrast report.                                     |
+| `docs/`          | Research reports, the accessibility manual, the seed themes and the contrast report.                                             |
 
 ## Development
 
