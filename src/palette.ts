@@ -28,6 +28,10 @@ export const accent = {
     border: '#00ad2c',
     /** P3 amber phosphor: focus rings, active indicators and active text. 11.46:1 on black. */
     secondary: '#ffb000',
-    /** Same green hue darkened until white text reaches 7.01:1: workbench text selection in inputs. */
-    selection: '#00681b',
+    /**
+     * Same green hue darkened until white text reaches 7.01:1; the fill itself is then 2.996:1 on black, the
+     * most a 7:1 white-text fill can reach (21 / 7 = 3). Text selection in the editor, terminal and inputs,
+     * and hovered rows, tabs and activity bar items.
+     */
+    fill: '#00681b',
 } as const satisfies Readonly<Record<string, HexColor>>;

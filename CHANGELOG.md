@@ -18,6 +18,9 @@ All notable changes to the A11y Matrix Theme are documented here. The format fol
 - Accents remodeled to Matrix Code Green `#00ff41` for highlights, find matches and selection, a 7:1 tier
   `#00ad2c` for borders and the integrated terminal's green, and P3 amber `#ffb000` for focus rings, active
   indicators and the terminal's yellow; chosen from 40 measured candidates (`docs/palette-research.md`).
+- Text selection in the editor, terminal and inputs is a dark green fill `#00681b` under white text instead
+  of inverted black on green; inactive selection is the same fill at 70% alpha. Hovered list rows, tabs,
+  activity bar items and notebook status items use the same fill.
 - Accent ids reference named roles in `src/palette.ts` instead of repeated literals.
 - Contrast contract grew to 166 pairs (terminal selection and find matches, inactive selection, workbench
   text selection, focus and highlight outlines) plus four accent distinguishability groups.

@@ -7,12 +7,34 @@ import `scripts/color/`; nothing was computed by hand. The chosen values live in
 
 ## Roles
 
-| Role                                                            | Value     | Ratio on `#000000` | Basis                                                                        |
-| --------------------------------------------------------------- | --------- | ------------------ | ---------------------------------------------------------------------------- |
-| Primary: highlights, find matches, selection fill, bright green | `#00ff41` | 15.38              | "Matrix Code Green" fan palette; also Quiet Hacker and Durgonix themes       |
-| Border: ambient borders, inactive selection, normal green       | `#00ad2c` | 7.01               | Same hue as the primary, lightness lowered until 7:1                         |
-| Secondary: focus rings, active indicators, active text          | `#ffb000` | 11.46              | P3 amber phosphor, the VT220 amber option that shipped alongside green tubes |
-| Workbench text selection (white text)                           | `#00681b` | 3.00               | Same hue darkened until white text reaches 7.01:1                            |
+| Role                                                               | Value     | Ratio on `#000000` | Basis                                                                        |
+| ------------------------------------------------------------------ | --------- | ------------------ | ---------------------------------------------------------------------------- |
+| Primary: highlights, find matches, minimap selection, bright green | `#00ff41` | 15.38              | "Matrix Code Green" fan palette; also Quiet Hacker and Durgonix themes       |
+| Border: ambient borders, current line outline, normal green        | `#00ad2c` | 7.01               | Same hue as the primary, lightness lowered until 7:1                         |
+| Secondary: focus rings, active indicators, active text             | `#ffb000` | 11.46              | P3 amber phosphor, the VT220 amber option that shipped alongside green tubes |
+| Fill: text selection (white text) and hovered rows, tabs, items    | `#00681b` | 2.996              | Same hue darkened until white text reaches 7.01:1                            |
+
+### Why the fill is `#00681b` and the selected text is white
+
+White text at 7:1 and a visible fill against black pull in opposite directions: 21 / 7 = 3, so a fill
+that carries 7:1 white text can reach at most 3:1 against black, and no 8-bit green hex lands on both
+sides at once (a brute-force search of every hex with red < 64, green 64 to 159 and blue < 96 found none).
+`#00681b` is the closest point: white 7.0095:1, fill 2.996:1, just under the WCAG 1.4.11 AA floor for a
+component state. Text is the hard gate, so the fill gives way. Ratios in this document are never rounded
+up; earlier drafts showed the fill as 3.00 and were wrong. Keeping syntax colors on selected text is not
+possible at 7:1 either: even the near-black `#00290a` leaves comments at 5.68:1 and keywords at 5.39:1,
+so `editor.selectionForeground` and `terminal.selectionForeground` are white. Inactive selection is the
+fill at 70% alpha, which composites darker and raises the white-text ratio. Colored list labels on a
+hovered row (git untracked `#73c991` 3.50:1, modified `#e2c08d` 4.06:1) drop below 7:1 for the duration
+of the hover; this was accepted as a tradeoff for a single fill color.
+
+| Fill candidate | Fill on black | White on fill | Untracked `#73c991` on fill | Modified `#e2c08d` on fill |
+| -------------- | ------------- | ------------- | --------------------------- | -------------------------- |
+| `#00330d`      | 1.48          | 14.20         | 7.09                        | 8.22                       |
+| `#003b00`      | 1.63          | 12.92         | 6.45                        | 7.48                       |
+| `#004d13`      | 2.07          | 10.14         | 5.07                        | 5.87                       |
+| `#00681b`      | 2.996         | 7.01          | 3.50                        | 4.06                       |
+| `#00701d`      | 3.34          | 6.30          | 3.15                        | 3.65                       |
 
 The border tier is not the 4.5:1 minimum for two reasons. At 4.5:1 it lands delta E 3.0 from the gutter
 "added" marker `#4b8302`, and at 8.5:1 it lands delta E 5.65 from the amber focus ring under
@@ -94,5 +116,7 @@ with orange is confusable at low saturation); Claus Wilke, Fundamentals of Data 
   short of the 3:1 change WCAG 2.4.13 (Focus Appearance, AAA) asks for. VS Code's own Dark High Contrast
   theme has the same property. Reaching 3:1 would need a border tier near 4.5:1, which collides with the
   gutter "added" marker, or a much brighter secondary.
+- Colored list labels on hovered rows fall below 7:1 on the fill (table above). A darker hover fill such
+  as `#00330d` would keep them at 7:1 at the cost of a second palette role and a 1.48:1 hover fill.
 - `scripts/audit/fix.ts` matches double-quoted values, while `src/` uses single quotes and now role
   references, so `--fix` cannot rewrite accent ids. The gate itself is unaffected.

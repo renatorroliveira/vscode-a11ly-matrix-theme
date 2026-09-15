@@ -18,8 +18,8 @@ Ratios are never rounded up.
 | PASS | Active line number | text | `editorLineNumber.activeForeground` #ffb000 | `editor.background` #000000 | 11.46 | 7 | AAA |
 | PASS | CodeLens annotations | text | `editorCodeLens.foreground` #999999 | `editor.background` #000000 | 7.37 | 7 | AAA |
 | PASS | Editor links | text | `editorLink.activeForeground` #00ffff | `editor.background` #000000 | 16.75 | 7 | AAA |
-| PASS | Selected text | text | `editor.selectionForeground` #000000 | `editor.selectionBackground` #00ff41 | 15.38 | 7 | AAA |
-| PASS | Inactive selected text | text | `editor.selectionForeground` #000000 | `editor.inactiveSelectionBackground` #00ad2c | 7.01 | 7 | AAA |
+| PASS | Selected text | text | `editor.selectionForeground` #ffffff | `editor.selectionBackground` #00681b | 7.01 | 7 | AAA |
+| PASS | Inactive selected text | text | `editor.selectionForeground` #ffffff | `editor.inactiveSelectionBackground` #00681bb3 | 10.70 | 7 | AAA |
 | PASS | Minimap selection marker | ui | `minimap.selectionHighlight` #00ff41 | `editor.background` #000000 | 15.38 | 4.5 | AAA |
 | PASS | Current find match outline | ui | `editor.findMatchBorder` #00ff41 | `editor.background` #000000 | 15.38 | 4.5 | AAA |
 | PASS | Other find matches outline | ui | `editor.findMatchHighlightBorder` #00ff41 | `editor.background` #000000 | 15.38 | 4.5 | AAA |
@@ -87,7 +87,8 @@ Ratios are never rounded up.
 | PASS | Icons | ui | `icon.foreground` #ffffff | `sideBar.background` #000000 | 21.00 | 4.5 | AAA |
 | PASS | Focus ring on side bar | ui | `focusBorder` #ffb000 | `sideBar.background` #000000 | 11.46 | 4.5 | AAA |
 | PASS | List focus outline | ui | `list.focusOutline` #ffb000 | `sideBar.background` #000000 | 11.46 | 4.5 | AAA |
-| PASS | Hovered list row | text | `foreground` #ffffff | `list.hoverBackground` #ffffff1a | 17.40 | 7 | AAA |
+| PASS | Hovered list row | text | `foreground` #ffffff | `list.hoverBackground` #00681b | 7.01 | 7 | AAA |
+| PASS | Hovered activity bar item | ui | `activityBar.foreground` #ffffff | `modernActivityBarItem.hoverBackground` #00681b | 7.01 | 4.5 | AAA |
 | PASS | List filter match | text | `list.highlightForeground` #00ff41 | `sideBar.background` #000000 | 15.38 | 7 | AAA |
 | PASS | Focused list row filter match | text | `list.focusHighlightForeground` #00ff41 | `sideBar.background` #000000 | 15.38 | 7 | AAA |
 | PASS | List filter widget outline | ui | `listFilterWidget.outline` #ffb000 | `sideBar.background` #000000 | 11.46 | 4.5 | AAA |
@@ -117,6 +118,8 @@ Ratios are never rounded up.
 | PASS | Warning status item | text | `statusBarItem.warningForeground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
 | PASS | Active tab | text | `tab.activeForeground` #ffffff | `tab.activeBackground` #000000 | 21.00 | 7 | AAA |
 | PASS | Inactive tab | text | `tab.inactiveForeground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
+| PASS | Hovered tab | text | `tab.inactiveForeground` #ffffff | `modernTab.hoverBackground` #00681b | 7.01 | 7 | AAA |
+| PASS | Hovered active tab | text | `tab.activeForeground` #ffffff | `modernEditorTab.activeHoverBackground` #00681b | 7.01 | 7 | AAA |
 | PASS | Selected tab | text | `tab.selectedForeground` #ffffff | `tab.activeBackground` #000000 | 21.00 | 7 | AAA |
 | PASS | Unfocused active tab | text | `tab.unfocusedActiveForeground` #ffffff | `tab.unfocusedActiveBackground` #000000 | 21.00 | 7 | AAA |
 | PASS | Unfocused inactive tab | text | `tab.unfocusedInactiveForeground` #ffffff | `editor.background` #000000 | 21.00 | 7 | AAA |
@@ -144,8 +147,8 @@ Ratios are never rounded up.
 | PASS | Terminal border | ui | `terminal.border` #00ad2c | `panel.background` #000000 | 7.01 | 4.5 | AAA |
 | PASS | Terminal current find match outline | ui | `terminal.findMatchBorder` #00ff41 | `editor.background` #000000 | 15.38 | 4.5 | AAA |
 | PASS | Terminal other find matches outline | ui | `terminal.findMatchHighlightBorder` #00ff41 | `editor.background` #000000 | 15.38 | 4.5 | AAA |
-| PASS | Terminal selected text | text | `terminal.selectionForeground` #000000 | `terminal.selectionBackground` #00ff41 | 15.38 | 7 | AAA |
-| PASS | Terminal inactive selected text | text | `terminal.selectionForeground` #000000 | `terminal.inactiveSelectionBackground` #00ad2c | 7.01 | 7 | AAA |
+| PASS | Terminal selected text | text | `terminal.selectionForeground` #ffffff | `terminal.selectionBackground` #00681b | 7.01 | 7 | AAA |
+| PASS | Terminal inactive selected text | text | `terminal.selectionForeground` #ffffff | `terminal.inactiveSelectionBackground` #00681bb3 | 10.70 | 7 | AAA |
 | PASS | Input text | text | `input.foreground` #ffffff | `input.background` #000000 | 21.00 | 7 | AAA |
 | PASS | Input placeholder | text | `input.placeholderForeground` #ffffffb3 | `input.background` #000000 | 10.02 | 7 | AAA |
 | PASS | Input border | ui | `input.border` #00ad2c | `input.background` #000000 | 7.01 | 4.5 | AAA |
