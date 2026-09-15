@@ -4,8 +4,11 @@ Accessibility-first high contrast dark color theme for VS Code (`uiTheme: hc-bla
 `hcDark`). The theme source is TypeScript under `src/`, compiled to
 `themes/a11y-matrix-dark-color-theme.json` by `src/build.ts`, and gated by a WCAG 2.x AAA contrast audit
 that fails the build on any violation. The palette derives from VS Code's Dark High Contrast defaults
-(`docs/dark-high-contrast.json`); the earlier `dark-2026` seed is kept in `docs/` as history. Node 24 runs the TypeScript scripts natively
-(type stripping), so there is no transpiler and all source must use erasable syntax only.
+(`docs/dark-high-contrast.json`) with the accents remodeled to Matrix Code Green `#00ff41` (highlights),
+its 7:1 tier `#00ad2c` (borders) and P3 amber `#ffb000` (focus); the roles live in `src/palette.ts` and
+the decision record in `docs/palette-research.md`. The earlier `dark-2026` seed is kept in `docs/` as
+history. Node 24 runs the TypeScript scripts natively (type stripping), so there is no transpiler and
+all source must use erasable syntax only.
 
 Read `README.md` for the layout and `docs/` for the research reports, the accessibility manual,
 the dependency pinning report and the generated contrast report.
@@ -40,8 +43,8 @@ the dependency pinning report and the generated contrast report.
    `docs/accessibility-manual-for-web-interfaces.md`.
 4. Translucent colors (8-digit hex) are measured after alpha compositing onto the real surface. In
    this High Contrast palette many background ids are unset on purpose, so pairs measure against the
-   surface that shows through (`editor.background`). Selection is opaque white with
-   `editor.selectionForeground` black; highlights use orange borders instead of fills.
+   surface that shows through (`editor.background`). Selection is opaque Matrix green with
+   `editor.selectionForeground` black; highlights use green borders instead of fills, focus rings are amber.
 5. Terminal ANSI colors are not gated: VS Code enforces `terminal.integrated.minimumContrastRatio`
    on them at render time. Everything else that renders text, an icon or a border is.
 6. Color is never the only signal. Colors inside a `DISTINGUISHABLE_GROUPS` set must stay apart
@@ -54,7 +57,9 @@ the dependency pinning report and the generated contrast report.
 9. Keep hue when repairing contrast; move lightness only. `nudgeToContrast` does this; overlays are
    repaired by lowering alpha, never by changing the text color.
 10. APCA numbers may inform design but never replace WCAG 2.x ratios for conformance.
-11. `themes/` is generated. Edit `src/workbench-colors.ts` and `src/token-colors.ts`, then `pnpm build`.
+11. `themes/` is generated. Edit `src/workbench-colors.ts` and `src/token-colors.ts`, then `pnpm build`. Accent
+    ids reference the roles in `src/palette.ts` (`accent.primary`, `accent.border`, `accent.secondary`,
+    `accent.selection`); change a role there, never by scattering a new literal.
 12. A pair's pass/fail is `ratio >= required`, never "level is not fail": a pair that reaches AA
     still fails an AAA gate.
 

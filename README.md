@@ -22,8 +22,12 @@
   Contrast defaults, then lifts every color that falls short of AAA.
 - **Verified, not eyeballed.** Every shipped foreground/background pair is measured with the exact WCAG 2.x formula at
   build time. A single pair below 7:1 for text or 4.5:1 for UI fails the build, so the palette cannot drift.
-- **Color is never the only signal.** Selection is opaque white on black, highlights use orange outlines instead of fills,
-  and semantically related colors are checked for separation under protanopia, deuteranopia and tritanopia simulation.
+- **Matrix green, measured.** Borders and highlights are Matrix Code Green, focus rings are P3 amber phosphor, the
+  pairing that shipped on VT220 tubes. Both were chosen from 40 candidates by contrast and color-vision-deficiency
+  separation; see [`docs/palette-research.md`](docs/palette-research.md).
+- **Color is never the only signal.** Selection is opaque green with black text, highlights use outlines instead of
+  fills, and semantically related colors are checked for separation under protanopia, deuteranopia and tritanopia
+  simulation.
 - **Nothing but a JSON file.** The extension has no runtime code and no runtime dependencies. It works in Restricted Mode,
   virtual workspaces and remote sessions.
 
@@ -77,15 +81,15 @@ The underlying guidance is collected in
 
 ## Repository layout
 
-| Path             | Purpose                                                                                                                          |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `src/`           | Theme source of truth in TypeScript (`workbench-colors.ts`, `token-colors.ts`, `theme.ts`) and the `build.ts` emitter.           |
-| `scripts/color/` | Pure color math: hex parsing, alpha compositing, luminance, WCAG contrast, contrast nudging, color-vision-deficiency simulation. |
-| `scripts/`       | CLIs: `contrast-audit.ts` (build gate, `--fix` repairs), `import-theme.ts` (seed importer), `pairs.ts` (the contrast contract).  |
-| `themes/`        | Generated theme JSON consumed by VS Code. Never edit by hand.                                                                    |
-| `test/`          | Vitest unit tests for the color library.                                                                                         |
-| `docs/`          | Research reports, the accessibility manual, the seed themes and the generated contrast report.                                   |
-| `.github/`       | GitHub Actions CI: audit, typecheck, lint, test, build and package on every push and pull request.                               |
+| Path             | Purpose                                                                                                                              |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `src/`           | Theme source of truth in TypeScript (`palette.ts`, `workbench-colors.ts`, `token-colors.ts`, `theme.ts`) and the `build.ts` emitter. |
+| `scripts/color/` | Pure color math: hex parsing, alpha compositing, luminance, WCAG contrast, contrast nudging, color-vision-deficiency simulation.     |
+| `scripts/`       | CLIs: `contrast-audit.ts` (build gate, `--fix` repairs), `import-theme.ts` (seed importer), `pairs.ts` (the contrast contract).      |
+| `themes/`        | Generated theme JSON consumed by VS Code. Never edit by hand.                                                                        |
+| `test/`          | Vitest unit tests for the color library.                                                                                             |
+| `docs/`          | Research reports, the accessibility manual, the seed themes and the generated contrast report.                                       |
+| `.github/`       | GitHub Actions CI: audit, typecheck, lint, test, build and package on every push and pull request.                                   |
 
 ## Development
 

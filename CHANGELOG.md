@@ -15,6 +15,13 @@ All notable changes to the A11y Matrix Theme are documented here. The format fol
 
 ### Changed
 
+- Accents remodeled to Matrix Code Green `#00ff41` for highlights, find matches and selection, a 7:1 tier
+  `#00ad2c` for borders and the integrated terminal's green, and P3 amber `#ffb000` for focus rings, active
+  indicators and the terminal's yellow; chosen from 40 measured candidates (`docs/palette-research.md`).
+- Accent ids reference named roles in `src/palette.ts` instead of repeated literals.
+- Contrast contract grew to 166 pairs (terminal selection and find matches, inactive selection, workbench
+  text selection, focus and highlight outlines) plus four accent distinguishability groups.
+- Chat "lines added" unified onto the standard added green `#89d185`.
 - Palette rebased on VS Code's Dark High Contrast defaults; theme base is now `hc-black`.
 - Contrast gate raised from AA to AAA (7:1 text, 4.5:1 UI); 13 seed colors lifted to comply.
 - Minimum dependency release age lowered from 30 to 15 days; all age-rule waivers removed.
