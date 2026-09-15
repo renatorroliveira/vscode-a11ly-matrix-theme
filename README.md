@@ -6,24 +6,27 @@ theme cannot drift below 4.5:1 for text or 3:1 for UI boundaries and focus rings
 
 ## Layout
 
-| Path | Purpose |
-| --- | --- |
-| `src/` | Theme source of truth in TypeScript (`workbench-colors.ts`, `token-colors.ts`, `theme.ts`) and the `build.ts` emitter. |
+| Path             | Purpose                                                                                                                          |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `src/`           | Theme source of truth in TypeScript (`workbench-colors.ts`, `token-colors.ts`, `theme.ts`) and the `build.ts` emitter.           |
 | `scripts/color/` | Pure color math: hex parsing, alpha compositing, luminance, WCAG contrast, contrast nudging, color-vision-deficiency simulation. |
-| `scripts/` | CLIs: `contrast-audit.ts` (build gate), `import-theme.ts` (seed importer). |
-| `themes/` | Generated theme JSON consumed by VS Code. Never edit by hand. |
-| `test/` | Vitest unit tests for the color library. |
-| `docs/` | Research reports, the accessibility manual, the original seed theme and the contrast report. |
+| `scripts/`       | CLIs: `contrast-audit.ts` (build gate), `import-theme.ts` (seed importer).                                                       |
+| `themes/`        | Generated theme JSON consumed by VS Code. Never edit by hand.                                                                    |
+| `test/`          | Vitest unit tests for the color library.                                                                                         |
+| `docs/`          | Research reports, the accessibility manual, the original seed theme and the contrast report.                                     |
 
 ## Development
 
 ```sh
-corepack enable pnpm
-pnpm install
-pnpm dev          # regenerate themes/ on every source change
-pnpm build        # generate + contrast gate
-pnpm check        # typecheck + lint + test + build
+corepack enable pnpm            # picks pnpm 11.22.0 from the packageManager field
+pnpm install --frozen-lockfile  # exact pins, 30-day minimum release age, no build scripts
+pnpm dev                        # regenerate themes/ on every source change
+pnpm build                      # generate + contrast gate
+pnpm check                      # typecheck + lint + test + build
 ```
+
+Dependency policy (exact versions, minimum release age, denied build scripts) lives in
+`pnpm-workspace.yaml`; the rationale for each pin is in `docs/dependency-versions.md`.
 
 Press `F5` in VS Code to launch the Extension Development Host with the theme
 loaded. Edits under `src/` regenerate the theme through `pnpm dev`, and the host

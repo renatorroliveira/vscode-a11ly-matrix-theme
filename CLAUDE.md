@@ -10,22 +10,22 @@ the dependency pinning report and the generated contrast report.
 
 ## Commands (pnpm only, never npm or yarn)
 
-| Command | Purpose |
-| --- | --- |
-| `corepack enable pnpm && pnpm install --frozen-lockfile` | Install pinned dependencies. |
-| `pnpm dev` | Watch `src/` and regenerate `themes/` on every change. Pair with `F5` (Extension Development Host). |
-| `pnpm generate` | Emit `themes/ally-dark-color-theme.json` once. |
-| `pnpm audit:contrast` | Run the contrast gate, write `docs/contrast-report.md`, exit 1 on failure. |
-| `pnpm audit:contrast -- --fix` | Same, then write minimal color repairs into `src/`. Re-run without `--fix` to confirm. |
-| `pnpm build` | `generate` + `audit:contrast`. This is what `vscode:prepublish` runs. |
-| `pnpm typecheck` | `tsc --noEmit` with the strict config. |
-| `pnpm lint` / `pnpm lint:fix` | ESLint (flat config, type-checked) and Prettier check / fix. |
-| `pnpm format` | Prettier write. |
-| `pnpm test` / `pnpm test:watch` / `pnpm test:coverage` | Vitest unit tests. |
-| `pnpm check` | typecheck + lint + test + build. Run before every commit. |
-| `pnpm package` | `check` then `vsce package --no-dependencies` producing the release `.vsix`. |
-| `pnpm publish:marketplace` | `check` then `vsce publish --no-dependencies` (needs `VSCE_PAT`). |
-| `pnpm import:seed` | Re-import `docs/dark-2026.json` into `src/`. Destructive: overwrites hand edits. |
+| Command                                                  | Purpose                                                                                             |
+| -------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `corepack enable pnpm && pnpm install --frozen-lockfile` | Install pinned dependencies.                                                                        |
+| `pnpm dev`                                               | Watch `src/` and regenerate `themes/` on every change. Pair with `F5` (Extension Development Host). |
+| `pnpm generate`                                          | Emit `themes/ally-dark-color-theme.json` once.                                                      |
+| `pnpm audit:contrast`                                    | Run the contrast gate, write `docs/contrast-report.md`, exit 1 on failure.                          |
+| `pnpm audit:contrast -- --fix`                           | Same, then write minimal color repairs into `src/`. Re-run without `--fix` to confirm.              |
+| `pnpm build`                                             | `generate` + `audit:contrast`. This is what `vscode:prepublish` runs.                               |
+| `pnpm typecheck`                                         | `tsc --noEmit` with the strict config.                                                              |
+| `pnpm lint` / `pnpm lint:fix`                            | ESLint (flat config, type-checked) and Prettier check / fix.                                        |
+| `pnpm format`                                            | Prettier write.                                                                                     |
+| `pnpm test` / `pnpm test:watch` / `pnpm test:coverage`   | Vitest unit tests.                                                                                  |
+| `pnpm check`                                             | typecheck + lint + test + build. Run before every commit.                                           |
+| `pnpm package`                                           | `check` then `vsce package --no-dependencies` producing the release `.vsix`.                        |
+| `pnpm publish:marketplace`                               | `check` then `vsce publish --no-dependencies` (needs `VSCE_PAT`).                                   |
+| `pnpm import:seed`                                       | Re-import `docs/dark-2026.json` into `src/`. Destructive: overwrites hand edits.                    |
 
 ## Color accessibility rules (enforced by the build)
 
@@ -53,8 +53,16 @@ the dependency pinning report and the generated contrast report.
 ## Dependency security constraints
 
 - Exact versions only, no `^` or `~`. `.npmrc` sets `save-exact=true`.
-- A version must be at least 30 days old before it is adopted (`minimum-release-age=43200` in
-  `.npmrc`, verified by `npm view <pkg> time`).
+- A version must be at least 30 days old before it is adopted. `pnpm-workspace.yaml` enforces this
+  for the whole dependency tree with `minimumReleaseAge: 43200` (minutes); `pnpm install` fails on
+  younger transitive packages too.
+- Waivers to the age rule go in `minimumReleaseAgeExclude` with a dated note here. Current waiver:
+  `vitest` and `@vitest/*` 4.1.11 (published 2026-08-18) because every older release since 2.1.0
+  carries GHSA-82fw-gwwq-j7x9. The waiver is unnecessary from 2026-09-17; remove it then.
+- Dependency build scripts are denied by default. `allowBuilds` in `pnpm-workspace.yaml` lists every
+  package that asked to run one and whether it may (`keytar` and `@vscode/vsce-sign` are denied;
+  vsce-sign's postinstall downloads a binary over the network and is only needed for publish-time
+  signing).
 - Prefer the latest major that satisfies the age rule and has no advisory in the GitHub Advisory
   Database or `pnpm audit`. Step down one version at a time until clean.
 - No dependency with a known regression on its release page or issue tracker for that exact version.
@@ -62,7 +70,7 @@ the dependency pinning report and the generated contrast report.
   runtime dependency requires a written justification in the commit message.
 - `strict-peer-dependencies=true`: peer ranges must be satisfied, not silenced.
 - Commit `pnpm-lock.yaml`; install with `--frozen-lockfile` in CI and before packaging.
-- Package with `vsce package --no-dependencies` so `node_modules` never enters the `.vsix`.
+- `package.json` sets `"vsce": { "dependencies": false }` so `node_modules` never enters the `.vsix`.
 - Re-verify versions quarterly using the procedure in `docs/dependency-versions.md`.
 
 ## Coding conventions
