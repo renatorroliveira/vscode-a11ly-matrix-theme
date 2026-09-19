@@ -49,6 +49,26 @@ describe('contrast contract', () => {
         }
     });
 
+    it('gates every ANSI color except the terminal background', () => {
+        const gated = new Set(CONTRAST_PAIRS.map((pair) => pair.foreground));
+        const ansi = Object.keys(theme.colors).filter((key) => key.startsWith('terminal.ansi'));
+        expect(ansi).toHaveLength(16);
+        for (const key of ansi.filter((candidate) => candidate !== 'terminal.ansiBlack')) {
+            expect(gated.has(key), key).toBe(true);
+        }
+        expect(gated.has('terminal.ansiBlack')).toBe(false);
+    });
+
+    it('gates every extension foreground the theme ships', () => {
+        const gated = new Set(CONTRAST_PAIRS.map((pair) => pair.foreground));
+        const shipped = Object.keys(theme.colors).filter(
+            (key) => /^(gitlens|errorLens|markdownAlert)\./.test(key) && !/Background|background/.test(key),
+        );
+        for (const key of shipped) {
+            expect(gated.has(key), key).toBe(true);
+        }
+    });
+
     it('passes every WCAG AA check', () => {
         const result = evaluateTheme(theme);
         const failing = [

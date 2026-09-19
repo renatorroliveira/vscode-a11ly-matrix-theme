@@ -9,8 +9,12 @@
  * The palette is a High Contrast one: most surfaces are black and many
  * background ids are intentionally unset, so those pairs measure against
  * the surface that actually shows through (`editor.background`). Terminal
- * ANSI colors are not listed because VS Code enforces
- * `terminal.integrated.minimumContrastRatio` on them at render time.
+ * ANSI colors are gated as text so the AAA claim holds even when the user
+ * disables `terminal.integrated.minimumContrastRatio`; `ansiBlack` is the
+ * one exception because it is the terminal's own background and only ever
+ * shows as an inverse-video or background color. Extension ids shipped in
+ * the theme (`gitlens.*`, `errorLens.*`, `markdownAlert.*`) are gated with
+ * the same kinds as the core ids they mirror.
  * @module
  */
 
@@ -257,6 +261,128 @@ const CONTROL_PAIRS: readonly ContrastPair[] = [
     ui('problemsInfoIcon.foreground', EDITOR, 'Problems info icon'),
 ];
 
+const TERMINAL_PAIRS: readonly ContrastPair[] = [
+    text('terminal.ansiRed', EDITOR, 'ANSI red'),
+    text('terminal.ansiGreen', EDITOR, 'ANSI green'),
+    text('terminal.ansiYellow', EDITOR, 'ANSI yellow'),
+    text('terminal.ansiBlue', EDITOR, 'ANSI blue'),
+    text('terminal.ansiMagenta', EDITOR, 'ANSI magenta'),
+    text('terminal.ansiCyan', EDITOR, 'ANSI cyan'),
+    text('terminal.ansiWhite', EDITOR, 'ANSI white'),
+    text('terminal.ansiBrightBlack', EDITOR, 'ANSI bright black'),
+    text('terminal.ansiBrightRed', EDITOR, 'ANSI bright red'),
+    text('terminal.ansiBrightGreen', EDITOR, 'ANSI bright green'),
+    text('terminal.ansiBrightYellow', EDITOR, 'ANSI bright yellow'),
+    text('terminal.ansiBrightBlue', EDITOR, 'ANSI bright blue'),
+    text('terminal.ansiBrightMagenta', EDITOR, 'ANSI bright magenta'),
+    text('terminal.ansiBrightCyan', EDITOR, 'ANSI bright cyan'),
+    text('terminal.ansiBrightWhite', EDITOR, 'ANSI bright white'),
+];
+
+const GITLENS_PAIRS: readonly ContrastPair[] = [
+    text('gitlens.decorations.addedForegroundColor', SIDEBAR, 'GitLens added decoration'),
+    text('gitlens.decorations.branchAheadForegroundColor', SIDEBAR, 'GitLens branch ahead'),
+    text('gitlens.decorations.branchBehindForegroundColor', SIDEBAR, 'GitLens branch behind'),
+    text('gitlens.decorations.branchDivergedForegroundColor', SIDEBAR, 'GitLens branch diverged'),
+    text('gitlens.decorations.branchMissingUpstreamForegroundColor', SIDEBAR, 'GitLens branch missing upstream'),
+    text('gitlens.decorations.copiedForegroundColor', SIDEBAR, 'GitLens copied decoration'),
+    text('gitlens.decorations.deletedForegroundColor', SIDEBAR, 'GitLens deleted decoration'),
+    dimmed('gitlens.decorations.ignoredForegroundColor', SIDEBAR, 'GitLens ignored decoration'),
+    text('gitlens.decorations.modifiedForegroundColor', SIDEBAR, 'GitLens modified decoration'),
+    text('gitlens.decorations.renamedForegroundColor', SIDEBAR, 'GitLens renamed decoration'),
+    text(
+        'gitlens.decorations.statusMergingOrRebasingConflictForegroundColor',
+        SIDEBAR,
+        'GitLens merge conflict status',
+    ),
+    text('gitlens.decorations.statusMergingOrRebasingForegroundColor', SIDEBAR, 'GitLens merging status'),
+    text('gitlens.decorations.statusPausedOperationReadyForegroundColor', SIDEBAR, 'GitLens paused operation status'),
+    text('gitlens.decorations.untrackedForegroundColor', SIDEBAR, 'GitLens untracked decoration'),
+    text('gitlens.decorations.workspaceCurrentForegroundColor', SIDEBAR, 'GitLens current workspace'),
+    text('gitlens.decorations.workspaceRepoMissingForegroundColor', SIDEBAR, 'GitLens missing workspace repo'),
+    text('gitlens.decorations.workspaceRepoOpenForegroundColor', SIDEBAR, 'GitLens open workspace repo'),
+    text('gitlens.decorations.worktreeHasUncommittedChangesForegroundColor', SIDEBAR, 'GitLens worktree changes'),
+    text('gitlens.decorations.worktreeMissingForegroundColor', SIDEBAR, 'GitLens missing worktree'),
+    text('gitlens.gutterForegroundColor', 'gitlens.gutterBackgroundColor', 'GitLens gutter blame', EDITOR),
+    text(
+        'gitlens.gutterUncommittedForegroundColor',
+        'gitlens.gutterBackgroundColor',
+        'GitLens uncommitted blame',
+        EDITOR,
+    ),
+    text('gitlens.trailingLineForegroundColor', EDITOR, 'GitLens trailing blame'),
+    text('gitlens.graphChangesColumnAddedColor', EDITOR, 'GitLens graph additions count'),
+    text('gitlens.graphChangesColumnDeletedColor', EDITOR, 'GitLens graph deletions count'),
+    ui('gitlens.closedAutolinkedIssueIconColor', EDITOR, 'GitLens closed issue icon'),
+    ui('gitlens.closedPullRequestIconColor', EDITOR, 'GitLens closed pull request icon'),
+    ui('gitlens.mergedPullRequestIconColor', EDITOR, 'GitLens merged pull request icon'),
+    ui('gitlens.openAutolinkedIssueIconColor', EDITOR, 'GitLens open issue icon'),
+    ui('gitlens.openPullRequestIconColor', EDITOR, 'GitLens open pull request icon'),
+    ui('gitlens.unpublishedChangesIconColor', EDITOR, 'GitLens unpublished changes icon'),
+    ui('gitlens.unpublishedCommitIconColor', EDITOR, 'GitLens unpublished commit icon'),
+    ui('gitlens.unpulledChangesIconColor', EDITOR, 'GitLens unpulled changes icon'),
+    ui('gitlens.launchpadIndicatorAttentionColor', EDITOR, 'GitLens launchpad attention'),
+    ui('gitlens.launchpadIndicatorAttentionHoverColor', EDITOR, 'GitLens launchpad attention hover'),
+    ui('gitlens.launchpadIndicatorBlockedColor', EDITOR, 'GitLens launchpad blocked'),
+    ui('gitlens.launchpadIndicatorBlockedHoverColor', EDITOR, 'GitLens launchpad blocked hover'),
+    ui('gitlens.launchpadIndicatorMergeableColor', EDITOR, 'GitLens launchpad mergeable'),
+    ui('gitlens.launchpadIndicatorMergeableHoverColor', EDITOR, 'GitLens launchpad mergeable hover'),
+    ui('gitlens.timelineAdditionsColor', EDITOR, 'GitLens timeline additions'),
+    ui('gitlens.timelineDeletionsColor', EDITOR, 'GitLens timeline deletions'),
+    ui('gitlens.graphLane1Color', EDITOR, 'GitLens graph lane 1'),
+    ui('gitlens.graphLane2Color', EDITOR, 'GitLens graph lane 2'),
+    ui('gitlens.graphLane3Color', EDITOR, 'GitLens graph lane 3'),
+    ui('gitlens.graphLane4Color', EDITOR, 'GitLens graph lane 4'),
+    ui('gitlens.graphLane5Color', EDITOR, 'GitLens graph lane 5'),
+    ui('gitlens.graphLane6Color', EDITOR, 'GitLens graph lane 6'),
+    ui('gitlens.graphLane7Color', EDITOR, 'GitLens graph lane 7'),
+    ui('gitlens.graphLane8Color', EDITOR, 'GitLens graph lane 8'),
+    ui('gitlens.graphLane9Color', EDITOR, 'GitLens graph lane 9'),
+    ui('gitlens.graphLane10Color', EDITOR, 'GitLens graph lane 10'),
+    ui('gitlens.graphMinimapMarkerHeadColor', EDITOR, 'GitLens minimap head marker'),
+    ui('gitlens.graphMinimapMarkerHighlightsColor', EDITOR, 'GitLens minimap highlight marker'),
+    ui('gitlens.graphMinimapMarkerLocalBranchesColor', EDITOR, 'GitLens minimap local branch marker'),
+    ui('gitlens.graphMinimapMarkerPullRequestsColor', EDITOR, 'GitLens minimap pull request marker'),
+    ui('gitlens.graphMinimapMarkerRemoteBranchesColor', EDITOR, 'GitLens minimap remote branch marker'),
+    ui('gitlens.graphMinimapMarkerStashesColor', EDITOR, 'GitLens minimap stash marker'),
+    ui('gitlens.graphMinimapMarkerTagsColor', EDITOR, 'GitLens minimap tag marker'),
+    ui('gitlens.graphMinimapMarkerUpstreamColor', EDITOR, 'GitLens minimap upstream marker'),
+    ui('gitlens.graphMinimapMarkerWorktreeColor', EDITOR, 'GitLens minimap worktree marker'),
+    ui('gitlens.graphScrollMarkerHeadColor', EDITOR, 'GitLens scroll head marker'),
+    ui('gitlens.graphScrollMarkerHighlightsColor', EDITOR, 'GitLens scroll highlight marker'),
+    ui('gitlens.graphScrollMarkerLocalBranchesColor', EDITOR, 'GitLens scroll local branch marker'),
+    ui('gitlens.graphScrollMarkerMergeTargetColor', EDITOR, 'GitLens scroll merge target marker'),
+    ui('gitlens.graphScrollMarkerPinnedColor', EDITOR, 'GitLens scroll pinned marker'),
+    ui('gitlens.graphScrollMarkerPullRequestsColor', EDITOR, 'GitLens scroll pull request marker'),
+    ui('gitlens.graphScrollMarkerRemoteBranchesColor', EDITOR, 'GitLens scroll remote branch marker'),
+    ui('gitlens.graphScrollMarkerStashesColor', EDITOR, 'GitLens scroll stash marker'),
+    ui('gitlens.graphScrollMarkerTagsColor', EDITOR, 'GitLens scroll tag marker'),
+    ui('gitlens.graphScrollMarkerUpstreamColor', EDITOR, 'GitLens scroll upstream marker'),
+    ui('gitlens.graphScrollMarkerWipColor', EDITOR, 'GitLens scroll WIP marker'),
+    mark('gitlens.lineHighlightOverviewRulerColor', EDITOR, 'GitLens blame line overview ruler mark'),
+];
+
+const EXTENSION_PAIRS: readonly ContrastPair[] = [
+    text('errorLens.errorForeground', EDITOR, 'Error Lens error message'),
+    text('errorLens.errorForegroundLight', EDITOR, 'Error Lens error message (light variant)'),
+    text('errorLens.warningForeground', EDITOR, 'Error Lens warning message'),
+    text('errorLens.warningForegroundLight', EDITOR, 'Error Lens warning message (light variant)'),
+    text('errorLens.infoForeground', EDITOR, 'Error Lens info message'),
+    text('errorLens.infoForegroundLight', EDITOR, 'Error Lens info message (light variant)'),
+    text('errorLens.hintForeground', EDITOR, 'Error Lens hint message'),
+    text('errorLens.hintForegroundLight', EDITOR, 'Error Lens hint message (light variant)'),
+    text('errorLens.statusBarErrorForeground', EDITOR, 'Error Lens status bar error'),
+    text('errorLens.statusBarWarningForeground', EDITOR, 'Error Lens status bar warning'),
+    text('errorLens.statusBarInfoForeground', EDITOR, 'Error Lens status bar info'),
+    text('errorLens.statusBarHintForeground', EDITOR, 'Error Lens status bar hint'),
+    ui('errorLens.statusBarIconErrorForeground', EDITOR, 'Error Lens status bar error icon'),
+    ui('errorLens.statusBarIconWarningForeground', EDITOR, 'Error Lens status bar warning icon'),
+    text('markdownAlert.note.foreground', EDITOR, 'Markdown note alert'),
+    text('markdownAlert.tip.foreground', EDITOR, 'Markdown tip alert'),
+    text('markdownAlert.warning.foreground', EDITOR, 'Markdown warning alert'),
+    text('markdownAlert.caution.foreground', EDITOR, 'Markdown caution alert'),
+];
+
 /** Every pair the build gate checks, in report order. */
 export const CONTRAST_PAIRS: readonly ContrastPair[] = [
     ...EDITOR_PAIRS,
@@ -264,6 +390,9 @@ export const CONTRAST_PAIRS: readonly ContrastPair[] = [
     ...SIDEBAR_PAIRS,
     ...CHROME_PAIRS,
     ...CONTROL_PAIRS,
+    ...TERMINAL_PAIRS,
+    ...GITLENS_PAIRS,
+    ...EXTENSION_PAIRS,
 ];
 
 /**
@@ -294,4 +423,11 @@ export const DISTINGUISHABLE_GROUPS: Readonly<Record<string, readonly string[]>>
         'editorWarning.foreground',
         'editorInfo.foreground',
     ],
+    ansiRedTiers: ['terminal.ansiRed', 'terminal.ansiBrightRed'],
+    ansiGreenTiers: ['terminal.ansiGreen', 'terminal.ansiBrightGreen'],
+    ansiYellowTiers: ['terminal.ansiYellow', 'terminal.ansiBrightYellow'],
+    ansiBlueTiers: ['terminal.ansiBlue', 'terminal.ansiBrightBlue'],
+    ansiMagentaTiers: ['terminal.ansiMagenta', 'terminal.ansiBrightMagenta'],
+    ansiCyanTiers: ['terminal.ansiCyan', 'terminal.ansiBrightCyan'],
+    ansiGreys: ['terminal.ansiBrightBlack', 'terminal.ansiWhite', 'terminal.ansiBrightWhite'],
 };

@@ -199,6 +199,110 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Problems error icon | ui | `problemsErrorIcon.foreground` #f48771 | `editor.background` #000000 | 8.55 | 4.5 | 15.5 | AAA |
 | PASS | Problems warning icon | ui | `problemsWarningIcon.foreground` #ffcb58 | `editor.background` #000000 | 13.94 | 4.5 | 15.5 | AAA |
 | PASS | Problems info icon | ui | `problemsInfoIcon.foreground` #59a4f9 | `editor.background` #000000 | 8.10 | 4.5 | 15.5 | AAA |
+| PASS | ANSI red | text | `terminal.ansiRed` #ff5e5e | `editor.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | ANSI green | text | `terminal.ansiGreen` #00ad2c | `editor.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | ANSI yellow | text | `terminal.ansiYellow` #c78900 | `editor.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | ANSI blue | text | `terminal.ansiBlue` #8888ff | `editor.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | ANSI magenta | text | `terminal.ansiMagenta` #ff29ff | `editor.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | ANSI cyan | text | `terminal.ansiCyan` #00a6a6 | `editor.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | ANSI white | text | `terminal.ansiWhite` #b3b3b3 | `editor.background` #000000 | 10.02 | 7 | 14 | AAA |
+| PASS | ANSI bright black | text | `terminal.ansiBrightBlack` #959595 | `editor.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | ANSI bright red | text | `terminal.ansiBrightRed` #ff9696 | `editor.background` #000000 | 10.05 | 7 | 14 | AAA |
+| PASS | ANSI bright green | text | `terminal.ansiBrightGreen` #00f33e | `editor.background` #000000 | 13.89 | 7 | 14 | AAA |
+| PASS | ANSI bright yellow | text | `terminal.ansiBrightYellow` #d9d900 | `editor.background` #000000 | 13.88 | 7 | 14 | AAA |
+| PASS | ANSI bright blue | text | `terminal.ansiBrightBlue` #ababff | `editor.background` #000000 | 10.00 | 7 | 14 | AAA |
+| PASS | ANSI bright magenta | text | `terminal.ansiBrightMagenta` #ff85ff | `editor.background` #000000 | 10.05 | 7 | 14 | AAA |
+| PASS | ANSI bright cyan | text | `terminal.ansiBrightCyan` #00eaea | `editor.background` #000000 | 13.96 | 7 | 14 | AAA |
+| PASS | ANSI bright white | text | `terminal.ansiBrightWhite` #d2d2d2 | `editor.background` #000000 | 13.89 | 7 | 14 | AAA |
+| PASS | GitLens added decoration | text | `gitlens.decorations.addedForegroundColor` #9fe2ab | `sideBar.background` #000000 | 13.94 | 7 | 14 | AAA |
+| PASS | GitLens branch ahead | text | `gitlens.decorations.branchAheadForegroundColor` #00f350 | `sideBar.background` #000000 | 13.94 | 7 | 14 | AAA |
+| PASS | GitLens branch behind | text | `gitlens.decorations.branchBehindForegroundColor` #ff874c | `sideBar.background` #000000 | 8.82 | 7 | 14 | AAA |
+| PASS | GitLens branch diverged | text | `gitlens.decorations.branchDivergedForegroundColor` #d8af1b | `sideBar.background` #000000 | 10.07 | 7 | 14 | AAA |
+| PASS | GitLens branch missing upstream | text | `gitlens.decorations.branchMissingUpstreamForegroundColor` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | GitLens copied decoration | text | `gitlens.decorations.copiedForegroundColor` #73c991 | `sideBar.background` #000000 | 10.49 | 7 | 14 | AAA |
+| PASS | GitLens deleted decoration | text | `gitlens.decorations.deletedForegroundColor` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | GitLens ignored decoration | dimmed | `gitlens.decorations.ignoredForegroundColor` #a7a8a9 | `sideBar.background` #000000 | 8.82 | 4.5 | 14 | AAA |
+| PASS | GitLens modified decoration | text | `gitlens.decorations.modifiedForegroundColor` #e2c08d | `sideBar.background` #000000 | 12.16 | 7 | 14 | AAA |
+| PASS | GitLens renamed decoration | text | `gitlens.decorations.renamedForegroundColor` #73c991 | `sideBar.background` #000000 | 10.49 | 7 | 14 | AAA |
+| PASS | GitLens merge conflict status | text | `gitlens.decorations.statusMergingOrRebasingConflictForegroundColor` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | GitLens merging status | text | `gitlens.decorations.statusMergingOrRebasingForegroundColor` #d8af1b | `sideBar.background` #000000 | 10.07 | 7 | 14 | AAA |
+| PASS | GitLens paused operation status | text | `gitlens.decorations.statusPausedOperationReadyForegroundColor` #3fb950 | `sideBar.background` #000000 | 8.27 | 7 | 14 | AAA |
+| PASS | GitLens untracked decoration | text | `gitlens.decorations.untrackedForegroundColor` #73c991 | `sideBar.background` #000000 | 10.49 | 7 | 14 | AAA |
+| PASS | GitLens current workspace | text | `gitlens.decorations.workspaceCurrentForegroundColor` #00f350 | `sideBar.background` #000000 | 13.94 | 7 | 14 | AAA |
+| PASS | GitLens missing workspace repo | text | `gitlens.decorations.workspaceRepoMissingForegroundColor` #d2d2d2 | `sideBar.background` #000000 | 13.89 | 7 | 14 | AAA |
+| PASS | GitLens open workspace repo | text | `gitlens.decorations.workspaceRepoOpenForegroundColor` #00f350 | `sideBar.background` #000000 | 13.94 | 7 | 14 | AAA |
+| PASS | GitLens worktree changes | text | `gitlens.decorations.worktreeHasUncommittedChangesForegroundColor` #e2c08d | `sideBar.background` #000000 | 12.16 | 7 | 14 | AAA |
+| PASS | GitLens missing worktree | text | `gitlens.decorations.worktreeMissingForegroundColor` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | GitLens gutter blame | text | `gitlens.gutterForegroundColor` #bebebe | `gitlens.gutterBackgroundColor` #ffffff13 | 10.00 | 7 | 14 | AAA |
+| PASS | GitLens uncommitted blame | text | `gitlens.gutterUncommittedForegroundColor` #00bcf2 | `gitlens.gutterBackgroundColor` #ffffff13 | 8.38 | 7 | 14 | AAA |
+| PASS | GitLens trailing blame | text | `gitlens.trailingLineForegroundColor` #b3b3b3 | `editor.background` #000000 | 10.02 | 7 | 14 | AAA |
+| PASS | GitLens graph additions count | text | `gitlens.graphChangesColumnAddedColor` #46a94d | `editor.background` #000000 | 7.04 | 7 | 14 | AAA |
+| PASS | GitLens graph deletions count | text | `gitlens.graphChangesColumnDeletedColor` #da7a76 | `editor.background` #000000 | 7.03 | 7 | 14 | AAA |
+| PASS | GitLens closed issue icon | ui | `gitlens.closedAutolinkedIssueIconColor` #8c49ff | `editor.background` #000000 | 4.51 | 4.5 | 15.5 | AAA |
+| PASS | GitLens closed pull request icon | ui | `gitlens.closedPullRequestIconColor` #ff544b | `editor.background` #000000 | 6.62 | 4.5 | 15.5 | AAA |
+| PASS | GitLens merged pull request icon | ui | `gitlens.mergedPullRequestIconColor` #8c49ff | `editor.background` #000000 | 4.51 | 4.5 | 15.5 | AAA |
+| PASS | GitLens open issue icon | ui | `gitlens.openAutolinkedIssueIconColor` #2cff44 | `editor.background` #000000 | 15.49 | 4.5 | 15.5 | AAA |
+| PASS | GitLens open pull request icon | ui | `gitlens.openPullRequestIconColor` #2cff44 | `editor.background` #000000 | 15.49 | 4.5 | 15.5 | AAA |
+| PASS | GitLens unpublished changes icon | ui | `gitlens.unpublishedChangesIconColor` #12ff60 | `editor.background` #000000 | 15.50 | 4.5 | 15.5 | AAA |
+| PASS | GitLens unpublished commit icon | ui | `gitlens.unpublishedCommitIconColor` #12ff60 | `editor.background` #000000 | 15.50 | 4.5 | 15.5 | AAA |
+| PASS | GitLens unpulled changes icon | ui | `gitlens.unpulledChangesIconColor` #ff874c | `editor.background` #000000 | 8.82 | 4.5 | 15.5 | AAA |
+| PASS | GitLens launchpad attention | ui | `gitlens.launchpadIndicatorAttentionColor` #d8af1b | `editor.background` #000000 | 10.07 | 4.5 | 15.5 | AAA |
+| PASS | GitLens launchpad attention hover | ui | `gitlens.launchpadIndicatorAttentionHoverColor` #d8af1b | `editor.background` #000000 | 10.07 | 4.5 | 15.5 | AAA |
+| PASS | GitLens launchpad blocked | ui | `gitlens.launchpadIndicatorBlockedColor` #ff003c | `editor.background` #000000 | 5.32 | 4.5 | 15.5 | AAA |
+| PASS | GitLens launchpad blocked hover | ui | `gitlens.launchpadIndicatorBlockedHoverColor` #ff003c | `editor.background` #000000 | 5.32 | 4.5 | 15.5 | AAA |
+| PASS | GitLens launchpad mergeable | ui | `gitlens.launchpadIndicatorMergeableColor` #2cff44 | `editor.background` #000000 | 15.49 | 4.5 | 15.5 | AAA |
+| PASS | GitLens launchpad mergeable hover | ui | `gitlens.launchpadIndicatorMergeableHoverColor` #2cff44 | `editor.background` #000000 | 15.49 | 4.5 | 15.5 | AAA |
+| PASS | GitLens timeline additions | ui | `gitlens.timelineAdditionsColor` #49be47 | `editor.background` #000000 | 8.74 | 4.5 | 15.5 | AAA |
+| PASS | GitLens timeline deletions | ui | `gitlens.timelineDeletionsColor` #dd2d3b | `editor.background` #000000 | 4.51 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 1 | ui | `gitlens.graphLane1Color` #18d1d1 | `editor.background` #000000 | 11.08 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 2 | ui | `gitlens.graphLane2Color` #45c6fe | `editor.background` #000000 | 10.76 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 3 | ui | `gitlens.graphLane3Color` #98b5fe | `editor.background` #000000 | 10.38 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 4 | ui | `gitlens.graphLane4Color` #c9a1fe | `editor.background` #000000 | 10.01 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 5 | ui | `gitlens.graphLane5Color` #f58fd7 | `editor.background` #000000 | 9.79 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 6 | ui | `gitlens.graphLane6Color` #fe949d | `editor.background` #000000 | 9.94 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 7 | ui | `gitlens.graphLane7Color` #fe9b5e | `editor.background` #000000 | 10.06 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 8 | ui | `gitlens.graphLane8Color` #e0b027 | `editor.background` #000000 | 10.41 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 9 | ui | `gitlens.graphLane9Color` #a6c750 | `editor.background` #000000 | 10.91 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 10 | ui | `gitlens.graphLane10Color` #4dd494 | `editor.background` #000000 | 11.16 | 4.5 | 15.5 | AAA |
+| PASS | GitLens minimap head marker | ui | `gitlens.graphMinimapMarkerHeadColor` #59cf84 | `editor.background` #000000 | 10.68 | 4.5 | 15.5 | AAA |
+| PASS | GitLens minimap highlight marker | ui | `gitlens.graphMinimapMarkerHighlightsColor` #e2e500 | `editor.background` #000000 | 15.44 | 4.5 | 15.5 | AAA |
+| PASS | GitLens minimap local branch marker | ui | `gitlens.graphMinimapMarkerLocalBranchesColor` #3087cf | `editor.background` #000000 | 5.49 | 4.5 | 15.5 | AAA |
+| PASS | GitLens minimap pull request marker | ui | `gitlens.graphMinimapMarkerPullRequestsColor` #c76801 | `editor.background` #000000 | 5.41 | 4.5 | 15.5 | AAA |
+| PASS | GitLens minimap remote branch marker | ui | `gitlens.graphMinimapMarkerRemoteBranchesColor` #3779ae | `editor.background` #000000 | 4.51 | 4.5 | 15.5 | AAA |
+| PASS | GitLens minimap stash marker | ui | `gitlens.graphMinimapMarkerStashesColor` #6e7681 | `editor.background` #000000 | 4.57 | 4.5 | 15.5 | AAA |
+| PASS | GitLens minimap tag marker | ui | `gitlens.graphMinimapMarkerTagsColor` #8c713c | `editor.background` #000000 | 4.54 | 4.5 | 15.5 | AAA |
+| PASS | GitLens minimap upstream marker | ui | `gitlens.graphMinimapMarkerUpstreamColor` #12a04f | `editor.background` #000000 | 6.17 | 4.5 | 15.5 | AAA |
+| PASS | GitLens minimap worktree marker | ui | `gitlens.graphMinimapMarkerWorktreeColor` #f472b6 | `editor.background` #000000 | 7.93 | 4.5 | 15.5 | AAA |
+| PASS | GitLens scroll head marker | ui | `gitlens.graphScrollMarkerHeadColor` #59cf84 | `editor.background` #000000 | 10.68 | 4.5 | 15.5 | AAA |
+| PASS | GitLens scroll highlight marker | ui | `gitlens.graphScrollMarkerHighlightsColor` #e2e500 | `editor.background` #000000 | 15.44 | 4.5 | 15.5 | AAA |
+| PASS | GitLens scroll local branch marker | ui | `gitlens.graphScrollMarkerLocalBranchesColor` #3087cf | `editor.background` #000000 | 5.49 | 4.5 | 15.5 | AAA |
+| PASS | GitLens scroll merge target marker | ui | `gitlens.graphScrollMarkerMergeTargetColor` #a371f7 | `editor.background` #000000 | 6.26 | 4.5 | 15.5 | AAA |
+| PASS | GitLens scroll pinned marker | ui | `gitlens.graphScrollMarkerPinnedColor` #22d3ee | `editor.background` #000000 | 11.62 | 4.5 | 15.5 | AAA |
+| PASS | GitLens scroll pull request marker | ui | `gitlens.graphScrollMarkerPullRequestsColor` #c76801 | `editor.background` #000000 | 5.41 | 4.5 | 15.5 | AAA |
+| PASS | GitLens scroll remote branch marker | ui | `gitlens.graphScrollMarkerRemoteBranchesColor` #3779ae | `editor.background` #000000 | 4.51 | 4.5 | 15.5 | AAA |
+| PASS | GitLens scroll stash marker | ui | `gitlens.graphScrollMarkerStashesColor` #6e7681 | `editor.background` #000000 | 4.57 | 4.5 | 15.5 | AAA |
+| PASS | GitLens scroll tag marker | ui | `gitlens.graphScrollMarkerTagsColor` #8c713c | `editor.background` #000000 | 4.54 | 4.5 | 15.5 | AAA |
+| PASS | GitLens scroll upstream marker | ui | `gitlens.graphScrollMarkerUpstreamColor` #12a04f | `editor.background` #000000 | 6.17 | 4.5 | 15.5 | AAA |
+| PASS | GitLens scroll WIP marker | ui | `gitlens.graphScrollMarkerWipColor` #f472b6 | `editor.background` #000000 | 7.93 | 4.5 | 15.5 | AAA |
+| PASS | GitLens blame line overview ruler mark | mark | `gitlens.lineHighlightOverviewRulerColor` #00bcf2b3 | `editor.background` #000000 | 4.88 | 4.5 | 7 | AAA |
+| PASS | Error Lens error message | text | `errorLens.errorForeground` #ff6464 | `editor.background` #000000 | 7.26 | 7 | 14 | AAA |
+| PASS | Error Lens error message (light variant) | text | `errorLens.errorForegroundLight` #e97171 | `editor.background` #000000 | 7.07 | 7 | 14 | AAA |
+| PASS | Error Lens warning message | text | `errorLens.warningForeground` #fa973a | `editor.background` #000000 | 9.55 | 7 | 14 | AAA |
+| PASS | Error Lens warning message (light variant) | text | `errorLens.warningForegroundLight` #ff942f | `editor.background` #000000 | 9.53 | 7 | 14 | AAA |
+| PASS | Error Lens info message | text | `errorLens.infoForeground` #00b7e4 | `editor.background` #000000 | 8.89 | 7 | 14 | AAA |
+| PASS | Error Lens info message (light variant) | text | `errorLens.infoForegroundLight` #00b7e4 | `editor.background` #000000 | 8.89 | 7 | 14 | AAA |
+| PASS | Error Lens hint message | text | `errorLens.hintForeground` #2faf64 | `editor.background` #000000 | 7.44 | 7 | 14 | AAA |
+| PASS | Error Lens hint message (light variant) | text | `errorLens.hintForegroundLight` #2faf64 | `editor.background` #000000 | 7.44 | 7 | 14 | AAA |
+| PASS | Error Lens status bar error | text | `errorLens.statusBarErrorForeground` #ff6464 | `editor.background` #000000 | 7.26 | 7 | 14 | AAA |
+| PASS | Error Lens status bar warning | text | `errorLens.statusBarWarningForeground` #fa973a | `editor.background` #000000 | 9.55 | 7 | 14 | AAA |
+| PASS | Error Lens status bar info | text | `errorLens.statusBarInfoForeground` #00b7e4 | `editor.background` #000000 | 8.89 | 7 | 14 | AAA |
+| PASS | Error Lens status bar hint | text | `errorLens.statusBarHintForeground` #2faf64 | `editor.background` #000000 | 7.44 | 7 | 14 | AAA |
+| PASS | Error Lens status bar error icon | ui | `errorLens.statusBarIconErrorForeground` #ff6464 | `editor.background` #000000 | 7.26 | 4.5 | 15.5 | AAA |
+| PASS | Error Lens status bar warning icon | ui | `errorLens.statusBarIconWarningForeground` #fa973a | `editor.background` #000000 | 9.55 | 4.5 | 15.5 | AAA |
+| PASS | Markdown note alert | text | `markdownAlert.note.foreground` #59a4f9 | `editor.background` #000000 | 8.10 | 7 | 14 | AAA |
+| PASS | Markdown tip alert | text | `markdownAlert.tip.foreground` #89d185 | `editor.background` #000000 | 11.52 | 7 | 14 | AAA |
+| PASS | Markdown warning alert | text | `markdownAlert.warning.foreground` #ffcb58 | `editor.background` #000000 | 13.94 | 7 | 14 | AAA |
+| PASS | Markdown caution alert | text | `markdownAlert.caution.foreground` #f48771 | `editor.background` #000000 | 8.55 | 7 | 14 | AAA |
 
 ## Syntax token foregrounds on `editor.background`
 
@@ -291,3 +395,31 @@ Closest pair inside each semantic group, per vision type. Delta E (CIE76) below 
 | ok | focusVersusDiagnostics | protanopia | `focusBorder` vs `editorWarning.foreground` | 13.8 |
 | ok | focusVersusDiagnostics | deuteranopia | `focusBorder` vs `editorWarning.foreground` | 17.8 |
 | ok | focusVersusDiagnostics | tritanopia | `focusBorder` vs `editorWarning.foreground` | 15.9 |
+| ok | ansiRedTiers | normal | `terminal.ansiRed` vs `terminal.ansiBrightRed` | 29.4 |
+| ok | ansiRedTiers | protanopia | `terminal.ansiRed` vs `terminal.ansiBrightRed` | 18.4 |
+| ok | ansiRedTiers | deuteranopia | `terminal.ansiRed` vs `terminal.ansiBrightRed` | 20.5 |
+| ok | ansiRedTiers | tritanopia | `terminal.ansiRed` vs `terminal.ansiBrightRed` | 33.6 |
+| ok | ansiGreenTiers | normal | `terminal.ansiGreen` vs `terminal.ansiBrightGreen` | 33.3 |
+| ok | ansiGreenTiers | protanopia | `terminal.ansiGreen` vs `terminal.ansiBrightGreen` | 30.9 |
+| ok | ansiGreenTiers | deuteranopia | `terminal.ansiGreen` vs `terminal.ansiBrightGreen` | 26.5 |
+| ok | ansiGreenTiers | tritanopia | `terminal.ansiGreen` vs `terminal.ansiBrightGreen` | 25.5 |
+| ok | ansiYellowTiers | normal | `terminal.ansiYellow` vs `terminal.ansiBrightYellow` | 43.9 |
+| ok | ansiYellowTiers | protanopia | `terminal.ansiYellow` vs `terminal.ansiBrightYellow` | 32.7 |
+| ok | ansiYellowTiers | deuteranopia | `terminal.ansiYellow` vs `terminal.ansiBrightYellow` | 25.0 |
+| ok | ansiYellowTiers | tritanopia | `terminal.ansiYellow` vs `terminal.ansiBrightYellow` | 37.2 |
+| ok | ansiBlueTiers | normal | `terminal.ansiBlue` vs `terminal.ansiBrightBlue` | 23.9 |
+| ok | ansiBlueTiers | protanopia | `terminal.ansiBlue` vs `terminal.ansiBrightBlue` | 20.1 |
+| ok | ansiBlueTiers | deuteranopia | `terminal.ansiBlue` vs `terminal.ansiBrightBlue` | 22.3 |
+| ok | ansiBlueTiers | tritanopia | `terminal.ansiBlue` vs `terminal.ansiBrightBlue` | 14.0 |
+| ok | ansiMagentaTiers | normal | `terminal.ansiMagenta` vs `terminal.ansiBrightMagenta` | 38.0 |
+| ok | ansiMagentaTiers | protanopia | `terminal.ansiMagenta` vs `terminal.ansiBrightMagenta` | 27.0 |
+| ok | ansiMagentaTiers | deuteranopia | `terminal.ansiMagenta` vs `terminal.ansiBrightMagenta` | 18.4 |
+| ok | ansiMagentaTiers | tritanopia | `terminal.ansiMagenta` vs `terminal.ansiBrightMagenta` | 27.0 |
+| ok | ansiCyanTiers | normal | `terminal.ansiCyan` vs `terminal.ansiBrightCyan` | 25.1 |
+| ok | ansiCyanTiers | protanopia | `terminal.ansiCyan` vs `terminal.ansiBrightCyan` | 23.7 |
+| ok | ansiCyanTiers | deuteranopia | `terminal.ansiCyan` vs `terminal.ansiBrightCyan` | 22.4 |
+| ok | ansiCyanTiers | tritanopia | `terminal.ansiCyan` vs `terminal.ansiBrightCyan` | 25.8 |
+| ok | ansiGreys | normal | `terminal.ansiBrightBlack` vs `terminal.ansiWhite` | 11.2 |
+| ok | ansiGreys | protanopia | `terminal.ansiBrightBlack` vs `terminal.ansiWhite` | 11.2 |
+| ok | ansiGreys | deuteranopia | `terminal.ansiBrightBlack` vs `terminal.ansiWhite` | 11.2 |
+| ok | ansiGreys | tritanopia | `terminal.ansiBrightBlack` vs `terminal.ansiWhite` | 11.2 |

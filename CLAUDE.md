@@ -59,10 +59,17 @@ the dependency pinning report and the generated contrast report.
    `accent.fill` `#004913` with `text.primary` (7.08:1); the fill itself is 1.96:1 on black because a
    fill that carries 7:1 text of luminance L can reach at most (L + 0.05) / 7 - 0.05 against black.
    Highlights use green borders instead of fills, focus rings are amber.
-6. Terminal ANSI colors are not gated: VS Code enforces `terminal.integrated.minimumContrastRatio`
-   on them at render time. They still follow the ceiling: `ansiBrightWhite` is `text.primary`,
-   `ansiWhite` is `text.secondary`, bright yellow and cyan are capped at 14:1. Everything else that
-   renders text, an icon or a border is gated.
+6. Terminal ANSI colors are gated as text (7:1 to 14:1) so the AAA claim holds even when the user
+   disables `terminal.integrated.minimumContrastRatio` (its default lifts only to 4.5:1). The normal
+   tier sits at the floor (red `#ff5e5e`, green `accent.border`, yellow `#c78900`, blue `#8888ff`,
+   magenta `#ff29ff`, cyan `#00a6a6`, bright black `#959595`), the bright tier at 10:1 or above
+   (bright red `#ff9696`, bright blue `#ababff`, bright magenta `#ff85ff`) or at the ceiling (bright
+   green `accent.primaryText`, bright cyan `#00eaea`, bright yellow `#d9d900`, `ansiBrightWhite`
+   `text.primary`, `ansiWhite` `text.secondary`). Each hue's two tiers form a `DISTINGUISHABLE_GROUPS`
+   entry. `ansiBlack` stays `#000000` and is not gated: it is the terminal's own background and only
+   shows as an inverse-video or background color. Extension ids shipped in the theme (`gitlens.*`,
+   `errorLens.*`, `markdownAlert.*`) are gated with the same kinds as the core ids they mirror; graph
+   lanes and minimap markers are `ui` like chart series.
 7. Color is never the only signal. Colors inside a `DISTINGUISHABLE_GROUPS` set must stay apart
    (delta E >= 10) under normal vision and protanopia, deuteranopia and tritanopia simulation. Today
    this is informational (WARN); treat new warnings as defects.
