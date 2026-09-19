@@ -7,17 +7,17 @@ import `scripts/color/`; nothing was computed by hand. The chosen values live in
 
 ## Roles
 
-| Role                                                                       | Value     | Ratio on `#000000` | Basis                                                                        |
-| -------------------------------------------------------------------------- | --------- | ------------------ | ---------------------------------------------------------------------------- |
-| Text primary: body text, code, labels, carets, icons, bright ANSI white    | `#d2d2d2` | 13.89              | Light grey under the 14:1 text ceiling (APCA Lc 80); see the section below   |
-| Text secondary: line numbers, descriptions, placeholders, inlay hints      | `#b3b3b3` | 10.02              | One step down, delta E 11.3 from the primary, still 8.82:1 on widget panels  |
-| Mark passive: indent guides, rulers, rendered whitespace                   | `#7c7c7c` | 5.03               | Below every text color so structure never competes with tokens               |
-| Mark active: active indent guide, overview ruler comment marks             | `#949494` | 6.92               | Top of the passive band, under the 7:1 text floor                            |
-| Primary: highlight outlines, find matches, minimap selection, bright green | `#00ff41` | 15.38              | "Matrix Code Green" fan palette; also Quiet Hacker and Durgonix themes       |
-| Primary text: filter and suggest match highlights                          | `#00f33e` | 13.89              | The primary lowered to the text ceiling, delta E 5.5 from it                 |
-| Border: ambient borders, current line outline, normal green                | `#00ad2c` | 7.01               | Same hue as the primary, lightness lowered until 7:1                         |
-| Secondary: focus rings, active indicators, active text                     | `#ffb000` | 11.46              | P3 amber phosphor, the VT220 amber option that shipped alongside green tubes |
-| Fill: text selection (primary text) and hovered rows, tabs, items          | `#004913` | 1.96               | Same hue darkened until `text.primary` reaches 7.08:1                        |
+| Role                                                                    | Value     | Ratio on `#000000` | Basis                                                                        |
+| ----------------------------------------------------------------------- | --------- | ------------------ | ---------------------------------------------------------------------------- |
+| Text primary: body text, code, labels, carets, icons, bright ANSI white | `#d2d2d2` | 13.89              | Light grey under the 14:1 text ceiling (APCA Lc 80); see the section below   |
+| Text secondary: line numbers, descriptions, placeholders, inlay hints   | `#b3b3b3` | 10.02              | One step down, delta E 11.3 from the primary, still 8.82:1 on widget panels  |
+| Mark passive: indent guides, rulers, rendered whitespace                | `#7c7c7c` | 5.03               | Below every text color so structure never competes with tokens               |
+| Mark active: active indent guide, overview ruler comment marks          | `#949494` | 6.92               | Top of the passive band, under the 7:1 text floor                            |
+| Primary: highlight outlines, find matches, minimap selection            | `#00ff41` | 15.38              | "Matrix Code Green" fan palette; also Quiet Hacker and Durgonix themes       |
+| Primary text: filter and suggest match highlights, bright ANSI green    | `#00f33e` | 13.89              | The primary lowered to the text ceiling, delta E 5.5 from it                 |
+| Border: ambient borders, current line outline, normal ANSI green        | `#00ad2c` | 7.01               | Same hue as the primary, lightness lowered until 7:1                         |
+| Secondary: focus rings, active indicators, active text                  | `#ffb000` | 11.46              | P3 amber phosphor, the VT220 amber option that shipped alongside green tubes |
+| Fill: text selection (primary text) and hovered rows, tabs, items       | `#004913` | 1.96               | Same hue darkened until `text.primary` reaches 7.08:1                        |
 
 ### Neutral text tier and contrast ceilings (2026-09-18)
 
@@ -97,6 +97,72 @@ users who want that can still raise `editor.foreground` in their settings. The s
 hovered row measures 5.10:1 (before: 5.4:1 with the old fill), unchanged in kind. Colored list labels on a
 hovered row improve: untracked `#73c991` goes from 3.50:1 to 5.35:1 and modified `#e2c08d` from 4.06:1 to
 6.20:1, still under 7:1 for the duration of the hover.
+
+### Terminal tiers and extension ids gated (2026-09-18)
+
+The text tier left two ungated areas. The sixteen ANSI colors kept the classic xterm values, five of them
+under the 7:1 floor, and relied on `terminal.integrated.minimumContrastRatio`. That setting defaults to
+4.5:1 (AA, not AAA), can be set to 1 by the user, and a theme should not override it through
+`contributes.configurationDefaults` because that would change the user's setting under every other theme
+as well. The ANSI colors are now shipped at their target ratio and gated as text against
+`editor.background`, with one exception: `ansiBlack` stays `#000000` because it is the terminal's own
+background and only renders as an inverse-video or background color; lifting it to grey would break
+black-on-colored text in programs that draw it.
+
+The tiers follow the same principle as the rest of the palette: the normal tier sits at the floor and the
+bright tier is at least 10:1, so a program that uses bold or bright for emphasis still gets a visible step
+without exceeding the 14:1 ceiling. Every value keeps its xterm hue; only lightness moved
+(`nudgeToContrast` up, `capToContrast` down):
+
+| Id                  | Before    | Ratio | After     | Ratio |
+| ------------------- | --------- | ----- | --------- | ----- |
+| `ansiRed`           | `#cd0000` | 3.60  | `#ff5e5e` | 7.01  |
+| `ansiBlue`          | `#0000ee` | 2.23  | `#8888ff` | 7.01  |
+| `ansiMagenta`       | `#cd00cd` | 4.48  | `#ff29ff` | 7.01  |
+| `ansiCyan`          | `#00cdcd` | 10.61 | `#00a6a6` | 7.01  |
+| `ansiYellow`        | `#ffb000` | 11.46 | `#c78900` | 7.01  |
+| `ansiBrightBlack`   | `#7f7f7f` | 5.24  | `#959595` | 7.01  |
+| `ansiBrightRed`     | `#ff0000` | 5.25  | `#ff9696` | 10.05 |
+| `ansiBrightBlue`    | `#5c5cff` | 4.43  | `#ababff` | 10.00 |
+| `ansiBrightMagenta` | `#ff00ff` | 6.70  | `#ff85ff` | 10.05 |
+| `ansiBrightGreen`   | `#00ff41` | 15.38 | `#00f33e` | 13.89 |
+
+`ansiGreen` (`accent.border`, 7.01), `ansiWhite` (`text.secondary`, 10.02), `ansiBrightWhite`
+(`text.primary`, 13.89), `ansiBrightCyan` (`#00eaea`, 13.96) and `ansiBrightYellow` (`#d9d900`, 13.88)
+were already in band. Cyan and yellow were lowered although they passed the floor: with both tiers between
+10:1 and 14:1 the normal and bright colors collapsed under color vision deficiency (amber `#ffb000` vs
+`#d9d900` delta E 4.8 under deuteranopia, `#00cdcd` vs `#00eaea` 9.4). Normal yellow therefore no longer
+shares the `accent.secondary` role. Each hue's two tiers and the three greys are `DISTINGUISHABLE_GROUPS`
+entries; the smallest separation after the change is delta E 10.5 (cyan tiers, normal vision) and 22.4
+under any dichromacy for the two hues that had failed.
+
+The pair list also gained the extension ids the theme ships. GitLens decorations, blame text and the
+graph's change counts are `text`; icons, launchpad indicators, timeline bars, graph lanes and minimap or
+scroll markers are `ui` like chart series; the blame overview ruler mark is `mark`; translucent fills are
+not gated. Error Lens messages are `text`, its status bar icons `ui`, and the four remaining Markdown
+alert colors are `text`. Of the 74 GitLens ids, 30 sat under 7:1 and 14 under 4.5:1 before the change.
+`pnpm audit:contrast --fix` repaired the 17 failing pairs in one pass because every extension id is a hex
+literal; two translucent foregrounds were set by hand. The two greys in the blame gutter
+(`gitlens.gutterForegroundColor` `#bebebe`, 11.30) and trailing line (`text.secondary`) now match the
+core blame decoration.
+
+| Id                                                              | Before      | Ratio | After            | Ratio |
+| --------------------------------------------------------------- | ----------- | ----- | ---------------- | ----- |
+| `gitlens.decorations.deletedForegroundColor` and 3 siblings     | `#c74e39`   | 4.58  | `#d67d6d`        | 7.01  |
+| `gitlens.decorations.branchAheadForegroundColor` and 2 siblings | `#12ff60`   | 15.50 | `#00f350`        | 13.94 |
+| `gitlens.graphChangesColumnAddedColor`                          | `#347d39`   | 4.14  | `#46a94d`        | 7.04  |
+| `gitlens.graphChangesColumnDeletedColor`                        | `#c93c37`   | 4.19  | `#da7a76`        | 7.03  |
+| `gitlens.closedAutolinkedIssueIconColor`, merged PR icon        | `#8945ff`   | 4.36  | `#8c49ff`        | 4.51  |
+| `gitlens.timelineDeletionsColor`                                | `#c3202d`   | 3.56  | `#dd2d3b`        | 4.51  |
+| Minimap and scroll remote branch markers                        | `#2b5e88`   | 3.06  | `#3779ae`        | 4.51  |
+| Minimap and scroll tag markers                                  | `#6b562e`   | 3.00  | `#8c713c`        | 4.54  |
+| `gitlens.lineHighlightOverviewRulerColor`                       | `#00bcf299` | 3.76  | `#00bcf2b3`      | 4.87  |
+| `gitlens.trailingLineForegroundColor`                           | `#99999999` | 3.13  | `text.secondary` | 10.02 |
+| `errorLens.errorForegroundLight`                                | `#e45454`   | 5.69  | `#e97171`        | 7.07  |
+
+The pair list grew from 190 to 294 pairs. The theme keeps its departure from the Windows High Contrast
+pure-white convention; the README now explains why and gives a `workbench.colorCustomizations` override
+for readers who prefer white.
 
 ### Why the fill is `#004913` and the selected text is `text.primary`
 
@@ -203,10 +269,8 @@ with orange is confusable at low saturation); Claus Wilke, Fundamentals of Data 
   fill such as `#00330d` would keep them at 7:1 at the cost of a second palette role and a 1.48:1 fill.
 - `scripts/audit/fix.ts` rewrites single- or double-quoted hex literals, but not role references such as
   `text.primary`; a failing role has to be changed in `src/palette.ts` by hand. The gate is unaffected.
-- The normal ANSI colors keep the classic xterm values and sit under the text floor on black (red
-  `#cd0000` 3.60:1, blue `#0000ee` 2.23:1, magenta `#cd00cd` 4.48:1, bright blue `#5c5cff` 4.43:1,
-  bright red `#ff0000` 5.25:1). VS Code lifts them at render time through
-  `terminal.integrated.minimumContrastRatio` (default 4.5). Shipping pre-lifted values would remove that
-  dependency but changes the look of every terminal program; it is a separate decision.
-- The pair list does not cover extension ids (`gitlens.*`, `errorLens.*`); their over-bright greens and
-  yellows were capped to 15.5:1 in this change but they are not gated.
+- `terminal.ansiBlack` is the only ANSI color outside the gate. A program that draws black text on the
+  black terminal background still depends on `terminal.integrated.minimumContrastRatio`.
+- Extension ids are gated against `editor.background` and `sideBar.background`. GitLens renders its graph
+  in a webview whose background follows the theme's `editor.background`, so the measurement holds today;
+  it would need a `backdrop` if GitLens ever introduced its own surface color.

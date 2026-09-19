@@ -82,11 +82,38 @@ Additional rules:
 - Translucent colors are composited onto the surface they actually render on before being measured.
 - Colors inside a distinguishable group must stay at least delta E 10 apart under normal vision and under protanopia,
   deuteranopia and tritanopia simulation.
-- Terminal ANSI colors are the one exception: VS Code enforces `terminal.integrated.minimumContrastRatio` on them at
-  render time.
+- Terminal ANSI colors are gated too. The normal tier sits at the 7:1 floor and the bright tier at 10:1 or above, so
+  the terminal meets AAA even with `terminal.integrated.minimumContrastRatio` disabled (its default only lifts to
+  4.5:1). `ansiBlack` is the sole exception because it is the terminal's own background.
+- Extension color ids the theme ships (`gitlens.*`, `errorLens.*`, `markdownAlert.*`) are gated like the core ids they
+  mirror.
 
 The underlying guidance is collected in
 [`docs/accessibility-manual-for-web-interfaces.md`](docs/accessibility-manual-for-web-interfaces.md).
+
+### Why the text is grey
+
+Windows High Contrast Black and VS Code's own Dark High Contrast theme put pure white text on black, 21:1. This theme
+stops at `#d2d2d2`, 13.89:1, on purpose. White next to a 7:1 keyword is three times as luminous, and a high contrast
+neighbour lowers the perceived contrast of a dimmer one (surround suppression). Pure white on black is also the
+strongest halation case on OLED and high contrast panels, and the APCA dark-mode guidance places the comfortable
+maximum at Lc 85 to 90, which `#d2d2d2` sits under. Nothing in the `hc-black` base requires white, so the theme keeps
+every glyph within a 2:1 luminance spread of the 7:1 floor instead. The evidence is in
+[`docs/palette-research.md`](docs/palette-research.md).
+
+If you prefer maximum luminance, override the roles in your settings. Syntax tokens keep their own colors and can be
+changed the same way through `editor.tokenColorCustomizations`.
+
+```json
+"workbench.colorCustomizations": {
+    "[A11y Matrix Dark]": {
+        "editor.foreground": "#ffffff",
+        "foreground": "#ffffff",
+        "terminal.foreground": "#ffffff",
+        "terminal.ansiBrightWhite": "#ffffff"
+    }
+}
+```
 
 ## Repository layout
 
