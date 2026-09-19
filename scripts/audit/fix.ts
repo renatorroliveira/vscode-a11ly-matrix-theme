@@ -1,13 +1,14 @@
 /**
  * Computes and applies minimal color repairs for failing checks. Translucent
- * overlay backgrounds are faded; every other failure moves the foreground's
- * lightness. Changes are written back into the TypeScript theme source.
+ * overlay backgrounds are faded; foregrounds over a ceiling are capped; every
+ * other failure moves the foreground's lightness up. Changes are written back
+ * into the TypeScript theme source when the value is a hex literal.
  * @module
  */
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import type { ColorTheme } from '../../src/types.ts';
-import { fadeOverlayToContrast, nudgeToContrast, type NudgeResult } from '../color/adjust.ts';
+import { capToContrast, fadeOverlayToContrast, nudgeToContrast, type NudgeResult } from '../color/adjust.ts';
 import { parseHex } from '../color/hex.ts';
 import type { AuditResult, PairResult, TokenResult } from './evaluate.ts';
 
@@ -33,7 +34,11 @@ export function planRepairs(theme: ColorTheme, audit: AuditResult): readonly Rep
             return;
         }
         const existing = byKey.get(`${repair.target}:${repair.key}`);
-        if (existing === undefined || repair.result.ratioAfter > existing.result.ratioAfter) {
+        if (
+            existing === undefined ||
+            Math.abs(repair.result.ratioAfter - repair.result.ratioBefore) >
+                Math.abs(existing.result.ratioAfter - existing.result.ratioBefore)
+        ) {
             byKey.set(`${repair.target}:${repair.key}`, repair);
         }
     };
@@ -57,13 +62,13 @@ export function applyRepairs(repairs: readonly Repair[], paths: { workbench: str
     for (const repair of repairs) {
         if (repair.target === 'workbench') {
             const pattern = new RegExp(
-                `("${escapeRegExp(repair.key)}":\\s*)"${escapeRegExp(repair.result.original)}"`,
+                `(['"]${escapeRegExp(repair.key)}['"]:\\s*)(['"])${escapeRegExp(repair.result.original)}\\2`,
                 'i',
             );
-            workbench = workbench.replace(pattern, `$1"${repair.result.adjusted}"`);
+            workbench = workbench.replace(pattern, `$1$2${repair.result.adjusted}$2`);
         } else {
-            const pattern = new RegExp(`(foreground:\\s*)"${escapeRegExp(repair.result.original)}"`, 'gi');
-            tokens = tokens.replace(pattern, `$1"${repair.result.adjusted}"`);
+            const pattern = new RegExp(`(foreground:\\s*)(['"])${escapeRegExp(repair.result.original)}\\2`, 'gi');
+            tokens = tokens.replace(pattern, `$1$2${repair.result.adjusted}$2`);
         }
     }
     writeFileSync(paths.workbench, workbench);
@@ -83,6 +88,14 @@ function repairPair(theme: ColorTheme, item: PairResult): Repair | undefined {
             key: item.pair.background,
             reason: `${item.pair.description}: fade overlay`,
             result,
+        };
+    }
+    if (item.ratio > item.maximum) {
+        return {
+            target: 'workbench',
+            key: item.pair.foreground,
+            reason: `${item.pair.description}: cap foreground`,
+            result: capToContrast(item.foregroundHex, item.backgroundHex, item.maximum),
         };
     }
     const foregroundRepair = nudgeToContrast(item.foregroundHex, item.backgroundHex, item.required);
@@ -105,7 +118,10 @@ function repairPair(theme: ColorTheme, item: PairResult): Repair | undefined {
 
 function repairToken(theme: ColorTheme, item: TokenResult): Repair {
     const editorBackground = theme.colors['editor.background'] ?? '#000000';
-    const result = nudgeToContrast(item.foregroundHex, editorBackground, item.required);
+    const result =
+        item.ratio > item.maximum
+            ? capToContrast(item.foregroundHex, editorBackground, item.maximum)
+            : nudgeToContrast(item.foregroundHex, editorBackground, item.required);
     return { target: 'token', key: item.foregroundHex, reason: `token ${item.scope}: adjust foreground`, result };
 }
 

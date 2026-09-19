@@ -3,15 +3,18 @@
  * @module
  */
 
-export { fadeOverlayToContrast, nudgeToContrast, type NudgeResult } from './adjust.ts';
+export { capToContrast, fadeOverlayToContrast, nudgeToContrast, type NudgeResult } from './adjust.ts';
 export { compositeOver, flattenHex } from './composite.ts';
 export {
     classifyContrast,
+    CONTRAST_CEILINGS,
     contrastRatio,
     contrastRatioHex,
+    maximumRatio,
     minimumRatio,
     TARGET_LEVEL,
     WCAG_THRESHOLDS,
+    withinBand,
     type ConformanceLevel,
     type ContentKind,
 } from './contrast.ts';

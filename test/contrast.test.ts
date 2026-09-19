@@ -1,10 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import {
     classifyContrast,
+    CONTRAST_CEILINGS,
     contrastRatio,
     contrastRatioHex,
+    maximumRatio,
     minimumRatio,
     TARGET_LEVEL,
+    withinBand,
 } from '../scripts/color/contrast.ts';
 import { channelToLinear, linearToChannel, relativeLuminance } from '../scripts/color/luminance.ts';
 
@@ -69,5 +72,25 @@ describe('classifyContrast', () => {
         expect(minimumRatio('large-text')).toBe(4.5);
         expect(minimumRatio('ui')).toBe(4.5);
         expect(minimumRatio('dimmed')).toBe(4.5);
+    });
+});
+
+describe('contrast ceilings', () => {
+    it('caps text at twice the AAA floor and marks at the text floor', () => {
+        expect(maximumRatio('text')).toBe(minimumRatio('text') * 2);
+        expect(maximumRatio('mark')).toBe(minimumRatio('text'));
+        expect(CONTRAST_CEILINGS.ui).toBe(15.5);
+    });
+
+    it('fails pure white text on black and passes the light grey primary', () => {
+        expect(withinBand(contrastRatioHex('#ffffff', '#000000'), 'text')).toBe(false);
+        expect(withinBand(contrastRatioHex('#d2d2d2', '#000000'), 'text')).toBe(true);
+    });
+
+    it('never rounds at either edge of the band', () => {
+        expect(withinBand(6.999, 'text')).toBe(false);
+        expect(withinBand(7, 'text')).toBe(true);
+        expect(withinBand(14, 'text')).toBe(true);
+        expect(withinBand(14.001, 'text')).toBe(false);
     });
 });

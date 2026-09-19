@@ -1,6 +1,7 @@
 /**
  * Minimal-change contrast repair: moves a foreground's lightness away from
- * the background until a target ratio is met, keeping hue and saturation.
+ * (or towards) the background until a target ratio is met, keeping hue and
+ * saturation.
  * @module
  */
 
@@ -36,35 +37,99 @@ export function nudgeToContrast(foregroundHex: string, backgroundHex: string, ta
     const foreground = flattenHex(foregroundHex, backgroundHex);
     const ratioBefore = contrastRatio(foreground, background);
     if (ratioBefore >= targetRatio) {
-        return {
-            original: foregroundHex,
-            adjusted: foregroundHex,
-            ratioBefore,
-            ratioAfter: ratioBefore,
-            changed: false,
-            satisfied: true,
-        };
+        return unchanged(foregroundHex, ratioBefore, true);
     }
     const adjusted = searchLightness(foreground, background, targetRatio);
     if (adjusted === undefined) {
-        return {
-            original: foregroundHex,
-            adjusted: foregroundHex,
-            ratioBefore,
-            ratioAfter: ratioBefore,
-            changed: false,
-            satisfied: false,
-        };
+        return unchanged(foregroundHex, ratioBefore, false);
     }
-    const ratioAfter = contrastRatio(adjusted, background);
     return {
         original: foregroundHex,
         adjusted: formatHex({ ...adjusted, a: 1 }),
         ratioBefore,
-        ratioAfter,
+        ratioAfter: contrastRatio(adjusted, background),
         changed: true,
         satisfied: true,
     };
+}
+
+/**
+ * Finds the closest lightness of the foreground that stays at or under the
+ * maximum ratio, moving it towards the background. Used for the contrast
+ * ceilings: hue and saturation are kept, only lightness moves.
+ * @param foregroundHex Foreground to cap.
+ * @param backgroundHex Background it renders on.
+ * @param maximumRatio Largest acceptable ratio.
+ * @returns The adjusted color and the ratios before and after.
+ */
+export function capToContrast(foregroundHex: string, backgroundHex: string, maximumRatio: number): NudgeResult {
+    const background = flattenHex(backgroundHex, '#000000');
+    const foreground = flattenHex(foregroundHex, backgroundHex);
+    const ratioBefore = contrastRatio(foreground, background);
+    if (ratioBefore <= maximumRatio) {
+        return unchanged(foregroundHex, ratioBefore, true);
+    }
+    const hsl = rgbToHsl(foreground);
+    const lighter = relativeLuminance(foreground) >= relativeLuminance(background);
+    const adjusted = searchCap(hsl, lighter ? 0 : 1, background, maximumRatio);
+    return {
+        original: foregroundHex,
+        adjusted: formatHex({ ...adjusted, a: 1 }),
+        ratioBefore,
+        ratioAfter: contrastRatio(adjusted, background),
+        changed: true,
+        satisfied: true,
+    };
+}
+
+/**
+ * Lowers the alpha of a translucent overlay until text on top of it reaches
+ * the target ratio. Used for selection and highlight backgrounds, where
+ * changing the text color would be the wrong repair.
+ * @param overlayHex Translucent overlay such as `editor.selectionBackground`.
+ * @param backdropHex Opaque surface the overlay is drawn on.
+ * @param foregroundHex Text color drawn over the overlay.
+ * @param targetRatio Minimum acceptable ratio.
+ * @returns The overlay with reduced alpha and the ratios before and after.
+ */
+export function fadeOverlayToContrast(
+    overlayHex: string,
+    backdropHex: string,
+    foregroundHex: string,
+    targetRatio: number,
+): NudgeResult {
+    const overlay = parseHex(overlayHex);
+    const backdrop = flattenHex(backdropHex, '#000000');
+    const ratioAt = (alpha: number): number =>
+        contrastRatio(flattenHex(foregroundHex, backdropHex), compositeOver({ ...overlay, a: alpha }, backdrop));
+    const ratioBefore = ratioAt(overlay.a);
+    if (ratioBefore >= targetRatio) {
+        return unchanged(overlayHex, ratioBefore, true);
+    }
+    let passing = 0;
+    let failing = overlay.a;
+    for (let i = 0; i < SEARCH_ITERATIONS; i += 1) {
+        const mid = (passing + failing) / 2;
+        if (ratioAt(quantizeAlpha(mid)) >= targetRatio) {
+            passing = mid;
+        } else {
+            failing = mid;
+        }
+    }
+    const alpha = quantizeAlpha(passing);
+    const ratioAfter = ratioAt(alpha);
+    return {
+        original: overlayHex,
+        adjusted: formatHex({ ...overlay, a: alpha }),
+        ratioBefore,
+        ratioAfter,
+        changed: true,
+        satisfied: ratioAfter >= targetRatio,
+    };
+}
+
+function unchanged(hex: string, ratio: number, satisfied: boolean): NudgeResult {
+    return { original: hex, adjusted: hex, ratioBefore: ratio, ratioAfter: ratio, changed: false, satisfied };
 }
 
 function searchLightness(foreground: Rgb, background: Rgb, targetRatio: number): Rgb | undefined {
@@ -96,61 +161,27 @@ function searchTowards(hsl: Hsl, bound: number, background: Rgb, targetRatio: nu
     return quantize(hslToRgb({ ...hsl, l: far }));
 }
 
-function quantize(color: Rgb): Rgb {
-    return { r: Math.round(color.r), g: Math.round(color.g), b: Math.round(color.b) };
-}
-
 /**
- * Lowers the alpha of a translucent overlay until text on top of it reaches
- * the target ratio. Used for selection and highlight backgrounds, where
- * changing the text color would be the wrong repair.
- * @param overlayHex Translucent overlay such as `editor.selectionBackground`.
- * @param backdropHex Opaque surface the overlay is drawn on.
- * @param foregroundHex Text color drawn over the overlay.
- * @param targetRatio Minimum acceptable ratio.
- * @returns The overlay with reduced alpha and the ratios before and after.
+ * Binary search between the current lightness (over the ceiling) and the
+ * background side (under it) for the lightest value at or below the maximum.
  */
-export function fadeOverlayToContrast(
-    overlayHex: string,
-    backdropHex: string,
-    foregroundHex: string,
-    targetRatio: number,
-): NudgeResult {
-    const overlay = parseHex(overlayHex);
-    const backdrop = flattenHex(backdropHex, '#000000');
-    const ratioAt = (alpha: number): number =>
-        contrastRatio(flattenHex(foregroundHex, backdropHex), compositeOver({ ...overlay, a: alpha }, backdrop));
-    const ratioBefore = ratioAt(overlay.a);
-    if (ratioBefore >= targetRatio) {
-        return {
-            original: overlayHex,
-            adjusted: overlayHex,
-            ratioBefore,
-            ratioAfter: ratioBefore,
-            changed: false,
-            satisfied: true,
-        };
-    }
-    let passing = 0;
-    let failing = overlay.a;
+function searchCap(hsl: Hsl, bound: number, background: Rgb, maximumRatio: number): Rgb {
+    let over = hsl.l;
+    let under = bound;
     for (let i = 0; i < SEARCH_ITERATIONS; i += 1) {
-        const mid = (passing + failing) / 2;
-        if (ratioAt(quantizeAlpha(mid)) >= targetRatio) {
-            passing = mid;
+        const mid = (over + under) / 2;
+        const candidate = quantize(hslToRgb({ ...hsl, l: mid }));
+        if (contrastRatio(candidate, background) <= maximumRatio) {
+            under = mid;
         } else {
-            failing = mid;
+            over = mid;
         }
     }
-    const alpha = quantizeAlpha(passing);
-    const ratioAfter = ratioAt(alpha);
-    return {
-        original: overlayHex,
-        adjusted: formatHex({ ...overlay, a: alpha }),
-        ratioBefore,
-        ratioAfter,
-        changed: true,
-        satisfied: ratioAfter >= targetRatio,
-    };
+    return quantize(hslToRgb({ ...hsl, l: under }));
+}
+
+function quantize(color: Rgb): Rgb {
+    return { r: Math.round(color.r), g: Math.round(color.g), b: Math.round(color.b) };
 }
 
 function quantizeAlpha(alpha: number): number {

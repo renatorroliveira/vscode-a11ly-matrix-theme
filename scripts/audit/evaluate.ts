@@ -10,7 +10,9 @@ import {
     type ConformanceLevel,
     type ContentKind,
     contrastRatio,
+    maximumRatio,
     minimumRatio,
+    withinBand,
 } from '../color/contrast.ts';
 import { deltaE, simulateCvd, type CvdType } from '../color/cvd.ts';
 import { flattenHex } from '../color/composite.ts';
@@ -25,6 +27,7 @@ export interface PairResult {
     readonly backgroundHex: string | undefined;
     readonly ratio: number;
     readonly required: number;
+    readonly maximum: number;
     readonly level: ConformanceLevel;
     readonly status: 'pass' | 'fail' | 'missing';
 }
@@ -36,6 +39,7 @@ export interface TokenResult {
     readonly foregroundHex: string;
     readonly ratio: number;
     readonly required: number;
+    readonly maximum: number;
     readonly status: 'pass' | 'fail';
 }
 
@@ -99,18 +103,21 @@ function evaluatePair(theme: ColorTheme, pair: ContrastPair): PairResult {
     const backgroundHex = theme.colors[pair.background];
     const background = resolveBackground(theme, pair);
     const required = minimumRatio(pair.kind);
+    const maximum = maximumRatio(pair.kind);
     if (foregroundHex === undefined || backgroundHex === undefined || background === undefined) {
-        return { pair, foregroundHex, backgroundHex, ratio: 0, required, level: 'fail', status: 'missing' };
+        return { pair, foregroundHex, backgroundHex, ratio: 0, required, maximum, level: 'fail', status: 'missing' };
     }
     const foreground = flattenHex(foregroundHex, formatRgb(background));
     const ratio = contrastRatio(foreground, background);
     const level = classifyContrast(ratio, pair.kind);
-    return { pair, foregroundHex, backgroundHex, ratio, required, level, status: ratio >= required ? 'pass' : 'fail' };
+    const status = withinBand(ratio, pair.kind) ? 'pass' : 'fail';
+    return { pair, foregroundHex, backgroundHex, ratio, required, maximum, level, status };
 }
 
 function evaluateTokens(theme: ColorTheme): readonly TokenResult[] {
     const editorBackground = theme.colors['editor.background'] ?? '#000000';
     const required = minimumRatio(TOKEN_KIND);
+    const maximum = maximumRatio(TOKEN_KIND);
     return theme.tokenColors.flatMap((rule, index) => {
         const foregroundHex = rule.settings.foreground;
         if (foregroundHex === undefined) {
@@ -120,8 +127,8 @@ function evaluateTokens(theme: ColorTheme): readonly TokenResult[] {
             flattenHex(foregroundHex, editorBackground),
             flattenHex(editorBackground, '#000000'),
         );
-        const status = ratio >= required ? 'pass' : 'fail';
-        return [{ index, scope: describeScope(rule), foregroundHex, ratio, required, status }];
+        const status = withinBand(ratio, TOKEN_KIND) ? 'pass' : 'fail';
+        return [{ index, scope: describeScope(rule), foregroundHex, ratio, required, maximum, status }];
     });
 }
 

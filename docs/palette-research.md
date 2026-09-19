@@ -1,32 +1,115 @@
 # Accent palette research: Matrix Code Green and P3 amber
 
-Decision record for the 0.1.0 accent remodel. The theme moved from VS Code's Dark High Contrast accents
+Decision record for the 0.1.0 accent remodel and the neutral text tier that followed it. The theme moved from VS Code's Dark High Contrast accents
 (cyan `#6fc3df` borders, orange `#f38518` focus) to a green primary in the style of hacker terminals and
 the Matrix films, with an amber secondary. Every ratio and delta E below was produced by scripts that
 import `scripts/color/`; nothing was computed by hand. The chosen values live in `src/palette.ts`.
 
 ## Roles
 
-| Role                                                               | Value     | Ratio on `#000000` | Basis                                                                        |
-| ------------------------------------------------------------------ | --------- | ------------------ | ---------------------------------------------------------------------------- |
-| Primary: highlights, find matches, minimap selection, bright green | `#00ff41` | 15.38              | "Matrix Code Green" fan palette; also Quiet Hacker and Durgonix themes       |
-| Border: ambient borders, current line outline, normal green        | `#00ad2c` | 7.01               | Same hue as the primary, lightness lowered until 7:1                         |
-| Secondary: focus rings, active indicators, active text             | `#ffb000` | 11.46              | P3 amber phosphor, the VT220 amber option that shipped alongside green tubes |
-| Fill: text selection (white text) and hovered rows, tabs, items    | `#00681b` | 2.996              | Same hue darkened until white text reaches 7.01:1                            |
+| Role                                                                       | Value     | Ratio on `#000000` | Basis                                                                        |
+| -------------------------------------------------------------------------- | --------- | ------------------ | ---------------------------------------------------------------------------- |
+| Text primary: body text, code, labels, carets, icons, bright ANSI white    | `#d2d2d2` | 13.89              | Light grey under the 14:1 text ceiling (APCA Lc 80); see the section below   |
+| Text secondary: line numbers, descriptions, placeholders, inlay hints      | `#b3b3b3` | 10.02              | One step down, delta E 11.3 from the primary, still 8.82:1 on widget panels  |
+| Mark passive: indent guides, rulers, rendered whitespace                   | `#7c7c7c` | 5.03               | Below every text color so structure never competes with tokens               |
+| Mark active: active indent guide, overview ruler comment marks             | `#949494` | 6.92               | Top of the passive band, under the 7:1 text floor                            |
+| Primary: highlight outlines, find matches, minimap selection, bright green | `#00ff41` | 15.38              | "Matrix Code Green" fan palette; also Quiet Hacker and Durgonix themes       |
+| Primary text: filter and suggest match highlights                          | `#00f33e` | 13.89              | The primary lowered to the text ceiling, delta E 5.5 from it                 |
+| Border: ambient borders, current line outline, normal green                | `#00ad2c` | 7.01               | Same hue as the primary, lightness lowered until 7:1                         |
+| Secondary: focus rings, active indicators, active text                     | `#ffb000` | 11.46              | P3 amber phosphor, the VT220 amber option that shipped alongside green tubes |
+| Fill: text selection (primary text) and hovered rows, tabs, items          | `#004913` | 1.96               | Same hue darkened until `text.primary` reaches 7.08:1                        |
 
-### Why the fill is `#00681b` and the selected text is white
+### Neutral text tier and contrast ceilings (2026-09-18)
 
-White text at 7:1 and a visible fill against black pull in opposite directions: 21 / 7 = 3, so a fill
-that carries 7:1 white text can reach at most 3:1 against black, and no 8-bit green hex lands on both
-sides at once (a brute-force search of every hex with red < 64, green 64 to 159 and blue < 96 found none).
-`#00681b` is the closest point: white 7.0095:1, fill 2.996:1, just under the WCAG 1.4.11 AA floor for a
-component state. Text is the hard gate, so the fill gives way. Ratios in this document are never rounded
-up; earlier drafts showed the fill as 3.00 and were wrong. Keeping syntax colors on selected text is not
-possible at 7:1 either: even the near-black `#00290a` leaves comments at 5.68:1 and keywords at 5.39:1,
-so `editor.selectionForeground` and `terminal.selectionForeground` are white. Inactive selection is the
-fill at 70% alpha, which composites darker and raises the white-text ratio. Colored list labels on a
-hovered row (git untracked `#73c991` 3.50:1, modified `#e2c08d` 4.06:1) drop below 7:1 for the duration
-of the hover; this was accepted as a tradeoff for a single fill color.
+The 0.1.0 palette used pure white `#ffffff` for body text, line numbers, carets, indent guides, rulers,
+inlay hints and 120 more workbench ids, while the syntax floor sat at 7:1. The editor therefore rendered
+glyphs at 21:1 beside glyphs at 7:1, a 3.0x luminance spread on one line, and the distribution was
+bimodal: 21 editor ids at exactly 21:1, 15 text and token colors in the 7 to 8 bin, the rest scattered.
+
+Three findings drove the change. WCAG 2.x sets a floor and no ceiling. The surround suppression
+literature (Chubb, Sperling and Solomon, PNAS 1989; Cannon and Fullenkamp 1991; Xing and Heeger 2001)
+shows that the perceived contrast of a lower-contrast element drops when a higher-contrast element
+surrounds it, and only in that direction, so the fix is to shrink the spread rather than brighten the dim
+colors. The APCA project reports "a level of too much contrast in dark mode" from pupil dilation,
+halation and astigmatism and tests Lc 85 to 90 as the dark-mode maximum, with text on `#000000` "ideally
+between `#cccccc` and `#e4e4e4`" (13.1:1 to 16.5:1); Material Design's 87% white high-emphasis text lands
+in the same place. ISO 9241-303:2011 clause 5.2.4 bounds area luminances between 0.1L and 10L and adopts
+the CIE definition of glare as "an unsuitable distribution or range of luminance, or too extreme
+contrasts"; it addresses areas rather than glyphs and was used as an outer bound only.
+
+The band is anchored on a 2:1 luminance spread from the fixed 7:1 floor:
+
+| Tier                                                       | Band          | Grey equivalent        | APCA Lc  |
+| ---------------------------------------------------------- | ------------- | ---------------------- | -------- |
+| Text and tokens, hard limits                               | 7:1 to 14:1   | `#959595` to `#d2d2d2` | 45 to 80 |
+| Text and tokens, target                                    | 8:1 to 14:1   | `#a0a0a0` to `#d2d2d2` | 52 to 80 |
+| Accent outlines (find, word, bracket, selection highlight) | 7:1 to 15.5:1 | up to `#dddddd`        | up to 87 |
+| Passive marks (guides, rulers, whitespace, gutter, ruler)  | 4.5:1 to 7:1  | `#7c7c7c` to `#959595` | 30 to 45 |
+
+Measured effect on the editor (ratios against `#000000`, translucent values flattened first):
+
+| Group                                         | Before: range and spread | After: range and spread |
+| --------------------------------------------- | ------------------------ | ----------------------- |
+| Syntax tokens (20 distinct colors)            | 7.01 to 21.00, 3.00x     | 8.00 to 13.98, 1.75x    |
+| Editor text ids (body, numbers, hints, links) | up to 21.00              | up to 13.98             |
+| Highlight outlines                            | up to 21.00              | up to 15.48             |
+| Gutter and overview ruler marks               | up to 21.00              | up to 8.82              |
+
+Every replacement kept hue and saturation and moved lightness only, with `capToContrast` (down) or
+`nudgeToContrast` (up):
+
+| Before    | Ratio | After     | Ratio | Where                                                                    |
+| --------- | ----- | --------- | ----- | ------------------------------------------------------------------------ |
+| `#ffffff` | 21.00 | `#d2d2d2` | 13.89 | All body text, carets, icons, badges, inverted selection surfaces        |
+| `#ffffff` | 21.00 | `#b3b3b3` | 10.02 | Line numbers, inlay hints, blame, folding controls, ANSI white           |
+| `#ffffff` | 21.00 | `#7c7c7c` | 5.03  | Indent guides, column rulers                                             |
+| `#ffffff` | 21.00 | `#949494` | 6.92  | Active indent guide, overview ruler comment marks                        |
+| `#00ffff` | 16.75 | `#00eaea` | 13.96 | Editor links, ANSI bright cyan                                           |
+| `#ffff00` | 19.56 | `#d9d900` | 13.88 | ANSI bright yellow                                                       |
+| `#e5e5e5` | 16.67 | `#b3b3b3` | 10.02 | ANSI white                                                               |
+| `#cbedcb` | 16.52 | `#a7e1a7` | 13.97 | Search context line prefix token                                         |
+| `#ffd700` | 14.97 | `#f7d000` | 13.98 | Bracket pair level 1                                                     |
+| `#dcdcaa` | 14.86 | `#d6d69d` | 13.96 | Function tokens                                                          |
+| `#ffd370` | 14.80 | `#ffcb58` | 13.94 | Warning squiggle text, warning icons, unicode highlight border           |
+| `#d4d4d4` | 14.17 | `#d2d2d2` | 13.89 | Operator and property tokens                                             |
+| `#9cdcfe` | 14.08 | `#9adbfe` | 13.94 | Variable and attribute tokens                                            |
+| `#00ff41` | 15.38 | `#00f33e` | 13.89 | Filter, suggest and hover match highlight text (outlines keep `#00ff41`) |
+| `#569cd6` | 7.12  | `#66a6da` | 8.03  | Keywords, storage, tags, constants (13 rules)                            |
+| `#ce9178` | 7.95  | `#ce9279` | 8.01  | Strings                                                                  |
+| `#7ca668` | 7.51  | `#83ab70` | 8.02  | Comments                                                                 |
+| `#c586c0` | 7.55  | `#c88dc3` | 8.05  | Control keywords                                                         |
+| `#959595` | 7.01  | `#a0a0a0` | 8.03  | Tag punctuation, CodeLens                                                |
+| `#ff3232` | 5.75  | `#ff7474` | 8.00  | Unexpected bracket                                                       |
+| `#f48771` | 8.55  | `#f16b50` | 7.00  | Gutter deleted marker (the squiggle keeps `#f48771`)                     |
+| `#c3df6f` | 14.11 | `#81a024` | 6.99  | Overview ruler merge marks                                               |
+
+The same sweep lifted five ids that had been under their floor and outside the pair list: debug console
+warnings `#008000` 4.09:1 to `#00ba00`, breakpoint icon `#e51400` 4.43:1 to `#e81400`, overview ruler find
+marks `#ab5a00` 4.19:1 to `#b35e00`, SCM graph deletions `#c74e39` 4.58:1 to `#da8c7e`, and the Markdown
+important alert `#b180d7` 6.94:1 to `#ba8fdc`. Each got a pair. The debugging status bar background moved
+from `#8e4421` to `#643017` so the grey text keeps 7.03:1 there (rule: change the background when the
+foreground is shared).
+
+Costs accepted: the theme departs from the Windows High Contrast convention of pure white on black, and
+users who want that can still raise `editor.foreground` in their settings. The selection fill drops from
+2.996:1 to 1.96:1 against black because a fill carrying 7:1 text of luminance L can reach at most
+(L + 0.05) / 7 - 0.05; at L = 0.639 for `#d2d2d2` that is 0.0484, so `#004913`. Secondary text on a
+hovered row measures 5.10:1 (before: 5.4:1 with the old fill), unchanged in kind. Colored list labels on a
+hovered row improve: untracked `#73c991` goes from 3.50:1 to 5.35:1 and modified `#e2c08d` from 4.06:1 to
+6.20:1, still under 7:1 for the duration of the hover.
+
+### Why the fill is `#004913` and the selected text is `text.primary`
+
+Text at 7:1 and a visible fill against black pull in opposite directions: a fill that carries 7:1 text
+of luminance L can reach at most (L + 0.05) / 7 - 0.05 against black. With white text that bound was 3:1
+and the 0.1.0 fill `#00681b` sat at 2.996:1; with `#d2d2d2` the bound is 1.96:1 and the fill is
+`#004913` (text 7.08:1). Text is the hard gate, so the fill gives way. Ratios in this document are never
+rounded up. Keeping syntax colors on selected text is not possible at 7:1 either: even the near-black
+`#00290a` leaves comments at 5.68:1 and keywords at 5.39:1, so `editor.selectionForeground` and
+`terminal.selectionForeground` are `text.primary`. Inactive selection is the fill at 70% alpha, which
+composites darker and raises the text ratio to 9.36:1. Colored list labels on a hovered row (git untracked
+`#73c991` 5.35:1, modified `#e2c08d` 6.20:1) drop below 7:1 for the duration of the hover; this was
+accepted as a tradeoff for a single fill color. The table below is the original white-text sweep.
 
 | Fill candidate | Fill on black | White on fill | Untracked `#73c991` on fill | Modified `#e2c08d` on fill |
 | -------------- | ------------- | ------------- | --------------------------- | -------------------------- |
@@ -116,7 +199,14 @@ with orange is confusable at low saturation); Claus Wilke, Fundamentals of Data 
   short of the 3:1 change WCAG 2.4.13 (Focus Appearance, AAA) asks for. VS Code's own Dark High Contrast
   theme has the same property. Reaching 3:1 would need a border tier near 4.5:1, which collides with the
   gutter "added" marker, or a much brighter secondary.
-- Colored list labels on hovered rows fall below 7:1 on the fill (table above). A darker hover fill such
-  as `#00330d` would keep them at 7:1 at the cost of a second palette role and a 1.48:1 hover fill.
-- `scripts/audit/fix.ts` matches double-quoted values, while `src/` uses single quotes and now role
-  references, so `--fix` cannot rewrite accent ids. The gate itself is unaffected.
+- Colored list labels on hovered rows fall below 7:1 on the fill (5.35:1 and 6.20:1). A darker hover
+  fill such as `#00330d` would keep them at 7:1 at the cost of a second palette role and a 1.48:1 fill.
+- `scripts/audit/fix.ts` rewrites single- or double-quoted hex literals, but not role references such as
+  `text.primary`; a failing role has to be changed in `src/palette.ts` by hand. The gate is unaffected.
+- The normal ANSI colors keep the classic xterm values and sit under the text floor on black (red
+  `#cd0000` 3.60:1, blue `#0000ee` 2.23:1, magenta `#cd00cd` 4.48:1, bright blue `#5c5cff` 4.43:1,
+  bright red `#ff0000` 5.25:1). VS Code lifts them at render time through
+  `terminal.integrated.minimumContrastRatio` (default 4.5). Shipping pre-lifted values would remove that
+  dependency but changes the look of every terminal program; it is a separate decision.
+- The pair list does not cover extension ids (`gitlens.*`, `errorLens.*`); their over-bright greens and
+  yellows were capped to 15.5:1 in this change but they are not gated.

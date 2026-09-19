@@ -28,6 +28,22 @@ describe('evaluateTheme', () => {
         expect(result.failures).toBeGreaterThan(0);
     });
 
+    it('fails a text pair above the 14:1 ceiling even though it is AAA', () => {
+        const theme = themeWith({ 'editor.foreground': '#ffffff', 'editor.background': '#000000' });
+        const result = evaluateTheme(theme);
+        const body = result.pairs.find((item) => item.pair.description === 'Editor body text');
+        expect(body?.level).toBe('AAA');
+        expect(body?.status).toBe('fail');
+        expect(body?.maximum).toBe(14);
+    });
+
+    it('fails a passive mark that reaches the text tier', () => {
+        const theme = themeWith({ 'editorIndentGuide.background1': '#ffffff', 'editor.background': '#000000' });
+        const guide = evaluateTheme(theme).pairs.find((item) => item.pair.description === 'Indent guides');
+        expect(guide?.pair.kind).toBe('mark');
+        expect(guide?.status).toBe('fail');
+    });
+
     it('reports pairs with absent keys as missing', () => {
         const result = evaluateTheme(themeWith({}));
         expect(result.pairs.every((item) => item.status === 'missing')).toBe(true);
@@ -39,11 +55,12 @@ describe('evaluateTheme', () => {
             tokenColors: [
                 { scope: 'comment', settings: { foreground: '#7ca668' } },
                 { scope: 'keyword', settings: { foreground: '#000080' } },
+                { scope: 'string', settings: { foreground: '#ffffff' } },
                 { scope: 'emphasis', settings: { fontStyle: 'italic' } },
             ],
         };
         const tokens = evaluateTheme(theme).tokens;
-        expect(tokens.map((item) => item.status)).toEqual(['pass', 'fail']);
+        expect(tokens.map((item) => item.status)).toEqual(['pass', 'fail', 'fail']);
     });
 });
 
