@@ -22,10 +22,14 @@
   Contrast defaults, then lifts every color that falls short of AAA.
 - **Verified, not eyeballed.** Every shipped foreground/background pair is measured with the exact WCAG 2.x formula at
   build time. A single pair below 7:1 for text or 4.5:1 for UI fails the build, so the palette cannot drift.
+- **Bounded, not maximal.** Text also has a ceiling of 14:1, twice the floor, so the brightest and dimmest glyphs on a
+  line stay within a 2:1 luminance spread. Body text is light grey `#d2d2d2`, never pure white: white next to a 7:1
+  keyword is three times as luminous and suppresses its perceived contrast, and it is the strongest halation case on
+  OLED and high contrast panels.
 - **Matrix green, measured.** Borders and highlights are Matrix Code Green, focus rings are P3 amber phosphor, the
   pairing that shipped on VT220 tubes. Both were chosen from 40 candidates by contrast and color-vision-deficiency
   separation; see [`docs/palette-research.md`](docs/palette-research.md).
-- **Color is never the only signal.** Selection and hover are a dark green fill under white text, highlights use
+- **Color is never the only signal.** Selection and hover are a dark green fill under light grey text, highlights use
   outlines instead of fills, and semantically related colors are checked for separation under protanopia,
   deuteranopia and tritanopia simulation.
 - **Nothing but a JSON file.** The extension has no runtime code and no runtime dependencies. It works in Restricted Mode,
@@ -60,16 +64,21 @@ code --install-extension vscode-a11ly-matrix-theme-<version>.vsix
 The build enforces these thresholds and fails on the first violation. The full list of measured pairs and their ratios is
 regenerated into [`docs/contrast-report.md`](docs/contrast-report.md) on every build.
 
-| Content                                                                               | Minimum ratio | Basis                                          |
-| ------------------------------------------------------------------------------------- | ------------- | ---------------------------------------------- |
-| Text, including placeholder text                                                      | 7:1           | WCAG 1.4.6 (AAA)                               |
-| Large text                                                                            | 4.5:1         | WCAG 1.4.6 (AAA)                               |
-| UI boundaries, icons, focus rings, carets, gutter markers, squiggles and chart series | 4.5:1         | Project policy (WCAG 1.4.11 has no AAA tier)   |
-| Disabled and ignored items                                                            | 4.5:1         | Project policy (WCAG exempts disabled content) |
+| Content                                                                  | Minimum ratio | Maximum ratio | Basis                                                        |
+| ------------------------------------------------------------------------ | ------------- | ------------- | ------------------------------------------------------------ |
+| Text, including placeholder text                                         | 7:1           | 14:1          | WCAG 1.4.6 (AAA); ceiling is project policy, twice the floor |
+| Large text                                                               | 4.5:1         | 14:1          | WCAG 1.4.6 (AAA)                                             |
+| UI boundaries, icons, focus rings, carets, squiggles and chart series    | 4.5:1         | 15.5:1        | Project policy (WCAG 1.4.11 has no AAA tier)                 |
+| Disabled and ignored items                                               | 4.5:1         | 14:1          | Project policy (WCAG exempts disabled content)               |
+| Passive marks: indent guides, rulers, whitespace, gutter and ruler marks | 4.5:1         | 7:1           | Project policy; marks stay below every text color            |
 
 Additional rules:
 
-- Ratios are never rounded up. 6.99:1 fails.
+- Ratios are never rounded at either edge. 6.99:1 fails the floor, 14.01:1 fails the text ceiling.
+- No text is pure white. Body text is `#d2d2d2` (13.89:1), secondary text `#b3b3b3` (10.02:1), syntax tokens sit
+  between 8:1 and 14:1. The ceiling follows the surround suppression literature (Chubb, Sperling and Solomon 1989) and
+  the APCA dark-mode guidance of Lc 85 to 90 as the comfortable maximum; see
+  [`docs/palette-research.md`](docs/palette-research.md).
 - Translucent colors are composited onto the surface they actually render on before being measured.
 - Colors inside a distinguishable group must stay at least delta E 10 apart under normal vision and under protanopia,
   deuteranopia and tritanopia simulation.

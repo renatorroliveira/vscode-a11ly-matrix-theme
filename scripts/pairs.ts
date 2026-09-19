@@ -2,7 +2,9 @@
  * Curated foreground/background pairs that the contrast gate verifies.
  * Each pair names workbench color ids; `backdrop` is the opaque surface a
  * translucent background is drawn on. Keep this list as the single place
- * where the theme's accessibility contract is declared.
+ * where the theme's accessibility contract is declared. Every kind has a
+ * floor and a ceiling (`scripts/color/contrast.ts`); `mark` pairs are the
+ * passive structure that must stay below the text tier.
  *
  * The palette is a High Contrast one: most surfaces are black and many
  * background ids are intentionally unset, so those pairs measure against
@@ -46,6 +48,10 @@ function dimmed(foreground: string, background: string, description: string): Co
     return { foreground, background, kind: 'dimmed', description };
 }
 
+function mark(foreground: string, background: string, description: string): ContrastPair {
+    return { foreground, background, kind: 'mark', description };
+}
+
 const EDITOR_PAIRS: readonly ContrastPair[] = [
     text('editor.foreground', EDITOR, 'Editor body text'),
     text('foreground', EDITOR, 'Default workbench text'),
@@ -72,13 +78,27 @@ const EDITOR_PAIRS: readonly ContrastPair[] = [
     ui('editorGroup.focusedEmptyBorder', EDITOR, 'Focused empty editor group outline'),
     ui('editorCursor.foreground', EDITOR, 'Caret'),
     ui('editorBracketMatch.border', EDITOR, 'Bracket match outline'),
-    ui('editorGutter.addedBackground', EDITOR, 'Gutter added marker'),
-    ui('editorGutter.modifiedBackground', EDITOR, 'Gutter modified marker'),
-    ui('editorGutter.deletedBackground', EDITOR, 'Gutter deleted marker'),
-    ui('editorIndentGuide.activeBackground1', EDITOR, 'Active indent guide'),
-    ui('editorIndentGuide.background1', EDITOR, 'Indent guides'),
-    ui('editorWhitespace.foreground', EDITOR, 'Rendered whitespace'),
-    ui('editorRuler.foreground', EDITOR, 'Editor rulers'),
+    mark('editorGutter.addedBackground', EDITOR, 'Gutter added marker'),
+    mark('editorGutter.modifiedBackground', EDITOR, 'Gutter modified marker'),
+    mark('editorGutter.deletedBackground', EDITOR, 'Gutter deleted marker'),
+    mark('editorIndentGuide.activeBackground1', EDITOR, 'Active indent guide'),
+    mark('editorIndentGuide.background1', EDITOR, 'Indent guides'),
+    mark('editorWhitespace.foreground', EDITOR, 'Rendered whitespace'),
+    mark('editorRuler.foreground', EDITOR, 'Editor rulers'),
+    mark('editorOverviewRuler.commentForeground', EDITOR, 'Overview ruler comment marks'),
+    mark('editorOverviewRuler.bracketMatchForeground', EDITOR, 'Overview ruler bracket match marks'),
+    mark('editorOverviewRuler.currentContentForeground', EDITOR, 'Overview ruler merge content marks'),
+    text('editorInlayHint.foreground', 'editorInlayHint.background', 'Inlay hints', EDITOR),
+    text('editor.inlineValuesForeground', 'editor.inlineValuesBackground', 'Inline debug values', EDITOR),
+    text('git.blame.editorDecorationForeground', EDITOR, 'Git blame decoration'),
+    text('diffEditor.unchangedRegionForeground', 'diffEditor.unchangedRegionBackground', 'Diff unchanged region'),
+    text('strongForeground', EDITOR, 'Strong text'),
+    text('editorBracketHighlight.foreground1', EDITOR, 'Bracket pair level 1'),
+    text('editorBracketHighlight.foreground2', EDITOR, 'Bracket pair level 2'),
+    text('editorBracketHighlight.foreground3', EDITOR, 'Bracket pair level 3'),
+    text('editorBracketHighlight.unexpectedBracket.foreground', EDITOR, 'Unexpected bracket'),
+    ui('editorGutter.foldingControlForeground', EDITOR, 'Folding control'),
+    text('editorGutter.itemGlyphForeground', 'editorGutter.itemBackground', 'Gutter item glyph'),
     ui('editorError.foreground', EDITOR, 'Error squiggle'),
     ui('editorWarning.foreground', EDITOR, 'Warning squiggle'),
     ui('editorInfo.foreground', EDITOR, 'Info squiggle'),
@@ -92,6 +112,9 @@ const EDITOR_PAIRS: readonly ContrastPair[] = [
     text('keybindingLabel.foreground', EDITOR, 'Keybinding labels'),
     text('chat.editedFileForeground', EDITOR, 'Chat edited file label'),
     text('chat.slashCommandForeground', 'chat.slashCommandBackground', 'Chat slash command'),
+    text('markdownAlert.important.foreground', EDITOR, 'Markdown important alert'),
+    mark('editorOverviewRuler.findMatchForeground', EDITOR, 'Overview ruler find match marks'),
+    ui('debugIcon.breakpointForeground', EDITOR, 'Breakpoint icon'),
 ];
 
 const WIDGET_PAIRS: readonly ContrastPair[] = [
@@ -102,6 +125,8 @@ const WIDGET_PAIRS: readonly ContrastPair[] = [
     text('editorSuggestWidget.foreground', 'editorSuggestWidget.background', 'Suggest widget'),
     text('editorSuggestWidget.highlightForeground', 'editorSuggestWidget.background', 'Suggest match highlight'),
     text('editorSuggestWidget.selectedForeground', 'editorSuggestWidget.selectedBackground', 'Suggest selected row'),
+    text('editorSuggestWidgetStatus.foreground', 'editorSuggestWidget.background', 'Suggest widget status'),
+    text('profileBadge.foreground', 'profileBadge.background', 'Profile badge'),
     ui('editorSuggestWidget.focusOutline', 'editorSuggestWidget.background', 'Suggest focus outline'),
     text('peekViewResult.fileForeground', 'peekViewResult.background', 'Peek result file names'),
     text('peekViewResult.lineForeground', 'peekViewResult.background', 'Peek result lines'),
@@ -145,6 +170,7 @@ const SIDEBAR_PAIRS: readonly ContrastPair[] = [
     text('gitDecoration.conflictingResourceForeground', SIDEBAR, 'Git conflicting'),
     text('gitDecoration.stageDeletedResourceForeground', SIDEBAR, 'Git staged deleted'),
     text('gitDecoration.stageModifiedResourceForeground', SIDEBAR, 'Git staged modified'),
+    text('scmGraph.historyItemHoverDeletionsForeground', SIDEBAR, 'SCM graph deletions count'),
     dimmed('gitDecoration.ignoredResourceForeground', SIDEBAR, 'Git ignored'),
     ui('activityBar.foreground', 'activityBar.background', 'Activity bar active icon'),
     ui('activityBar.inactiveForeground', 'activityBar.background', 'Activity bar inactive icon'),
@@ -176,6 +202,7 @@ const CHROME_PAIRS: readonly ContrastPair[] = [
     text('breadcrumb.activeSelectionForeground', 'breadcrumb.background', 'Selected breadcrumb'),
     text('panelTitle.activeForeground', PANEL, 'Active panel title'),
     text('panelTitle.inactiveForeground', PANEL, 'Inactive panel title'),
+    text('debugConsole.warningForeground', PANEL, 'Debug console warnings'),
     ui('panelTitle.activeBorder', PANEL, 'Active panel indicator'),
     ui('panel.border', PANEL, 'Panel border'),
     text('titleBar.activeForeground', TITLE, 'Title bar'),
