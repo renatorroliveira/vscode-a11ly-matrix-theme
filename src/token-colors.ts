@@ -37,7 +37,27 @@ export const tokenColors: readonly TokenColorRule[] = [
     {
         scope: 'comment',
         settings: {
-            foreground: '#83ab70',
+            foreground: '#21b947',
+        },
+    },
+    {
+        name: 'Documentation comment tags, types and parameter names',
+        scope: [
+            'comment.block.documentation storage.type',
+            'comment.block.documentation entity.name.type',
+            'comment.block.documentation variable',
+            'comment.block.documentation punctuation.definition.block.tag',
+            'comment.block.documentation punctuation.definition.bracket',
+            'comment.block.javadoc keyword.other.documentation',
+            'comment.block.javadoc entity.name.type',
+            'comment.block.javadoc variable',
+            'comment.block.documentation keyword.other.phpdoc',
+            'comment keyword.other.documentation',
+            'storage.type.class.jsdoc',
+            'storage.type.class.doxygen',
+        ],
+        settings: {
+            foreground: '#27d853',
         },
     },
     {
@@ -427,7 +447,7 @@ export const tokenColors: readonly TokenColorRule[] = [
     {
         scope: 'token.warn-token',
         settings: {
-            foreground: '#00ba00',
+            foreground: '#caca00',
         },
     },
     {

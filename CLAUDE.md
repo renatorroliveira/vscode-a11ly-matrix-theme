@@ -50,8 +50,9 @@ the dependency pinning report and the generated contrast report.
    lowers the perceived contrast of a dimmer one) and under the APCA dark-mode ceiling of Lc 85 to 90
    where halation begins. Pure white text is never used; body text is `text.primary` `#d2d2d2`,
    secondary text (line numbers, descriptions, placeholders, inlay hints, blame) is `text.secondary`
-   `#b3b3b3`, syntax tokens target 8:1 to 14:1. Accent outlines may reach 15.5:1 because they are the
-   intended brightest element; highlighted text uses `accent.primaryText` `#00f33e` (13.89:1) instead.
+   `#b3b3b3`, syntax tokens target 8:1 to 14:1. Comments are Matrix green `#21b947` (8.10:1, kept at the
+   8:1 floor every overlay in `TOKEN_OVERLAYS` is tuned for) and documentation tags `#27d853` (11.03:1).
+   Accent outlines may reach 15.5:1 because they are the intended brightest element; highlighted text uses `accent.primaryText` `#00f33e` (13.89:1) instead.
    Passive marks stay below the text floor (`mark.passive` `#7c7c7c`, `mark.active` `#949494`).
 3. Placeholder text is NOT exempt: it is text, 7:1 to 14:1.
 4. Never round, at either edge. 6.99:1 fails the floor and 14.01:1 fails the text ceiling. The audit

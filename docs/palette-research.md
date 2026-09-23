@@ -338,6 +338,18 @@ coordinate search over hue and lightness brought the minimum to 10.50. `charts.r
 git modified and untracked to `#c58a32` and `#6ac68a` (lightness only), clearing the last
 distinguishability warnings, including one the identical deleted and conflicting colors had masked.
 
+### Green comments (2026-09-22)
+
+Comments were sage `#83ab70` (8.02:1), whose 26% saturation read as grey next to the Matrix accents. They
+now use the Matrix hue at 70% saturation, `#21b947` (8.10:1). The lightness stays at the 8:1 token floor
+because every overlay behind code was tuned so the dimmest token keeps 7:1. Full saturation (`#00ba2f`)
+made comments louder than the code around them. Documentation tags, `{Type}` expressions and parameter
+names in JSDoc, Javadoc, PHPDoc and Doxygen blocks are a brighter step of the same hue, `#27d853` (11.03:1,
+delta E 11.3 from the comment body), so a doc block reads as one unit with visible structure. The log
+output warn token moved from `#00ba00`, delta E 1.6 from the new comment green, to yellow `#caca00`
+(11.96:1). Comments stay upright: italic hurts legibility in many monospace fonts. Python docstrings are
+strings in the TextMate grammar and keep the string color.
+
 ## Follow-ups
 
 - `scripts/audit/fix.ts` rewrites single- or double-quoted hex literals, but not role references such as

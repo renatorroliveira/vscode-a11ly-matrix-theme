@@ -392,7 +392,8 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | --- | --- | --- | --- | --- | --- |
 | PASS | meta.embedded (+3) | #d2d2d2 | 13.89 | 7 | 14 |
 | PASS | meta.diff.header | #9595ff | 8.02 | 7 | 14 |
-| PASS | comment | #83ab70 | 8.02 | 7 | 14 |
+| PASS | comment | #21b947 | 8.10 | 7 | 14 |
+| PASS | Documentation comment tags, types and parameter names (+11) | #27d853 | 11.03 | 7 | 14 |
 | PASS | constant.language | #66a6da | 8.03 | 7 | 14 |
 | PASS | constant.numeric (+3) | #B5CEA8 | 12.36 | 7 | 14 |
 | PASS | constant.regexp | #c88fb1 | 8.02 | 7 | 14 |
@@ -439,7 +440,7 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | support.constant.property-value (+6) | #ce9279 | 8.01 | 7 | 14 |
 | PASS | meta.resultLinePrefix.contextLinePrefix.search | #a7e1a7 | 13.97 | 7 | 14 |
 | PASS | token.info-token | #76a1e9 | 8.04 | 7 | 14 |
-| PASS | token.warn-token | #00ba00 | 8.02 | 7 | 14 |
+| PASS | token.warn-token | #caca00 | 11.96 | 7 | 14 |
 | PASS | token.error-token | #ff7474 | 8.00 | 7 | 14 |
 | PASS | token.debug-token | #c388eb | 8.04 | 7 | 14 |
 

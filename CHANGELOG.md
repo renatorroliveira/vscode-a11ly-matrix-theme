@@ -42,6 +42,8 @@ All notable changes to the A11y Matrix Theme are documented here. The format fol
   the deleted color. ANSI yellow, bright cyan and bright blue shift hue so every ANSI hue stays distinguishable
   under color vision deficiency simulation; charts.red and git modified and untracked are retuned. The gate now
   reports no distinguishability warnings.
+- Comments are Matrix green `#21b947` instead of grey-green sage, documentation tags a brighter `#27d853`,
+  and the log output warn token moved to yellow.
 - Overview ruler marks, tree indent guides, separators, the unselected radio border, the disabled checkbox,
   retired test icons, chart lines and SCM graph lane 3 moved into their contrast bands.
 - Contrast contract grew to 166 pairs (terminal selection and find matches, inactive selection, workbench
