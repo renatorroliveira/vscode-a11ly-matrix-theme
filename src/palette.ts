@@ -56,6 +56,11 @@ export const accent = {
     primaryText: '#00f33e',
     /** Same hue lowered to 7.01:1: ambient borders, inactive selection and normal terminal green. */
     border: '#00ad2c',
+    /**
+     * Same hue lowered to 3.80:1 (the WCAG 1.4.11 floor): input, dropdown and checkbox borders and `contrastBorder`.
+     * The focus ring is drawn over these pixels, so the ring changes them by 3.01:1 (WCAG 2.4.13).
+     */
+    boundary: '#007a1f',
     /** P3 amber phosphor: focus rings, active indicators and active text. 11.46:1 on black. */
     secondary: '#ffb000',
     /**
@@ -64,4 +69,9 @@ export const accent = {
      * Hovered rows and tabs are unfilled: a fill that carries `text.primary` at 7:1 drops colored labels below it.
      */
     fill: '#004913',
+    /**
+     * Same hue darkened until every syntax token and link keeps 7:1 on it: workbench `::selection` in hovers, chat
+     * and notifications, where selected text keeps its own color. 1.13:1 on black; the selection shape carries it.
+     */
+    fillDim: '#001806',
 } as const satisfies Readonly<Record<string, HexColor>>;

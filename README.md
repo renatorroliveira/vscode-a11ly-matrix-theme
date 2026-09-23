@@ -69,6 +69,7 @@ regenerated into [`docs/contrast-report.md`](docs/contrast-report.md) on every b
 | Text, including placeholder text                                         | 7:1           | 14:1          | WCAG 1.4.6 (AAA); ceiling is project policy, twice the floor |
 | Large text                                                               | 4.5:1         | 14:1          | WCAG 1.4.6 (AAA)                                             |
 | UI boundaries, icons, focus rings, carets, squiggles and chart series    | 4.5:1         | 15.5:1        | Project policy (WCAG 1.4.11 has no AAA tier)                 |
+| Input, dropdown and checkbox borders; the focus ring's change over them  | 3:1           | 15.5:1        | WCAG 1.4.11 and 2.4.13 (AAA focus appearance)                |
 | Disabled and ignored items                                               | 4.5:1         | 14:1          | Project policy (WCAG exempts disabled content)               |
 | Passive marks: indent guides, rulers, whitespace, gutter and ruler marks | 4.5:1         | 7:1           | Project policy; marks stay below every text color            |
 

@@ -49,6 +49,16 @@ describe('accent palette', () => {
         expect(contrastRatioHex(text.primary, accent.fill)).toBeLessThan(minimumRatio('text') + 0.1);
     });
 
+    it('keeps the focus ring a 3:1 change over the control boundary (WCAG 2.4.13)', () => {
+        expect(contrastRatioHex(accent.secondary, accent.boundary)).toBeGreaterThanOrEqual(3);
+        expect(withinBand(contrastRatioHex(accent.boundary, SURFACE), 'boundary')).toBe(true);
+    });
+
+    it('keeps the workbench selection fill darker than the editor selection fill', () => {
+        expect(contrastRatioHex(accent.fillDim, SURFACE)).toBeLessThan(contrastRatioHex(accent.fill, SURFACE));
+        expect(contrastRatioHex(text.primary, accent.fillDim)).toBeLessThanOrEqual(maximumRatio('text'));
+    });
+
     it('keeps the highlighted text variant of the primary inside the text band', () => {
         expect(withinBand(contrastRatioHex(accent.primaryText, SURFACE), 'text')).toBe(true);
         expect(contrastRatioHex(accent.primary, SURFACE)).toBeLessThanOrEqual(maximumRatio('ui'));

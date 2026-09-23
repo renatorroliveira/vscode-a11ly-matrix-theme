@@ -34,7 +34,7 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Focused empty editor group outline | ui | `editorGroup.focusedEmptyBorder` #ffb000 | `editor.background` #000000 | 11.46 | 4.5 | 15.5 | AAA |
 | PASS | Caret | ui | `editorCursor.foreground` #d2d2d2 | `editor.background` #000000 | 13.89 | 4.5 | 15.5 | AAA |
 | PASS | Bracket match outline | ui | `editorBracketMatch.border` #00ad2c | `editor.background` #000000 | 7.01 | 4.5 | 15.5 | AAA |
-| PASS | Gutter added marker | mark | `editorGutter.addedBackground` #4b8302 | `editor.background` #000000 | 4.55 | 4.5 | 7 | AAA |
+| PASS | Gutter added marker | mark | `editorGutter.addedBackground` #5ba002 | `editor.background` #000000 | 6.47 | 4.5 | 7 | AAA |
 | PASS | Gutter modified marker | mark | `editorGutter.modifiedBackground` #1b81a8 | `editor.background` #000000 | 4.75 | 4.5 | 7 | AAA |
 | PASS | Gutter deleted marker | mark | `editorGutter.deletedBackground` #f16b50 | `editor.background` #000000 | 6.96 | 4.5 | 7 | AAA |
 | PASS | Active indent guide | mark | `editorIndentGuide.activeBackground1` #949494 | `editor.background` #000000 | 6.92 | 4.5 | 7 | AAA |
@@ -59,7 +59,7 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Warning squiggle | ui | `editorWarning.foreground` #ffcb58 | `editor.background` #000000 | 13.94 | 4.5 | 15.5 | AAA |
 | PASS | Info squiggle | ui | `editorInfo.foreground` #59a4f9 | `editor.background` #000000 | 8.10 | 4.5 | 15.5 | AAA |
 | PASS | Focus ring on editor surface | ui | `focusBorder` #ffb000 | `editor.background` #000000 | 11.46 | 4.5 | 15.5 | AAA |
-| PASS | High contrast element outline | ui | `contrastBorder` #00ad2c | `editor.background` #000000 | 7.01 | 4.5 | 15.5 | AAA |
+| PASS | High contrast element outline | boundary | `contrastBorder` #007a1f | `editor.background` #000000 | 3.80 | 3 | 15.5 | AAA |
 | PASS | High contrast active element outline | ui | `contrastActiveBorder` #ffb000 | `editor.background` #000000 | 11.46 | 4.5 | 15.5 | AAA |
 | PASS | Links in text | text | `textLink.foreground` #21a6ff | `editor.background` #000000 | 7.96 | 7 | 14 | AAA |
 | PASS | Active links in text | text | `textLink.activeForeground` #21a6ff | `editor.background` #000000 | 7.96 | 7 | 14 | AAA |
@@ -75,6 +75,13 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Chat other find matches | text | `editor.foreground` #d2d2d2 | `chat.findMatchHighlightBackground` #ea5c0014 | 13.13 | 7 | 14 | AAA |
 | PASS | Merge editor handled conflict outline | ui | `mergeEditor.conflict.handledUnfocused.border` #7c7c7c | `editor.background` #000000 | 5.03 | 4.5 | 15.5 | AAA |
 | PASS | Merge editor unhandled conflict outline | ui | `mergeEditor.conflict.unhandledUnfocused.border` #a36a00 | `editor.background` #000000 | 4.62 | 4.5 | 15.5 | AAA |
+| PASS | Debug exception widget border | ui | `debugExceptionWidget.border` #e95656 | `debugExceptionWidget.background` #420b0d | 4.61 | 4.5 | 15.5 | AAA |
+| PASS | Diff moved code outline | ui | `diffEditor.move.border` #7c7c7c | `editor.background` #000000 | 5.03 | 4.5 | 15.5 | AAA |
+| PASS | Find in selection range outline | ui | `editor.findRangeHighlightBorder` #00ad2c | `editor.background` #000000 | 7.01 | 4.5 | 15.5 | AAA |
+| PASS | Snippet final tabstop outline | ui | `editor.snippetFinalTabstopHighlightBorder` #7c7c7c | `editor.background` #000000 | 5.03 | 4.5 | 15.5 | AAA |
+| PASS | Settings modified item indicator | ui | `settings.modifiedItemIndicator` #007acb | `editor.background` #000000 | 4.65 | 4.5 | 15.5 | AAA |
+| PASS | Selected link text | text | `textLink.foreground` #21a6ff | `selection.background` #001806 | 7.03 | 7 | 14 | AAA |
+| PASS | Selected error text | text | `errorForeground` #f48771 | `selection.background` #001806 | 7.55 | 7 | 14 | AAA |
 | PASS | Covered code outline | ui | `testing.coveredBorder` #00ad2c | `editor.background` #000000 | 7.01 | 4.5 | 15.5 | AAA |
 | PASS | Uncovered code outline | ui | `testing.uncoveredBorder` #8888ff | `editor.background` #000000 | 7.01 | 4.5 | 15.5 | AAA |
 | PASS | Gutter covered marker | mark | `testing.coveredGutterBackground` #45a83f | `editor.background` #000000 | 6.93 | 4.5 | 7 | AAA |
@@ -143,6 +150,9 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Git staged deleted | text | `gitDecoration.stageDeletedResourceForeground` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | 14 | AAA |
 | PASS | Git staged modified | text | `gitDecoration.stageModifiedResourceForeground` #e2c08d | `sideBar.background` #000000 | 12.16 | 7 | 14 | AAA |
 | PASS | SCM graph deletions count | text | `scmGraph.historyItemHoverDeletionsForeground` #da8c7e | `sideBar.background` #000000 | 8.03 | 7 | 14 | AAA |
+| PASS | SCM graph ref badge | text | `scmGraph.historyItemHoverLabelForeground` #000000 | `scmGraph.historyItemRefColor` #59a4f9 | 8.10 | 7 | 14 | AAA |
+| PASS | SCM graph remote ref badge | text | `scmGraph.historyItemHoverLabelForeground` #000000 | `scmGraph.historyItemRemoteRefColor` #b282d7 | 7.07 | 7 | 14 | AAA |
+| PASS | SCM graph base ref badge | text | `scmGraph.historyItemHoverLabelForeground` #000000 | `scmGraph.historyItemBaseRefColor` #ff6400 | 7.07 | 7 | 14 | AAA |
 | PASS | Git ignored | dimmed | `gitDecoration.ignoredResourceForeground` #a7a8a9 | `sideBar.background` #000000 | 8.82 | 4.5 | 14 | AAA |
 | PASS | Activity bar active icon | ui | `activityBar.foreground` #d2d2d2 | `activityBar.background` #000000 | 13.89 | 4.5 | 15.5 | AAA |
 | PASS | Activity bar inactive icon | ui | `activityBar.inactiveForeground` #d2d2d2 | `activityBar.background` #000000 | 13.89 | 4.5 | 15.5 | AAA |
@@ -195,18 +205,21 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Terminal inactive selected text | text | `terminal.selectionForeground` #d2d2d2 | `terminal.inactiveSelectionBackground` #004913b3 | 9.36 | 7 | 14 | AAA |
 | PASS | Input text | text | `input.foreground` #d2d2d2 | `input.background` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Input placeholder | text | `input.placeholderForeground` #b3b3b3 | `input.background` #000000 | 10.02 | 7 | 14 | AAA |
-| PASS | Input border | ui | `input.border` #00ad2c | `input.background` #000000 | 7.01 | 4.5 | 15.5 | AAA |
+| PASS | Input border | boundary | `input.border` #007a1f | `input.background` #000000 | 3.80 | 3 | 15.5 | AAA |
+| PASS | Focus ring change over the input border (WCAG 2.4.13) | boundary | `focusBorder` #ffb000 | `input.border` #007a1f | 3.01 | 3 | 15.5 | AAA |
 | PASS | Focus ring on inputs | ui | `focusBorder` #ffb000 | `input.background` #000000 | 11.46 | 4.5 | 15.5 | AAA |
-| PASS | Workbench text selection | text | `input.foreground` #d2d2d2 | `selection.background` #004913 | 7.08 | 7 | 14 | AAA |
+| PASS | Workbench text selection | text | `input.foreground` #d2d2d2 | `selection.background` #001806 | 12.26 | 7 | 14 | AAA |
 | PASS | Active input option | text | `inputOption.activeForeground` #d2d2d2 | `inputOption.activeBackground` #00000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Active input option border | ui | `inputOption.activeBorder` #ffb000 | `input.background` #000000 | 11.46 | 4.5 | 15.5 | AAA |
 | PASS | Input error outline | ui | `inputValidation.errorBorder` #00ad2c | `inputValidation.errorBackground` #000000 | 7.01 | 4.5 | 15.5 | AAA |
 | PASS | Input warning outline | ui | `inputValidation.warningBorder` #00ad2c | `inputValidation.warningBackground` #000000 | 7.01 | 4.5 | 15.5 | AAA |
 | PASS | Input info outline | ui | `inputValidation.infoBorder` #00ad2c | `inputValidation.infoBackground` #000000 | 7.01 | 4.5 | 15.5 | AAA |
 | PASS | Checkbox mark | text | `checkbox.foreground` #d2d2d2 | `checkbox.background` #000000 | 13.89 | 7 | 14 | AAA |
-| PASS | Checkbox border | ui | `checkbox.border` #00ad2c | `checkbox.background` #000000 | 7.01 | 4.5 | 15.5 | AAA |
+| PASS | Checkbox border | boundary | `checkbox.border` #007a1f | `checkbox.background` #000000 | 3.80 | 3 | 15.5 | AAA |
+| PASS | Focus ring change over the checkbox border (WCAG 2.4.13) | boundary | `focusBorder` #ffb000 | `checkbox.border` #007a1f | 3.01 | 3 | 15.5 | AAA |
 | PASS | Dropdown text | text | `dropdown.foreground` #d2d2d2 | `dropdown.background` #000000 | 13.89 | 7 | 14 | AAA |
-| PASS | Dropdown border | ui | `dropdown.border` #00ad2c | `dropdown.background` #000000 | 7.01 | 4.5 | 15.5 | AAA |
+| PASS | Dropdown border | boundary | `dropdown.border` #007a1f | `dropdown.background` #000000 | 3.80 | 3 | 15.5 | AAA |
+| PASS | Focus ring change over the dropdown border (WCAG 2.4.13) | boundary | `focusBorder` #ffb000 | `dropdown.border` #007a1f | 3.01 | 3 | 15.5 | AAA |
 | PASS | Primary button | text | `button.foreground` #d2d2d2 | `button.background` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Primary button hover | text | `button.foreground` #d2d2d2 | `button.hoverBackground` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Primary button border | ui | `button.border` #00ad2c | `editor.background` #000000 | 7.01 | 4.5 | 15.5 | AAA |
@@ -237,6 +250,13 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | ANSI bright magenta | text | `terminal.ansiBrightMagenta` #ff85ff | `editor.background` #000000 | 10.05 | 7 | 14 | AAA |
 | PASS | ANSI bright cyan | text | `terminal.ansiBrightCyan` #00eaea | `editor.background` #000000 | 13.96 | 7 | 14 | AAA |
 | PASS | ANSI bright white | text | `terminal.ansiBrightWhite` #d2d2d2 | `editor.background` #000000 | 13.89 | 7 | 14 | AAA |
+| PASS | Hovered link in ANSI red | text | `terminal.ansiRed` #ff5e5e | `terminal.hoverHighlightBackground` #add6ff00 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered link in ANSI green | text | `terminal.ansiGreen` #00ad2c | `terminal.hoverHighlightBackground` #add6ff00 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered link in ANSI yellow | text | `terminal.ansiYellow` #c78900 | `terminal.hoverHighlightBackground` #add6ff00 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered link in ANSI blue | text | `terminal.ansiBlue` #8888ff | `terminal.hoverHighlightBackground` #add6ff00 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered link in ANSI magenta | text | `terminal.ansiMagenta` #ff29ff | `terminal.hoverHighlightBackground` #add6ff00 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered link in ANSI cyan | text | `terminal.ansiCyan` #00a6a6 | `terminal.hoverHighlightBackground` #add6ff00 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered link in ANSI bright black | text | `terminal.ansiBrightBlack` #959595 | `terminal.hoverHighlightBackground` #add6ff00 | 7.01 | 7 | 14 | AAA |
 | PASS | GitLens added decoration | text | `gitlens.decorations.addedForegroundColor` #9fe2ab | `sideBar.background` #000000 | 13.94 | 7 | 14 | AAA |
 | PASS | GitLens branch ahead | text | `gitlens.decorations.branchAheadForegroundColor` #00f350 | `sideBar.background` #000000 | 13.94 | 7 | 14 | AAA |
 | PASS | GitLens branch behind | text | `gitlens.decorations.branchBehindForegroundColor` #ff874c | `sideBar.background` #000000 | 8.82 | 7 | 14 | AAA |
@@ -277,16 +297,16 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | GitLens launchpad mergeable hover | ui | `gitlens.launchpadIndicatorMergeableHoverColor` #2cff44 | `editor.background` #000000 | 15.49 | 4.5 | 15.5 | AAA |
 | PASS | GitLens timeline additions | ui | `gitlens.timelineAdditionsColor` #49be47 | `editor.background` #000000 | 8.74 | 4.5 | 15.5 | AAA |
 | PASS | GitLens timeline deletions | ui | `gitlens.timelineDeletionsColor` #dd2d3b | `editor.background` #000000 | 4.51 | 4.5 | 15.5 | AAA |
-| PASS | GitLens graph lane 1 | ui | `gitlens.graphLane1Color` #18d1d1 | `editor.background` #000000 | 11.08 | 4.5 | 15.5 | AAA |
-| PASS | GitLens graph lane 2 | ui | `gitlens.graphLane2Color` #45c6fe | `editor.background` #000000 | 10.76 | 4.5 | 15.5 | AAA |
-| PASS | GitLens graph lane 3 | ui | `gitlens.graphLane3Color` #98b5fe | `editor.background` #000000 | 10.38 | 4.5 | 15.5 | AAA |
-| PASS | GitLens graph lane 4 | ui | `gitlens.graphLane4Color` #c9a1fe | `editor.background` #000000 | 10.01 | 4.5 | 15.5 | AAA |
-| PASS | GitLens graph lane 5 | ui | `gitlens.graphLane5Color` #f58fd7 | `editor.background` #000000 | 9.79 | 4.5 | 15.5 | AAA |
-| PASS | GitLens graph lane 6 | ui | `gitlens.graphLane6Color` #fe949d | `editor.background` #000000 | 9.94 | 4.5 | 15.5 | AAA |
-| PASS | GitLens graph lane 7 | ui | `gitlens.graphLane7Color` #fe9b5e | `editor.background` #000000 | 10.06 | 4.5 | 15.5 | AAA |
-| PASS | GitLens graph lane 8 | ui | `gitlens.graphLane8Color` #e0b027 | `editor.background` #000000 | 10.41 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 1 | ui | `gitlens.graphLane1Color` #119292 | `editor.background` #000000 | 5.55 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 2 | ui | `gitlens.graphLane2Color` #2fbffe | `editor.background` #000000 | 10.00 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 3 | ui | `gitlens.graphLane3Color` #c7d7fe | `editor.background` #000000 | 14.58 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 4 | ui | `gitlens.graphLane4Color` #b177fe | `editor.background` #000000 | 6.94 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 5 | ui | `gitlens.graphLane5Color` #f164c8 | `editor.background` #000000 | 7.40 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 6 | ui | `gitlens.graphLane6Color` #fe6774 | `editor.background` #000000 | 7.41 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 7 | ui | `gitlens.graphLane7Color` #e95a01 | `editor.background` #000000 | 5.93 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 8 | ui | `gitlens.graphLane8Color` #eed58b | `editor.background` #000000 | 14.53 | 4.5 | 15.5 | AAA |
 | PASS | GitLens graph lane 9 | ui | `gitlens.graphLane9Color` #a6c750 | `editor.background` #000000 | 10.91 | 4.5 | 15.5 | AAA |
-| PASS | GitLens graph lane 10 | ui | `gitlens.graphLane10Color` #4dd494 | `editor.background` #000000 | 11.16 | 4.5 | 15.5 | AAA |
+| PASS | GitLens graph lane 10 | ui | `gitlens.graphLane10Color` #a9eacb | `editor.background` #000000 | 15.32 | 4.5 | 15.5 | AAA |
 | PASS | GitLens minimap head marker | ui | `gitlens.graphMinimapMarkerHeadColor` #59cf84 | `editor.background` #000000 | 10.68 | 4.5 | 15.5 | AAA |
 | PASS | GitLens minimap highlight marker | ui | `gitlens.graphMinimapMarkerHighlightsColor` #e2e500 | `editor.background` #000000 | 15.44 | 4.5 | 15.5 | AAA |
 | PASS | GitLens minimap local branch marker | ui | `gitlens.graphMinimapMarkerLocalBranchesColor` #3087cf | `editor.background` #000000 | 5.49 | 4.5 | 15.5 | AAA |
@@ -308,13 +328,13 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | GitLens scroll upstream marker | ui | `gitlens.graphScrollMarkerUpstreamColor` #12a04f | `editor.background` #000000 | 6.17 | 4.5 | 15.5 | AAA |
 | PASS | GitLens scroll WIP marker | ui | `gitlens.graphScrollMarkerWipColor` #f472b6 | `editor.background` #000000 | 7.93 | 4.5 | 15.5 | AAA |
 | PASS | GitLens blame line overview ruler mark | mark | `gitlens.lineHighlightOverviewRulerColor` #00bcf2b3 | `editor.background` #000000 | 4.88 | 4.5 | 7 | AAA |
-| PASS | Error Lens error message | text | `errorLens.errorForeground` #ff6464 | `editor.background` #000000 | 7.26 | 7 | 14 | AAA |
+| PASS | Error Lens error message | text | `errorLens.errorForeground` #ff7c7c | `errorLens.errorMessageBackground` #e4545419 | 7.08 | 7 | 14 | AAA |
 | PASS | Error Lens error message (light variant) | text | `errorLens.errorForegroundLight` #e97171 | `editor.background` #000000 | 7.07 | 7 | 14 | AAA |
-| PASS | Error Lens warning message | text | `errorLens.warningForeground` #fa973a | `editor.background` #000000 | 9.55 | 7 | 14 | AAA |
+| PASS | Error Lens warning message | text | `errorLens.warningForeground` #fa973a | `errorLens.warningMessageBackground` #ff942f19 | 7.30 | 7 | 14 | AAA |
 | PASS | Error Lens warning message (light variant) | text | `errorLens.warningForegroundLight` #ff942f | `editor.background` #000000 | 9.53 | 7 | 14 | AAA |
-| PASS | Error Lens info message | text | `errorLens.infoForeground` #00b7e4 | `editor.background` #000000 | 8.89 | 7 | 14 | AAA |
+| PASS | Error Lens info message | text | `errorLens.infoForeground` #00bcea | `errorLens.infoMessageBackground` #00b7e419 | 7.06 | 7 | 14 | AAA |
 | PASS | Error Lens info message (light variant) | text | `errorLens.infoForegroundLight` #00b7e4 | `editor.background` #000000 | 8.89 | 7 | 14 | AAA |
-| PASS | Error Lens hint message | text | `errorLens.hintForeground` #2faf64 | `editor.background` #000000 | 7.44 | 7 | 14 | AAA |
+| PASS | Error Lens hint message | text | `errorLens.hintForeground` #33c06e | `errorLens.hintMessageBackground` #17a2a219 | 7.06 | 7 | 14 | AAA |
 | PASS | Error Lens hint message (light variant) | text | `errorLens.hintForegroundLight` #2faf64 | `editor.background` #000000 | 7.44 | 7 | 14 | AAA |
 | PASS | Error Lens status bar error | text | `errorLens.statusBarErrorForeground` #ff6464 | `editor.background` #000000 | 7.26 | 7 | 14 | AAA |
 | PASS | Error Lens status bar warning | text | `errorLens.statusBarWarningForeground` #fa973a | `editor.background` #000000 | 9.55 | 7 | 14 | AAA |
@@ -397,6 +417,21 @@ Dimmest token or `editor.foreground` on each overlay stack, composited onto `edi
 | PASS | Merge editor changed words on changed lines | `mergeEditor.change.background` + `mergeEditor.change.word.background` | #121507 | #ff7474 | 7.03 | 7 |
 | PASS | Merge editor base changed lines | `mergeEditor.changeBase.background` | #260c0c | #ff7474 | 7.02 | 7 |
 | PASS | Merge editor base changed words on changed lines | `mergeEditor.changeBase.background` + `mergeEditor.changeBase.word.background` | #2c0707 | #ff7474 | 7.02 | 7 |
+| PASS | Focused stack frame line | `editor.focusedStackFrameHighlightBackground` | #0e160e | #ff7474 | 7.01 | 7 |
+| PASS | Stack frame line | `editor.stackFrameHighlightBackground` | #151500 | #ff7474 | 7.02 | 7 |
+| PASS | Hovered symbol highlight | `editor.hoverHighlightBackground` | #101418 | #ff7474 | 7.04 | 7 |
+| PASS | Linked editing ranges | `editor.linkedEditingBackground` | #330000 | #ff7474 | 7.01 | 7 |
+| PASS | Snippet tabstops | `editor.snippetTabstopHighlightBackground` | #141414 | #ff7474 | 7.02 | 7 |
+| PASS | GitLens highlighted line | `gitlens.lineHighlightBackgroundColor` | #00171d | #ff7474 | 7.02 | 7 |
+| PASS | Workbench text selection | `selection.background` | #001806 | #ff7474 | 7.06 | 7 |
+| PASS | Error Lens error line | `errorLens.errorBackground` | #180909 | #ff7474 | 7.40 | 7 |
+| PASS | Error Lens error range on its line | `errorLens.errorBackground` + `errorLens.errorRangeBackground` | #180909 | #ff7474 | 7.40 | 7 |
+| PASS | Error Lens warning line | `errorLens.warningBackground` | #1b1005 | #ff7474 | 7.14 | 7 |
+| PASS | Error Lens warning range on its line | `errorLens.warningBackground` + `errorLens.warningRangeBackground` | #1b1005 | #ff7474 | 7.13 | 7 |
+| PASS | Error Lens info line | `errorLens.infoBackground` | #00171d | #ff7474 | 7.02 | 7 |
+| PASS | Error Lens info range on its line | `errorLens.infoBackground` + `errorLens.infoRangeBackground` | #00171d | #ff7474 | 7.02 | 7 |
+| PASS | Error Lens hint line | `errorLens.hintBackground` | #031414 | #ff7474 | 7.17 | 7 |
+| PASS | Error Lens hint range on its line | `errorLens.hintBackground` + `errorLens.hintRangeBackground` | #031414 | #ff7474 | 7.18 | 7 |
 
 ## Distinguishability (informational)
 
@@ -416,18 +451,18 @@ Closest pair inside each semantic group, per vision type. Delta E (CIE76) below 
 | ok | diagnostics | protanopia | `editorError.foreground` vs `editorWarning.foreground` | 45.7 |
 | ok | diagnostics | deuteranopia | `editorError.foreground` vs `editorWarning.foreground` | 31.9 |
 | ok | diagnostics | tritanopia | `editorError.foreground` vs `editorWarning.foreground` | 33.8 |
-| ok | accentsVersusAdded | normal | `contrastBorder` vs `charts.green` | 36.7 |
-| ok | accentsVersusAdded | protanopia | `contrastBorder` vs `focusBorder` | 14.0 |
+| ok | accentsVersusAdded | normal | `contrastBorder` vs `charts.green` | 36.1 |
+| ok | accentsVersusAdded | protanopia | `focusBorder` vs `editor.findMatchBorder` | 21.9 |
 | ok | accentsVersusAdded | deuteranopia | `focusBorder` vs `editor.findMatchBorder` | 15.8 |
-| ok | accentsVersusAdded | tritanopia | `contrastBorder` vs `charts.green` | 21.2 |
-| ok | accentsVersusUntracked | normal | `contrastBorder` vs `editor.findMatchBorder` | 38.9 |
-| ok | accentsVersusUntracked | protanopia | `contrastBorder` vs `focusBorder` | 14.0 |
+| ok | accentsVersusAdded | tritanopia | `editor.findMatchBorder` vs `charts.green` | 30.5 |
+| ok | accentsVersusUntracked | normal | `contrastBorder` vs `gitDecoration.untrackedResourceForeground` | 37.3 |
+| ok | accentsVersusUntracked | protanopia | `focusBorder` vs `editor.findMatchBorder` | 21.9 |
 | ok | accentsVersusUntracked | deuteranopia | `focusBorder` vs `editor.findMatchBorder` | 15.8 |
-| ok | accentsVersusUntracked | tritanopia | `contrastBorder` vs `gitDecoration.untrackedResourceForeground` | 15.1 |
-| ok | accentsVersusGutter | normal | `contrastBorder` vs `editorGutter.addedBackground` | 28.3 |
-| ok | accentsVersusGutter | protanopia | `contrastBorder` vs `focusBorder` | 14.0 |
-| ok | accentsVersusGutter | deuteranopia | `contrastBorder` vs `editorGutter.addedBackground` | 11.6 |
-| ok | accentsVersusGutter | tritanopia | `contrastBorder` vs `editorGutter.addedBackground` | 24.6 |
+| ok | accentsVersusUntracked | tritanopia | `editor.findMatchBorder` vs `gitDecoration.untrackedResourceForeground` | 26.3 |
+| ok | accentsVersusGutter | normal | `contrastBorder` vs `editorGutter.addedBackground` | 26.6 |
+| ok | accentsVersusGutter | protanopia | `focusBorder` vs `editorGutter.addedBackground` | 16.5 |
+| ok | accentsVersusGutter | deuteranopia | `focusBorder` vs `editor.findMatchBorder` | 15.8 |
+| ok | accentsVersusGutter | tritanopia | `contrastBorder` vs `editorGutter.addedBackground` | 16.5 |
 | ok | focusVersusDiagnostics | normal | `focusBorder` vs `editorWarning.foreground` | 22.5 |
 | ok | focusVersusDiagnostics | protanopia | `focusBorder` vs `editorWarning.foreground` | 13.8 |
 | ok | focusVersusDiagnostics | deuteranopia | `focusBorder` vs `editorWarning.foreground` | 17.8 |
@@ -472,6 +507,10 @@ Closest pair inside each semantic group, per vision type. Delta E (CIE76) below 
 | ok | coverageMinimap | protanopia | `testing.coveredMinimapBackground` vs `testing.uncoveredMinimapBackground` | 95.5 |
 | ok | coverageMinimap | deuteranopia | `testing.coveredMinimapBackground` vs `testing.uncoveredMinimapBackground` | 90.7 |
 | ok | coverageMinimap | tritanopia | `testing.coveredMinimapBackground` vs `testing.uncoveredMinimapBackground` | 25.8 |
+| ok | gitlensLanes | normal | `gitlens.graphLane2Color` vs `gitlens.graphLane3Color` | 30.7 |
+| ok | gitlensLanes | protanopia | `gitlens.graphLane1Color` vs `gitlens.graphLane6Color` | 15.3 |
+| ok | gitlensLanes | deuteranopia | `gitlens.graphLane2Color` vs `gitlens.graphLane4Color` | 15.5 |
+| ok | gitlensLanes | tritanopia | `gitlens.graphLane3Color` vs `gitlens.graphLane10Color` | 15.6 |
 | ok | mergeConflicts | normal | `mergeEditor.conflict.handledUnfocused.border` vs `mergeEditor.conflict.unhandledUnfocused.border` | 59.1 |
 | ok | mergeConflicts | protanopia | `mergeEditor.conflict.handledUnfocused.border` vs `mergeEditor.conflict.unhandledUnfocused.border` | 53.0 |
 | ok | mergeConflicts | deuteranopia | `mergeEditor.conflict.handledUnfocused.border` vs `mergeEditor.conflict.unhandledUnfocused.border` | 56.0 |
