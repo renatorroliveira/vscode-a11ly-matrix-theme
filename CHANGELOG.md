@@ -28,6 +28,13 @@ All notable changes to the A11y Matrix Theme are documented here. The format fol
   gutter marker distinct from covered code.
 - The contrast gate measures every syntax token on each overlay drawn behind code (`TOKEN_OVERLAYS`),
   composited as stacked layers.
+- Input, dropdown and checkbox borders use a new `accent.boundary` `#007a1f` at the WCAG 1.4.11 floor so the
+  amber focus ring changes them by 3:1 (WCAG 2.4.13), gated as a new `boundary` kind. The gutter "added"
+  marker rises to `#5ba002` to stay distinguishable from it.
+- Workbench text selection uses a darker `accent.fillDim` `#001806` so colored text keeps 7:1. Stack frame,
+  hover, linked editing, snippet, GitLens line and Error Lens tints were lowered until every token keeps
+  7:1; the Error Lens range and terminal link hover tints are transparent and the Error Lens messages
+  lighter. Five low contrast borders, the SCM graph ref badges and the GitLens graph lanes were retuned.
 - Contrast contract grew to 166 pairs (terminal selection and find matches, inactive selection, workbench
   text selection, focus and highlight outlines) plus four accent distinguishability groups.
 - Chat "lines added" unified onto the standard added green `#89d185`.

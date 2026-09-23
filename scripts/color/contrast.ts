@@ -12,9 +12,12 @@ import type { Rgb } from './types.ts';
 /**
  * Kind of content a color pair renders, which selects the WCAG threshold.
  * `mark` is passive structure (indent guides, rulers, whitespace, gutter and
- * overview ruler marks) that must stay below the text tier.
+ * overview ruler marks) that must stay below the text tier. `boundary` is
+ * the border of an input, dropdown or checkbox that the focus ring is drawn
+ * over; it sits at the WCAG 1.4.11 floor so the ring can change its pixels
+ * by 3:1 (WCAG 2.4.13).
  */
-export type ContentKind = 'text' | 'large-text' | 'ui' | 'dimmed' | 'mark';
+export type ContentKind = 'text' | 'large-text' | 'ui' | 'dimmed' | 'mark' | 'boundary';
 
 /** WCAG conformance levels a ratio can satisfy. */
 export type ConformanceLevel = 'AAA' | 'AA' | 'fail';
@@ -24,7 +27,9 @@ export type ConformanceLevel = 'AAA' | 'AA' | 'fail';
  * WCAG defines no AAA tier for non-text; the `ui` and `mark` AAA value of
  * 4.5 is the project policy for a high contrast theme. `dimmed` is the
  * project policy for disabled and ignored items, which WCAG exempts but
- * low-vision users still need to read.
+ * low-vision users still need to read. `boundary` stays at the WCAG 1.4.11
+ * floor of 3:1 on purpose, and pairs of the focus ring on a boundary use it
+ * as the 3:1 change of WCAG 2.4.13.
  */
 export const WCAG_THRESHOLDS: Readonly<Record<ContentKind, { readonly AA: number; readonly AAA: number }>> = {
     'text': { AA: 4.5, AAA: 7 },
@@ -32,6 +37,7 @@ export const WCAG_THRESHOLDS: Readonly<Record<ContentKind, { readonly AA: number
     'ui': { AA: 3, AAA: 4.5 },
     'dimmed': { AA: 3, AAA: 4.5 },
     'mark': { AA: 3, AAA: 4.5 },
+    'boundary': { AA: 3, AAA: 3 },
 };
 
 /**
@@ -48,6 +54,7 @@ export const CONTRAST_CEILINGS: Readonly<Record<ContentKind, number>> = {
     'ui': 15.5,
     'dimmed': 14,
     'mark': 7,
+    'boundary': 15.5,
 };
 
 /** Conformance level the build gate enforces. */

@@ -72,6 +72,7 @@ describe('classifyContrast', () => {
         expect(minimumRatio('large-text')).toBe(4.5);
         expect(minimumRatio('ui')).toBe(4.5);
         expect(minimumRatio('dimmed')).toBe(4.5);
+        expect(minimumRatio('boundary')).toBe(3);
     });
 });
 

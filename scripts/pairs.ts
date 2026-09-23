@@ -4,7 +4,9 @@
  * translucent background is drawn on. Keep this list as the single place
  * where the theme's accessibility contract is declared. Every kind has a
  * floor and a ceiling (`scripts/color/contrast.ts`); `mark` pairs are the
- * passive structure that must stay below the text tier.
+ * passive structure that must stay below the text tier, and `boundary` pairs
+ * are the control borders the focus ring is drawn over (WCAG 1.4.11 floor)
+ * plus the ring's 3:1 change over them (WCAG 2.4.13).
  *
  * The palette is a High Contrast one: most surfaces are black and many
  * background ids are intentionally unset, so those pairs measure against
@@ -52,6 +54,10 @@ function dimmed(foreground: string, background: string, description: string, bac
     return backdrop === undefined
         ? { foreground, background, kind: 'dimmed', description }
         : { foreground, background, backdrop, kind: 'dimmed', description };
+}
+
+function boundary(foreground: string, background: string, description: string): ContrastPair {
+    return { foreground, background, kind: 'boundary', description };
 }
 
 function mark(foreground: string, background: string, description: string): ContrastPair {
@@ -109,7 +115,7 @@ const EDITOR_PAIRS: readonly ContrastPair[] = [
     ui('editorWarning.foreground', EDITOR, 'Warning squiggle'),
     ui('editorInfo.foreground', EDITOR, 'Info squiggle'),
     ui('focusBorder', EDITOR, 'Focus ring on editor surface'),
-    ui('contrastBorder', EDITOR, 'High contrast element outline'),
+    boundary('contrastBorder', EDITOR, 'High contrast element outline'),
     ui('contrastActiveBorder', EDITOR, 'High contrast active element outline'),
     text('textLink.foreground', EDITOR, 'Links in text'),
     text('textLink.activeForeground', EDITOR, 'Active links in text'),
@@ -125,6 +131,13 @@ const EDITOR_PAIRS: readonly ContrastPair[] = [
     text('editor.foreground', 'chat.findMatchHighlightBackground', 'Chat other find matches', EDITOR),
     ui('mergeEditor.conflict.handledUnfocused.border', EDITOR, 'Merge editor handled conflict outline'),
     ui('mergeEditor.conflict.unhandledUnfocused.border', EDITOR, 'Merge editor unhandled conflict outline'),
+    ui('debugExceptionWidget.border', 'debugExceptionWidget.background', 'Debug exception widget border'),
+    ui('diffEditor.move.border', EDITOR, 'Diff moved code outline'),
+    ui('editor.findRangeHighlightBorder', EDITOR, 'Find in selection range outline'),
+    ui('editor.snippetFinalTabstopHighlightBorder', EDITOR, 'Snippet final tabstop outline'),
+    ui('settings.modifiedItemIndicator', EDITOR, 'Settings modified item indicator'),
+    text('textLink.foreground', 'selection.background', 'Selected link text'),
+    text('errorForeground', 'selection.background', 'Selected error text'),
     ui('testing.coveredBorder', EDITOR, 'Covered code outline'),
     ui('testing.uncoveredBorder', EDITOR, 'Uncovered code outline'),
     mark('testing.coveredGutterBackground', EDITOR, 'Gutter covered marker'),
@@ -199,6 +212,13 @@ const SIDEBAR_PAIRS: readonly ContrastPair[] = [
     text('gitDecoration.stageDeletedResourceForeground', SIDEBAR, 'Git staged deleted'),
     text('gitDecoration.stageModifiedResourceForeground', SIDEBAR, 'Git staged modified'),
     text('scmGraph.historyItemHoverDeletionsForeground', SIDEBAR, 'SCM graph deletions count'),
+    text('scmGraph.historyItemHoverLabelForeground', 'scmGraph.historyItemRefColor', 'SCM graph ref badge'),
+    text(
+        'scmGraph.historyItemHoverLabelForeground',
+        'scmGraph.historyItemRemoteRefColor',
+        'SCM graph remote ref badge',
+    ),
+    text('scmGraph.historyItemHoverLabelForeground', 'scmGraph.historyItemBaseRefColor', 'SCM graph base ref badge'),
     dimmed('gitDecoration.ignoredResourceForeground', SIDEBAR, 'Git ignored'),
     ui('activityBar.foreground', 'activityBar.background', 'Activity bar active icon'),
     ui('activityBar.inactiveForeground', 'activityBar.background', 'Activity bar inactive icon'),
@@ -257,7 +277,8 @@ const CHROME_PAIRS: readonly ContrastPair[] = [
 const CONTROL_PAIRS: readonly ContrastPair[] = [
     text('input.foreground', INPUT, 'Input text'),
     text('input.placeholderForeground', INPUT, 'Input placeholder'),
-    ui('input.border', INPUT, 'Input border'),
+    boundary('input.border', INPUT, 'Input border'),
+    boundary('focusBorder', 'input.border', 'Focus ring change over the input border (WCAG 2.4.13)'),
     ui('focusBorder', INPUT, 'Focus ring on inputs'),
     text('input.foreground', 'selection.background', 'Workbench text selection'),
     text('inputOption.activeForeground', 'inputOption.activeBackground', 'Active input option', INPUT),
@@ -266,9 +287,11 @@ const CONTROL_PAIRS: readonly ContrastPair[] = [
     ui('inputValidation.warningBorder', 'inputValidation.warningBackground', 'Input warning outline'),
     ui('inputValidation.infoBorder', 'inputValidation.infoBackground', 'Input info outline'),
     text('checkbox.foreground', 'checkbox.background', 'Checkbox mark'),
-    ui('checkbox.border', 'checkbox.background', 'Checkbox border'),
+    boundary('checkbox.border', 'checkbox.background', 'Checkbox border'),
+    boundary('focusBorder', 'checkbox.border', 'Focus ring change over the checkbox border (WCAG 2.4.13)'),
     text('dropdown.foreground', 'dropdown.background', 'Dropdown text'),
-    ui('dropdown.border', 'dropdown.background', 'Dropdown border'),
+    boundary('dropdown.border', 'dropdown.background', 'Dropdown border'),
+    boundary('focusBorder', 'dropdown.border', 'Focus ring change over the dropdown border (WCAG 2.4.13)'),
     text('button.foreground', 'button.background', 'Primary button'),
     text('button.foreground', 'button.hoverBackground', 'Primary button hover'),
     ui('button.border', EDITOR, 'Primary button border'),
@@ -302,6 +325,13 @@ const TERMINAL_PAIRS: readonly ContrastPair[] = [
     text('terminal.ansiBrightMagenta', EDITOR, 'ANSI bright magenta'),
     text('terminal.ansiBrightCyan', EDITOR, 'ANSI bright cyan'),
     text('terminal.ansiBrightWhite', EDITOR, 'ANSI bright white'),
+    text('terminal.ansiRed', 'terminal.hoverHighlightBackground', 'Hovered link in ANSI red', EDITOR),
+    text('terminal.ansiGreen', 'terminal.hoverHighlightBackground', 'Hovered link in ANSI green', EDITOR),
+    text('terminal.ansiYellow', 'terminal.hoverHighlightBackground', 'Hovered link in ANSI yellow', EDITOR),
+    text('terminal.ansiBlue', 'terminal.hoverHighlightBackground', 'Hovered link in ANSI blue', EDITOR),
+    text('terminal.ansiMagenta', 'terminal.hoverHighlightBackground', 'Hovered link in ANSI magenta', EDITOR),
+    text('terminal.ansiCyan', 'terminal.hoverHighlightBackground', 'Hovered link in ANSI cyan', EDITOR),
+    text('terminal.ansiBrightBlack', 'terminal.hoverHighlightBackground', 'Hovered link in ANSI bright black', EDITOR),
 ];
 
 const GITLENS_PAIRS: readonly ContrastPair[] = [
@@ -388,13 +418,33 @@ const GITLENS_PAIRS: readonly ContrastPair[] = [
 ];
 
 const EXTENSION_PAIRS: readonly ContrastPair[] = [
-    text('errorLens.errorForeground', EDITOR, 'Error Lens error message'),
+    text(
+        'errorLens.errorForeground',
+        'errorLens.errorMessageBackground',
+        'Error Lens error message',
+        'errorLens.errorBackground',
+    ),
     text('errorLens.errorForegroundLight', EDITOR, 'Error Lens error message (light variant)'),
-    text('errorLens.warningForeground', EDITOR, 'Error Lens warning message'),
+    text(
+        'errorLens.warningForeground',
+        'errorLens.warningMessageBackground',
+        'Error Lens warning message',
+        'errorLens.warningBackground',
+    ),
     text('errorLens.warningForegroundLight', EDITOR, 'Error Lens warning message (light variant)'),
-    text('errorLens.infoForeground', EDITOR, 'Error Lens info message'),
+    text(
+        'errorLens.infoForeground',
+        'errorLens.infoMessageBackground',
+        'Error Lens info message',
+        'errorLens.infoBackground',
+    ),
     text('errorLens.infoForegroundLight', EDITOR, 'Error Lens info message (light variant)'),
-    text('errorLens.hintForeground', EDITOR, 'Error Lens hint message'),
+    text(
+        'errorLens.hintForeground',
+        'errorLens.hintMessageBackground',
+        'Error Lens hint message',
+        'errorLens.hintBackground',
+    ),
     text('errorLens.hintForegroundLight', EDITOR, 'Error Lens hint message (light variant)'),
     text('errorLens.statusBarErrorForeground', EDITOR, 'Error Lens status bar error'),
     text('errorLens.statusBarWarningForeground', EDITOR, 'Error Lens status bar warning'),
@@ -458,6 +508,18 @@ export const DISTINGUISHABLE_GROUPS: Readonly<Record<string, readonly string[]>>
     coverageBorders: ['testing.coveredBorder', 'testing.uncoveredBorder'],
     coverageGutter: ['testing.coveredGutterBackground', 'testing.uncoveredGutterBackground'],
     coverageMinimap: ['testing.coveredMinimapBackground', 'testing.uncoveredMinimapBackground'],
+    gitlensLanes: [
+        'gitlens.graphLane1Color',
+        'gitlens.graphLane2Color',
+        'gitlens.graphLane3Color',
+        'gitlens.graphLane4Color',
+        'gitlens.graphLane5Color',
+        'gitlens.graphLane6Color',
+        'gitlens.graphLane7Color',
+        'gitlens.graphLane8Color',
+        'gitlens.graphLane9Color',
+        'gitlens.graphLane10Color',
+    ],
     mergeConflicts: ['mergeEditor.conflict.handledUnfocused.border', 'mergeEditor.conflict.unhandledUnfocused.border'],
 };
 
@@ -489,5 +551,32 @@ export const TOKEN_OVERLAYS: readonly TokenOverlay[] = [
     {
         layers: ['mergeEditor.changeBase.background', 'mergeEditor.changeBase.word.background'],
         description: 'Merge editor base changed words on changed lines',
+    },
+    { layers: ['editor.focusedStackFrameHighlightBackground'], description: 'Focused stack frame line' },
+    { layers: ['editor.stackFrameHighlightBackground'], description: 'Stack frame line' },
+    { layers: ['editor.hoverHighlightBackground'], description: 'Hovered symbol highlight' },
+    { layers: ['editor.linkedEditingBackground'], description: 'Linked editing ranges' },
+    { layers: ['editor.snippetTabstopHighlightBackground'], description: 'Snippet tabstops' },
+    { layers: ['gitlens.lineHighlightBackgroundColor'], description: 'GitLens highlighted line' },
+    { layers: ['selection.background'], description: 'Workbench text selection' },
+    { layers: ['errorLens.errorBackground'], description: 'Error Lens error line' },
+    {
+        layers: ['errorLens.errorBackground', 'errorLens.errorRangeBackground'],
+        description: 'Error Lens error range on its line',
+    },
+    { layers: ['errorLens.warningBackground'], description: 'Error Lens warning line' },
+    {
+        layers: ['errorLens.warningBackground', 'errorLens.warningRangeBackground'],
+        description: 'Error Lens warning range on its line',
+    },
+    { layers: ['errorLens.infoBackground'], description: 'Error Lens info line' },
+    {
+        layers: ['errorLens.infoBackground', 'errorLens.infoRangeBackground'],
+        description: 'Error Lens info range on its line',
+    },
+    { layers: ['errorLens.hintBackground'], description: 'Error Lens hint line' },
+    {
+        layers: ['errorLens.hintBackground', 'errorLens.hintRangeBackground'],
+        description: 'Error Lens hint range on its line',
     },
 ];

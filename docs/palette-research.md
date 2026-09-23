@@ -16,8 +16,10 @@ import `scripts/color/`; nothing was computed by hand. The chosen values live in
 | Primary: highlight outlines, find matches, minimap selection            | `#00ff41` | 15.38              | "Matrix Code Green" fan palette; also Quiet Hacker and Durgonix themes       |
 | Primary text: filter and suggest match highlights, bright ANSI green    | `#00f33e` | 13.89              | The primary lowered to the text ceiling, delta E 5.5 from it                 |
 | Border: ambient borders, current line outline, normal ANSI green        | `#00ad2c` | 7.01               | Same hue as the primary, lightness lowered until 7:1                         |
+| Boundary: input, dropdown and checkbox borders, `contrastBorder`        | `#007a1f` | 3.80               | Same hue at the WCAG 1.4.11 floor so the focus ring changes it by 3.01:1     |
 | Secondary: focus rings, active indicators, active text                  | `#ffb000` | 11.46              | P3 amber phosphor, the VT220 amber option that shipped alongside green tubes |
 | Fill: text selection (primary text), hovered activity bar items         | `#004913` | 1.96               | Same hue darkened until `text.primary` reaches 7.08:1                        |
+| Fill dim: workbench `::selection` (hovers, chat, notifications)         | `#001806` | 1.13               | Same hue darkened until every token and link keeps 7:1                       |
 
 ### Neutral text tier and contrast ceilings (2026-09-18)
 
@@ -283,12 +285,37 @@ Uncovered code now uses the ANSI blue tier (`#8888ff` outline and minimap, `#858
 the covered gutter moves into the mark band (`#45a83f`, 6.93:1); the three pairs are distinguishability
 groups.
 
+### Focus appearance, secondary overlays and graph lanes (2026-09-22)
+
+VS Code draws the input, dropdown and checkbox focus ring as a 1px outline over the border pixels, so
+WCAG 2.4.13 reduces to a 3:1 change between the ring and the border. Over the 7:1 `accent.border` the amber
+ring changed them by only 1.63:1. Keeping 3:1 over a 4.5:1 border needs an amber of at least 13.5:1;
+`#ffc94f` (13.72:1) reaches it but lands delta E 1.06 from the Matrix green find outline under
+deuteranopia and 1.31 from the warning squiggle, so the amber stays `#ffb000`. The new `accent.boundary`
+`#007a1f` (3.80:1) sits at the WCAG 1.4.11 floor instead and the ring changes it by 3.01:1. It is gated
+as the `boundary` kind (3:1 floor), together with the ring-over-border pairs. `accent.border` keeps 7:1 for
+ambient borders and the terminal. The gutter "added" marker rises to `#5ba002` (6.47:1, hue kept) so it
+stays delta E 16.5 from the boundary under every simulation.
+
+Workbench `::selection` (hovers, chat, notifications) keeps the selected text's own color, and code or
+links fell to 4.08:1 on `#004913`. It now uses `accent.fillDim` `#001806`, the darkest step of the same hue
+at which every token and link keeps 7:1. The editor and terminal selections keep `accent.fill` because they
+force `text.primary`.
+
+The remaining overlays behind code (stack frames, hover and linked editing highlights, snippet tabstops,
+the GitLens line highlight) were lowered in alpha until the dimmest token keeps 7:1, and are listed in
+`TOKEN_OVERLAYS`. Error Lens paints a range tint over its line tint; with any range alpha the stack drops
+tokens below 7:1, so the range tints are transparent and the line tint and squiggle mark the range. The
+Error Lens message colors were lightened (hue kept) to 7:1 on the line and message tints, and their pairs
+now measure that stack. The terminal link hover tint is transparent because the normal ANSI tier sits at
+the 7.01:1 floor; the hovered link keeps its underline.
+
+GitLens graph lanes 1 and 5 were delta E 0.71 apart under deuteranopia. The ten lanes keep their hues and
+move lightness only; a coordinate search over lightness within the UI band raised the minimum separation
+across normal vision and the three simulations to 15.3, and the lanes are now a distinguishability group.
+
 ## Follow-ups
 
-- The focus ring changes hue against the border but its luminance ratio to the border tier is 1.63:1,
-  short of the 3:1 change WCAG 2.4.13 (Focus Appearance, AAA) asks for. VS Code's own Dark High Contrast
-  theme has the same property. Reaching 3:1 would need a border tier near 4.5:1, which collides with the
-  gutter "added" marker, or a much brighter secondary.
 - `scripts/audit/fix.ts` rewrites single- or double-quoted hex literals, but not role references such as
   `text.primary`; a failing role has to be changed in `src/palette.ts` by hand. The gate is unaffected.
 - `terminal.ansiBlack` is the only ANSI color outside the gate. A program that draws black text on the

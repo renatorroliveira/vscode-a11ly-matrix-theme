@@ -40,8 +40,11 @@ the dependency pinning report and the generated contrast report.
    large text 4.5:1, UI boundaries, icons, focus rings, carets, squiggles and chart series 4.5:1
    (project policy; WCAG 1.4.11 has no AAA tier), disabled and ignored items 4.5:1 (`dimmed`, project
    policy for WCAG-exempt content), passive marks 4.5:1 (`mark`: indent guides, rulers, whitespace,
-   gutter and overview ruler marks).
-2. Every kind also has a ceiling (`CONTRAST_CEILINGS`): text 14:1, UI 15.5:1, dimmed 14:1, marks 7:1.
+   gutter and overview ruler marks), control boundaries 3:1 (`boundary`: input, dropdown and checkbox
+   borders and `contrastBorder` at `accent.boundary` `#007a1f`, plus the focus ring's change over them,
+   which is the 3:1 of WCAG 2.4.13; VS Code draws the ring over the border pixels).
+2. Every kind also has a ceiling (`CONTRAST_CEILINGS`): text 14:1, UI and boundary 15.5:1, dimmed 14:1,
+   marks 7:1.
    A pair passes only inside its band. The text ceiling is twice the floor so the brightest and dimmest
    glyphs on a line stay within a 2:1 luminance spread (surround suppression: a high contrast neighbour
    lowers the perceived contrast of a dimmer one) and under the APCA dark-mode ceiling of Lc 85 to 90
@@ -56,7 +59,8 @@ the dependency pinning report and the generated contrast report.
 5. Translucent colors (8-digit hex) are measured after alpha compositing onto the real surface. In
    this High Contrast palette many background ids are unset on purpose, so pairs measure against the
    surface that shows through (`editor.background`). Text selection uses the dark green
-   `accent.fill` `#004913` with `text.primary` (7.08:1); hovered rows and tabs are unfilled (the HC hover
+   `accent.fill` `#004913` with `text.primary` (7.08:1), and workbench `::selection`, which keeps the
+   text's own color, uses `accent.fillDim` `#001806`; hovered rows and tabs are unfilled (the HC hover
    outline shows) because no fill keeps colored labels at 7:1; the fill itself is 1.96:1 on black because a
    fill that carries 7:1 text of luminance L can reach at most (L + 0.05) / 7 - 0.05 against black.
    Highlights use green borders instead of fills, focus rings are amber. Every overlay drawn behind code
@@ -85,7 +89,8 @@ the dependency pinning report and the generated contrast report.
 11. APCA numbers may inform design but never replace WCAG 2.x ratios for conformance.
 12. `themes/` is generated. Edit `src/workbench-colors.ts` and `src/token-colors.ts`, then `pnpm build`. Neutral
     and accent ids reference the roles in `src/palette.ts` (`text.primary`, `text.secondary`, `mark.passive`,
-    `mark.active`, `accent.primary`, `accent.primaryText`, `accent.border`, `accent.secondary`, `accent.fill`);
+    `mark.active`, `accent.primary`, `accent.primaryText`, `accent.border`, `accent.boundary`, `accent.secondary`,
+    `accent.fill`, `accent.fillDim`);
     change a role there, never by scattering a new literal. No `#ffffff` text anywhere.
 13. A pair's pass/fail is `withinBand(ratio, kind)`, never "level is not fail": a pair that reaches AA
     still fails an AAA gate, and a pair that reaches AAA still fails when it exceeds the ceiling.
