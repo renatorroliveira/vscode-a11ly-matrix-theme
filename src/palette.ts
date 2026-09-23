@@ -50,7 +50,10 @@ export const mark = {
 
 /** Accent colors by role. */
 export const accent = {
-    /** Matrix Code Green: highlight outlines, find matches, minimap selection and bright terminal green. 15.38:1 on black. */
+    /**
+     * Matrix Code Green: highlight outlines, selected and hovered item outlines, find matches, minimap selection and
+     * bright terminal green. 15.38:1 on black.
+     */
     primary: '#00ff41',
     /** The primary lowered to the 14:1 text ceiling for highlighted text such as filter matches. 13.89:1 on black. */
     primaryText: '#00f33e',
