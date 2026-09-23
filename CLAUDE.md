@@ -55,10 +55,13 @@ the dependency pinning report and the generated contrast report.
    uses the exact WCAG formula from `docs/accessibility-manual-for-web-interfaces.md`.
 5. Translucent colors (8-digit hex) are measured after alpha compositing onto the real surface. In
    this High Contrast palette many background ids are unset on purpose, so pairs measure against the
-   surface that shows through (`editor.background`). Text selection and hovered rows use the dark green
-   `accent.fill` `#004913` with `text.primary` (7.08:1); the fill itself is 1.96:1 on black because a
+   surface that shows through (`editor.background`). Text selection uses the dark green
+   `accent.fill` `#004913` with `text.primary` (7.08:1); hovered rows and tabs are unfilled (the HC hover
+   outline shows) because no fill keeps colored labels at 7:1; the fill itself is 1.96:1 on black because a
    fill that carries 7:1 text of luminance L can reach at most (L + 0.05) / 7 - 0.05 against black.
-   Highlights use green borders instead of fills, focus rings are amber.
+   Highlights use green borders instead of fills, focus rings are amber. Every overlay drawn behind code
+   is listed in `TOKEN_OVERLAYS` (`scripts/pairs.ts`), where the gate measures every syntax token on the
+   composited layer stack.
 6. Terminal ANSI colors are gated as text (7:1 to 14:1) so the AAA claim holds even when the user
    disables `terminal.integrated.minimumContrastRatio` (its default lifts only to 4.5:1). The normal
    tier sits at the floor (red `#ff5e5e`, green `accent.border`, yellow `#c78900`, blue `#8888ff`,

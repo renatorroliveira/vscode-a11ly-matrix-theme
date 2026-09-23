@@ -18,7 +18,13 @@ import { deltaE, simulateCvd, type CvdType } from '../color/cvd.ts';
 import { flattenHex } from '../color/composite.ts';
 import { parseHex } from '../color/hex.ts';
 import type { Rgb } from '../color/types.ts';
-import { CONTRAST_PAIRS, DISTINGUISHABLE_GROUPS, type ContrastPair } from '../pairs.ts';
+import {
+    CONTRAST_PAIRS,
+    DISTINGUISHABLE_GROUPS,
+    TOKEN_OVERLAYS,
+    type ContrastPair,
+    type TokenOverlay,
+} from '../pairs.ts';
 
 /** Outcome of one pair measurement. */
 export interface PairResult {
@@ -43,6 +49,17 @@ export interface TokenResult {
     readonly status: 'pass' | 'fail';
 }
 
+/** Dimmest syntax token or `editor.foreground` measured on one overlay stack behind editor text. */
+export interface OverlayResult {
+    readonly overlay: TokenOverlay;
+    readonly backgroundHex: string | undefined;
+    readonly worstForegroundHex: string | undefined;
+    readonly ratio: number;
+    readonly required: number;
+    readonly maximum: number;
+    readonly status: 'pass' | 'fail' | 'missing';
+}
+
 /** Smallest perceptual distance found inside a group, per vision type. */
 export interface DistinguishabilityResult {
     readonly group: string;
@@ -56,6 +73,7 @@ export interface DistinguishabilityResult {
 export interface AuditResult {
     readonly pairs: readonly PairResult[];
     readonly tokens: readonly TokenResult[];
+    readonly overlays: readonly OverlayResult[];
     readonly groups: readonly DistinguishabilityResult[];
     readonly failures: number;
 }
@@ -72,11 +90,13 @@ const VISION_TYPES: readonly ('normal' | CvdType)[] = ['normal', 'protanopia', '
 export function evaluateTheme(theme: ColorTheme): AuditResult {
     const pairs = CONTRAST_PAIRS.map((pair) => evaluatePair(theme, pair));
     const tokens = evaluateTokens(theme);
+    const overlays = TOKEN_OVERLAYS.map((overlay) => evaluateOverlay(theme, overlay));
     const groups = evaluateGroups(theme);
     const failures =
         pairs.filter((result) => result.status !== 'pass').length +
-        tokens.filter((result) => result.status === 'fail').length;
-    return { pairs, tokens, groups, failures };
+        tokens.filter((result) => result.status === 'fail').length +
+        overlays.filter((result) => result.status !== 'pass').length;
+    return { pairs, tokens, overlays, groups, failures };
 }
 
 /**
@@ -130,6 +150,52 @@ function evaluateTokens(theme: ColorTheme): readonly TokenResult[] {
         const status = withinBand(ratio, TOKEN_KIND) ? 'pass' : 'fail';
         return [{ index, scope: describeScope(rule), foregroundHex, ratio, required, maximum, status }];
     });
+}
+
+function evaluateOverlay(theme: ColorTheme, overlay: TokenOverlay): OverlayResult {
+    const required = minimumRatio(TOKEN_KIND);
+    const maximum = maximumRatio(TOKEN_KIND);
+    const background = flattenLayers(theme, overlay.layers);
+    const foregrounds = overlayForegrounds(theme);
+    if (background === undefined || foregrounds.length === 0) {
+        return {
+            overlay,
+            backgroundHex: undefined,
+            worstForegroundHex: undefined,
+            ratio: 0,
+            required,
+            maximum,
+            status: 'missing',
+        };
+    }
+    const backgroundHex = formatRgb(background);
+    const measured = foregrounds.map((hex) => ({
+        hex,
+        ratio: contrastRatio(flattenHex(hex, backgroundHex), background),
+    }));
+    const worst = measured.reduce((dimmest, item) => (item.ratio < dimmest.ratio ? item : dimmest));
+    const status = withinBand(worst.ratio, TOKEN_KIND) ? 'pass' : 'fail';
+    return { overlay, backgroundHex, worstForegroundHex: worst.hex, ratio: worst.ratio, required, maximum, status };
+}
+
+function flattenLayers(theme: ColorTheme, layers: readonly string[]): Rgb | undefined {
+    const editorBackground = theme.colors['editor.background'];
+    const colors = layers.map((layer) => theme.colors[layer]);
+    if (editorBackground === undefined || colors.some((color) => color === undefined)) {
+        return undefined;
+    }
+    return colors.reduce<Rgb>(
+        (surface, color) => flattenHex(color ?? '#00000000', formatRgb(surface)),
+        flattenHex(editorBackground, '#000000'),
+    );
+}
+
+function overlayForegrounds(theme: ColorTheme): readonly string[] {
+    const tokenForegrounds = theme.tokenColors.flatMap((rule) =>
+        rule.settings.foreground === undefined ? [] : [rule.settings.foreground],
+    );
+    const editorForeground = theme.colors['editor.foreground'];
+    return editorForeground === undefined ? tokenForegrounds : [...tokenForegrounds, editorForeground];
 }
 
 function evaluateGroups(theme: ColorTheme): readonly DistinguishabilityResult[] {

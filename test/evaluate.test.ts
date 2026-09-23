@@ -62,6 +62,46 @@ describe('evaluateTheme', () => {
         const tokens = evaluateTheme(theme).tokens;
         expect(tokens.map((item) => item.status)).toEqual(['pass', 'fail', 'fail']);
     });
+
+    it('fails an overlay that pushes the dimmest token below the floor', () => {
+        const theme: ColorTheme = {
+            ...themeWith({
+                'editor.background': '#000000',
+                'editor.foreground': '#d2d2d2',
+                'chat.findMatchBackground': '#ea5c00aa',
+            }),
+            tokenColors: [{ scope: 'string', settings: { foreground: '#ff7474' } }],
+        };
+        const overlay = evaluateTheme(theme).overlays.find(
+            (item) => item.overlay.description === 'Chat current find match',
+        );
+        expect(overlay?.worstForegroundHex).toBe('#ff7474');
+        expect(overlay?.status).toBe('fail');
+    });
+
+    it('measures a word highlight composited over its line highlight', () => {
+        const theme: ColorTheme = {
+            ...themeWith({
+                'editor.background': '#000000',
+                'editor.foreground': '#d2d2d2',
+                'mergeEditor.change.background': '#9bb9551d',
+                'mergeEditor.change.word.background': '#9ccc2c1b',
+            }),
+            tokenColors: [{ scope: 'string', settings: { foreground: '#ff7474' } }],
+        };
+        const overlays = evaluateTheme(theme).overlays;
+        const line = overlays.find((item) => item.overlay.description === 'Merge editor changed lines');
+        const stacked = overlays.find(
+            (item) => item.overlay.layers.length === 2 && item.overlay.layers[0] === 'mergeEditor.change.background',
+        );
+        expect(line?.status).toBe('pass');
+        expect(stacked?.status).toBe('fail');
+    });
+
+    it('reports an overlay with an absent layer as missing', () => {
+        const overlay = evaluateTheme(themeWith({ 'editor.background': '#000000' })).overlays[0];
+        expect(overlay?.status).toBe('missing');
+    });
 });
 
 describe('resolveBackground', () => {

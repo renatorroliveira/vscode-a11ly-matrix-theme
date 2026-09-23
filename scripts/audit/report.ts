@@ -3,7 +3,7 @@
  * @module
  */
 
-import type { AuditResult, DistinguishabilityResult, PairResult, TokenResult } from './evaluate.ts';
+import type { AuditResult, DistinguishabilityResult, OverlayResult, PairResult, TokenResult } from './evaluate.ts';
 
 const STATUS_ICON: Readonly<Record<string, string>> = {
     pass: 'PASS',
@@ -40,6 +40,14 @@ export function renderMarkdown(result: AuditResult): string {
         '| --- | --- | --- | --- | --- | --- |',
         ...result.tokens.map(renderTokenRow),
         '',
+        '## Syntax tokens on overlays behind editor text',
+        '',
+        'Dimmest token or `editor.foreground` on each overlay stack, composited onto `editor.background`.',
+        '',
+        '| Status | Overlay | Layers | Composited | Dimmest foreground | Ratio | Required |',
+        '| --- | --- | --- | --- | --- | --- | --- |',
+        ...result.overlays.map(renderOverlayRow),
+        '',
         '## Distinguishability (informational)',
         '',
         'Closest pair inside each semantic group, per vision type. Delta E (CIE76) below 10 is flagged.',
@@ -59,6 +67,7 @@ export function renderMarkdown(result: AuditResult): string {
 export function renderConsole(result: AuditResult): readonly string[] {
     const failingPairs = result.pairs.filter((pair) => pair.status !== 'pass');
     const failingTokens = result.tokens.filter((token) => token.status === 'fail');
+    const failingOverlays = result.overlays.filter((overlay) => overlay.status !== 'pass');
     const warnings = result.groups.filter((group) => group.status === 'warn');
     return [
         ...failingPairs.map(
@@ -69,11 +78,15 @@ export function renderConsole(result: AuditResult): readonly string[] {
             (item) =>
                 `FAIL token[${String(item.index)}] ${item.scope}: ${item.foregroundHex} = ${item.ratio.toFixed(2)}:1 (band ${String(item.required)}:1 to ${String(item.maximum)}:1)`,
         ),
+        ...failingOverlays.map(
+            (item) =>
+                `${STATUS_ICON[item.status] ?? ''} overlay ${item.overlay.description}: ${item.worstForegroundHex ?? '?'} on ${item.backgroundHex ?? '?'} = ${item.ratio.toFixed(2)}:1 (floor ${String(item.required)}:1)`,
+        ),
         ...warnings.map(
             (item) =>
                 `WARN ${item.group} under ${item.vision}: ${item.closestPair[0]} vs ${item.closestPair[1]} delta E ${item.deltaE.toFixed(1)}`,
         ),
-        `pairs: ${String(result.pairs.length - failingPairs.length)}/${String(result.pairs.length)} pass, tokens: ${String(result.tokens.length - failingTokens.length)}/${String(result.tokens.length)} pass, distinguishability warnings: ${String(warnings.length)}`,
+        `pairs: ${String(result.pairs.length - failingPairs.length)}/${String(result.pairs.length)} pass, tokens: ${String(result.tokens.length - failingTokens.length)}/${String(result.tokens.length)} pass, overlays: ${String(result.overlays.length - failingOverlays.length)}/${String(result.overlays.length)} pass, distinguishability warnings: ${String(warnings.length)}`,
     ];
 }
 
@@ -83,6 +96,11 @@ function renderPairRow(item: PairResult): string {
 
 function renderTokenRow(item: TokenResult): string {
     return `| ${STATUS_ICON[item.status] ?? ''} | ${item.scope} | ${item.foregroundHex} | ${item.ratio.toFixed(2)} | ${String(item.required)} | ${String(item.maximum)} |`;
+}
+
+function renderOverlayRow(item: OverlayResult): string {
+    const layers = item.overlay.layers.map((layer) => `\`${layer}\``).join(' + ');
+    return `| ${STATUS_ICON[item.status] ?? ''} | ${item.overlay.description} | ${layers} | ${item.backgroundHex ?? ''} | ${item.worstForegroundHex ?? ''} | ${item.ratio.toFixed(2)} | ${String(item.required)} |`;
 }
 
 function renderGroupRow(item: DistinguishabilityResult): string {

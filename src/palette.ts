@@ -60,7 +60,8 @@ export const accent = {
     secondary: '#ffb000',
     /**
      * Same green hue darkened until `text.primary` reaches 7.08:1 on it; the fill itself is then 1.96:1 on black.
-     * Text selection in the editor, terminal and inputs, and hovered rows, tabs and activity bar items.
+     * Text selection in the editor, terminal and inputs, hovered activity bar items and notebook status items.
+     * Hovered rows and tabs are unfilled: a fill that carries `text.primary` at 7:1 drops colored labels below it.
      */
     fill: '#004913',
 } as const satisfies Readonly<Record<string, HexColor>>;
