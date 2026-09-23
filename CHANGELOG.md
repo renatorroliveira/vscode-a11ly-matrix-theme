@@ -22,6 +22,12 @@ All notable changes to the A11y Matrix Theme are documented here. The format fol
   of inverted black on green; inactive selection is the same fill at 70% alpha. Hovered list rows, tabs,
   activity bar items and notebook status items use the same fill.
 - Accent ids reference named roles in `src/palette.ts` instead of repeated literals.
+- Hovered list rows and tabs are unfilled; hover shows as the High Contrast outline because no fill keeps
+  colored labels at 7:1. The chat find match and merge editor tints were lowered until every syntax token
+  stays at 7:1, the unfocused merge conflict outlines are opaque, and uncovered code uses a blue outline and
+  gutter marker distinct from covered code.
+- The contrast gate measures every syntax token on each overlay drawn behind code (`TOKEN_OVERLAYS`),
+  composited as stacked layers.
 - Contrast contract grew to 166 pairs (terminal selection and find matches, inactive selection, workbench
   text selection, focus and highlight outlines) plus four accent distinguishability groups.
 - Chat "lines added" unified onto the standard added green `#89d185`.

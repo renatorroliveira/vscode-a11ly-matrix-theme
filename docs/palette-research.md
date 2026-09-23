@@ -17,7 +17,7 @@ import `scripts/color/`; nothing was computed by hand. The chosen values live in
 | Primary text: filter and suggest match highlights, bright ANSI green    | `#00f33e` | 13.89              | The primary lowered to the text ceiling, delta E 5.5 from it                 |
 | Border: ambient borders, current line outline, normal ANSI green        | `#00ad2c` | 7.01               | Same hue as the primary, lightness lowered until 7:1                         |
 | Secondary: focus rings, active indicators, active text                  | `#ffb000` | 11.46              | P3 amber phosphor, the VT220 amber option that shipped alongside green tubes |
-| Fill: text selection (primary text) and hovered rows, tabs, items       | `#004913` | 1.96               | Same hue darkened until `text.primary` reaches 7.08:1                        |
+| Fill: text selection (primary text), hovered activity bar items         | `#004913` | 1.96               | Same hue darkened until `text.primary` reaches 7.08:1                        |
 
 ### Neutral text tier and contrast ceilings (2026-09-18)
 
@@ -259,14 +259,36 @@ guidance: Okabe and Ito, Color Universal Design (magenta or purple with green is
 with orange is confusable at low saturation); Claus Wilke, Fundamentals of Data Visualization; Datawrapper
 "visualizing data for colorblind readers"; Wikipedia "Color blindness".
 
+### Unfilled hover and overlays behind code (2026-09-22)
+
+An AAA scan found that the hover fill left colored labels on hovered rows under AA: git deleted and
+conflicting `#d67d6d` at 3.57:1, invalid items 3.74:1, links 4.06:1, errors 4.36:1 and descriptions 5.10:1.
+The `#00330d` alternative still leaves deleted labels at 4.74:1. Deleted and conflicting sit at 7.01:1 on
+black, so no fill can hold them at 7:1. `list.hoverBackground`, `modernTab.hoverBackground`,
+`modernEditorTab.hoverBackground` and `modernEditorTab.activeHoverBackground` are now transparent and hover
+is the High Contrast dashed `contrastActiveBorder` outline; every colored label is paired on the hover
+background so a future fill is gated for all of them.
+
+The dimmest syntax token (`#ff7474`) sits at 8.00:1 on black, so an overlay behind code has almost no
+luminance budget. The chat find match (`#ea5c00aa`, body text 4.50:1, tokens 2.59:1) and the merge editor
+tints (tokens down to 3.95:1) were lowered in alpha, and the two opaque base tints darkened, hue kept, until
+the dimmest token measures at least 7:1. The merge editor paints the word tint over the line tint, so the
+alpha is split between the two layers (`#9bb9550e` and `#9ccc2c0f`, 7.04:1 stacked). The gate now measures
+every token on each overlay stack in `TOKEN_OVERLAYS` (`scripts/pairs.ts`). The unfocused conflict outlines
+became opaque (`mark.passive` 5.03:1, `#a36a00` 4.62:1).
+
+Covered and uncovered code shared the `accent.border` outline, so the editor could not show coverage
+(WCAG 1.4.1), and the gutter green `#89d185` against salmon `#f48771` was delta E 8.39 under deuteranopia.
+Uncovered code now uses the ANSI blue tier (`#8888ff` outline and minimap, `#8585ff` gutter at 6.80:1) and
+the covered gutter moves into the mark band (`#45a83f`, 6.93:1); the three pairs are distinguishability
+groups.
+
 ## Follow-ups
 
 - The focus ring changes hue against the border but its luminance ratio to the border tier is 1.63:1,
   short of the 3:1 change WCAG 2.4.13 (Focus Appearance, AAA) asks for. VS Code's own Dark High Contrast
   theme has the same property. Reaching 3:1 would need a border tier near 4.5:1, which collides with the
   gutter "added" marker, or a much brighter secondary.
-- Colored list labels on hovered rows fall below 7:1 on the fill (5.35:1 and 6.20:1). A darker hover
-  fill such as `#00330d` would keep them at 7:1 at the cost of a second palette role and a 1.48:1 fill.
 - `scripts/audit/fix.ts` rewrites single- or double-quoted hex literals, but not role references such as
   `text.primary`; a failing role has to be changed in `src/palette.ts` by hand. The gate is unaffected.
 - `terminal.ansiBlack` is the only ANSI color outside the gate. A program that draws black text on the

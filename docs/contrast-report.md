@@ -71,6 +71,16 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Markdown important alert | text | `markdownAlert.important.foreground` #ba8fdc | `editor.background` #000000 | 8.05 | 7 | 14 | AAA |
 | PASS | Overview ruler find match marks | mark | `editorOverviewRuler.findMatchForeground` #b35e00 | `editor.background` #000000 | 4.52 | 4.5 | 7 | AAA |
 | PASS | Breakpoint icon | ui | `debugIcon.breakpointForeground` #e81400 | `editor.background` #000000 | 4.53 | 4.5 | 15.5 | AAA |
+| PASS | Chat current find match | text | `editor.foreground` #d2d2d2 | `chat.findMatchBackground` #ea5c0028 | 12.15 | 7 | 14 | AAA |
+| PASS | Chat other find matches | text | `editor.foreground` #d2d2d2 | `chat.findMatchHighlightBackground` #ea5c0014 | 13.13 | 7 | 14 | AAA |
+| PASS | Merge editor handled conflict outline | ui | `mergeEditor.conflict.handledUnfocused.border` #7c7c7c | `editor.background` #000000 | 5.03 | 4.5 | 15.5 | AAA |
+| PASS | Merge editor unhandled conflict outline | ui | `mergeEditor.conflict.unhandledUnfocused.border` #a36a00 | `editor.background` #000000 | 4.62 | 4.5 | 15.5 | AAA |
+| PASS | Covered code outline | ui | `testing.coveredBorder` #00ad2c | `editor.background` #000000 | 7.01 | 4.5 | 15.5 | AAA |
+| PASS | Uncovered code outline | ui | `testing.uncoveredBorder` #8888ff | `editor.background` #000000 | 7.01 | 4.5 | 15.5 | AAA |
+| PASS | Gutter covered marker | mark | `testing.coveredGutterBackground` #45a83f | `editor.background` #000000 | 6.93 | 4.5 | 7 | AAA |
+| PASS | Gutter uncovered marker | mark | `testing.uncoveredGutterBackground` #8585ff | `editor.background` #000000 | 6.80 | 4.5 | 7 | AAA |
+| PASS | Minimap covered marker | ui | `testing.coveredMinimapBackground` #89d185 | `editor.background` #000000 | 11.52 | 4.5 | 15.5 | AAA |
+| PASS | Minimap uncovered marker | ui | `testing.uncoveredMinimapBackground` #8888ff | `editor.background` #000000 | 7.01 | 4.5 | 15.5 | AAA |
 | PASS | Editor widgets | text | `editorWidget.foreground` #d2d2d2 | `editorWidget.background` #0c141f | 12.23 | 7 | 14 | AAA |
 | PASS | Hover widget | text | `editorWidget.foreground` #d2d2d2 | `editorHoverWidget.background` #0c141f | 12.23 | 7 | 14 | AAA |
 | PASS | Hover widget match highlight | text | `editorHoverWidget.highlightForeground` #00f33e | `editorHoverWidget.background` #0c141f | 12.23 | 7 | 14 | AAA |
@@ -106,7 +116,19 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Icons | ui | `icon.foreground` #d2d2d2 | `sideBar.background` #000000 | 13.89 | 4.5 | 15.5 | AAA |
 | PASS | Focus ring on side bar | ui | `focusBorder` #ffb000 | `sideBar.background` #000000 | 11.46 | 4.5 | 15.5 | AAA |
 | PASS | List focus outline | ui | `list.focusOutline` #ffb000 | `sideBar.background` #000000 | 11.46 | 4.5 | 15.5 | AAA |
-| PASS | Hovered list row | text | `foreground` #d2d2d2 | `list.hoverBackground` #004913 | 7.08 | 7 | 14 | AAA |
+| PASS | Hovered list row | text | `foreground` #d2d2d2 | `list.hoverBackground` #00000000 | 13.89 | 7 | 14 | AAA |
+| PASS | Hovered list row description | text | `descriptionForeground` #b3b3b3 | `list.hoverBackground` #00000000 | 10.02 | 7 | 14 | AAA |
+| PASS | Hovered list row error | text | `errorForeground` #f48771 | `list.hoverBackground` #00000000 | 8.55 | 7 | 14 | AAA |
+| PASS | Hovered list row link | text | `textLink.foreground` #21a6ff | `list.hoverBackground` #00000000 | 7.96 | 7 | 14 | AAA |
+| PASS | Hovered list row invalid item | text | `list.invalidItemForeground` #b89500 | `list.hoverBackground` #00000000 | 7.34 | 7 | 14 | AAA |
+| PASS | Hovered list row de-emphasized item | dimmed | `list.deemphasizedForeground` #a7a8a9 | `list.hoverBackground` #00000000 | 8.82 | 4.5 | 14 | AAA |
+| PASS | Hovered list row disabled item | dimmed | `disabledForeground` #a5a5a5 | `list.hoverBackground` #00000000 | 8.53 | 4.5 | 14 | AAA |
+| PASS | Hovered git added | text | `gitDecoration.addedResourceForeground` #9fe2ab | `list.hoverBackground` #00000000 | 13.94 | 7 | 14 | AAA |
+| PASS | Hovered git modified | text | `gitDecoration.modifiedResourceForeground` #e2c08d | `list.hoverBackground` #00000000 | 12.16 | 7 | 14 | AAA |
+| PASS | Hovered git deleted | text | `gitDecoration.deletedResourceForeground` #d67d6d | `list.hoverBackground` #00000000 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered git untracked | text | `gitDecoration.untrackedResourceForeground` #73c991 | `list.hoverBackground` #00000000 | 10.49 | 7 | 14 | AAA |
+| PASS | Hovered git conflicting | text | `gitDecoration.conflictingResourceForeground` #d67d6d | `list.hoverBackground` #00000000 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered function symbol icon | ui | `symbolIcon.functionForeground` #b180d7 | `list.hoverBackground` #00000000 | 6.94 | 4.5 | 15.5 | AAA |
 | PASS | Hovered activity bar item | ui | `activityBar.foreground` #d2d2d2 | `modernActivityBarItem.hoverBackground` #004913 | 7.08 | 4.5 | 15.5 | AAA |
 | PASS | List filter match | text | `list.highlightForeground` #00f33e | `sideBar.background` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Focused list row filter match | text | `list.focusHighlightForeground` #00f33e | `sideBar.background` #000000 | 13.89 | 7 | 14 | AAA |
@@ -138,8 +160,9 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Warning status item | text | `statusBarItem.warningForeground` #d2d2d2 | `editor.background` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Active tab | text | `tab.activeForeground` #d2d2d2 | `tab.activeBackground` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Inactive tab | text | `tab.inactiveForeground` #d2d2d2 | `editor.background` #000000 | 13.89 | 7 | 14 | AAA |
-| PASS | Hovered tab | text | `tab.inactiveForeground` #d2d2d2 | `modernTab.hoverBackground` #004913 | 7.08 | 7 | 14 | AAA |
-| PASS | Hovered active tab | text | `tab.activeForeground` #d2d2d2 | `modernEditorTab.activeHoverBackground` #004913 | 7.08 | 7 | 14 | AAA |
+| PASS | Hovered tab | text | `tab.inactiveForeground` #d2d2d2 | `modernTab.hoverBackground` #00000000 | 13.89 | 7 | 14 | AAA |
+| PASS | Hovered editor tab | text | `tab.inactiveForeground` #d2d2d2 | `modernEditorTab.hoverBackground` #00000000 | 13.89 | 7 | 14 | AAA |
+| PASS | Hovered active tab | text | `tab.activeForeground` #d2d2d2 | `modernEditorTab.activeHoverBackground` #00000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Selected tab | text | `tab.selectedForeground` #d2d2d2 | `tab.activeBackground` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Unfocused active tab | text | `tab.unfocusedActiveForeground` #d2d2d2 | `tab.unfocusedActiveBackground` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Unfocused inactive tab | text | `tab.unfocusedInactiveForeground` #d2d2d2 | `editor.background` #000000 | 13.89 | 7 | 14 | AAA |
@@ -361,6 +384,20 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | token.error-token | #ff7474 | 8.00 | 7 | 14 |
 | PASS | token.debug-token | #c388eb | 8.04 | 7 | 14 |
 
+## Syntax tokens on overlays behind editor text
+
+Dimmest token or `editor.foreground` on each overlay stack, composited onto `editor.background`.
+
+| Status | Overlay | Layers | Composited | Dimmest foreground | Ratio | Required |
+| --- | --- | --- | --- | --- | --- | --- |
+| PASS | Chat current find match | `chat.findMatchBackground` | #250e00 | #ff7474 | 7.00 | 7 |
+| PASS | Chat other find matches | `chat.findMatchHighlightBackground` | #120700 | #ff7474 | 7.57 | 7 |
+| PASS | Merge editor conflicting lines | `mergeEditor.conflictingLines.background` | #161400 | #ff7474 | 7.05 | 7 |
+| PASS | Merge editor changed lines | `mergeEditor.change.background` | #090a05 | #ff7474 | 7.57 | 7 |
+| PASS | Merge editor changed words on changed lines | `mergeEditor.change.background` + `mergeEditor.change.word.background` | #121507 | #ff7474 | 7.03 | 7 |
+| PASS | Merge editor base changed lines | `mergeEditor.changeBase.background` | #260c0c | #ff7474 | 7.02 | 7 |
+| PASS | Merge editor base changed words on changed lines | `mergeEditor.changeBase.background` + `mergeEditor.changeBase.word.background` | #2c0707 | #ff7474 | 7.02 | 7 |
+
 ## Distinguishability (informational)
 
 Closest pair inside each semantic group, per vision type. Delta E (CIE76) below 10 is flagged.
@@ -423,3 +460,19 @@ Closest pair inside each semantic group, per vision type. Delta E (CIE76) below 
 | ok | ansiGreys | protanopia | `terminal.ansiBrightBlack` vs `terminal.ansiWhite` | 11.2 |
 | ok | ansiGreys | deuteranopia | `terminal.ansiBrightBlack` vs `terminal.ansiWhite` | 11.2 |
 | ok | ansiGreys | tritanopia | `terminal.ansiBrightBlack` vs `terminal.ansiWhite` | 11.2 |
+| ok | coverageBorders | normal | `testing.coveredBorder` vs `testing.uncoveredBorder` | 145.2 |
+| ok | coverageBorders | protanopia | `testing.coveredBorder` vs `testing.uncoveredBorder` | 122.5 |
+| ok | coverageBorders | deuteranopia | `testing.coveredBorder` vs `testing.uncoveredBorder` | 108.3 |
+| ok | coverageBorders | tritanopia | `testing.coveredBorder` vs `testing.uncoveredBorder` | 31.6 |
+| ok | coverageGutter | normal | `testing.coveredGutterBackground` vs `testing.uncoveredGutterBackground` | 133.0 |
+| ok | coverageGutter | protanopia | `testing.coveredGutterBackground` vs `testing.uncoveredGutterBackground` | 112.9 |
+| ok | coverageGutter | deuteranopia | `testing.coveredGutterBackground` vs `testing.uncoveredGutterBackground` | 103.3 |
+| ok | coverageGutter | tritanopia | `testing.coveredGutterBackground` vs `testing.uncoveredGutterBackground` | 26.7 |
+| ok | coverageMinimap | normal | `testing.coveredMinimapBackground` vs `testing.uncoveredMinimapBackground` | 113.8 |
+| ok | coverageMinimap | protanopia | `testing.coveredMinimapBackground` vs `testing.uncoveredMinimapBackground` | 95.5 |
+| ok | coverageMinimap | deuteranopia | `testing.coveredMinimapBackground` vs `testing.uncoveredMinimapBackground` | 90.7 |
+| ok | coverageMinimap | tritanopia | `testing.coveredMinimapBackground` vs `testing.uncoveredMinimapBackground` | 25.8 |
+| ok | mergeConflicts | normal | `mergeEditor.conflict.handledUnfocused.border` vs `mergeEditor.conflict.unhandledUnfocused.border` | 59.1 |
+| ok | mergeConflicts | protanopia | `mergeEditor.conflict.handledUnfocused.border` vs `mergeEditor.conflict.unhandledUnfocused.border` | 53.0 |
+| ok | mergeConflicts | deuteranopia | `mergeEditor.conflict.handledUnfocused.border` vs `mergeEditor.conflict.unhandledUnfocused.border` | 56.0 |
+| ok | mergeConflicts | tritanopia | `mergeEditor.conflict.handledUnfocused.border` vs `mergeEditor.conflict.unhandledUnfocused.border` | 39.3 |

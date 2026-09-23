@@ -48,8 +48,10 @@ function ui(foreground: string, background: string, description: string, backdro
         : { foreground, background, backdrop, kind: 'ui', description };
 }
 
-function dimmed(foreground: string, background: string, description: string): ContrastPair {
-    return { foreground, background, kind: 'dimmed', description };
+function dimmed(foreground: string, background: string, description: string, backdrop?: string): ContrastPair {
+    return backdrop === undefined
+        ? { foreground, background, kind: 'dimmed', description }
+        : { foreground, background, backdrop, kind: 'dimmed', description };
 }
 
 function mark(foreground: string, background: string, description: string): ContrastPair {
@@ -119,6 +121,16 @@ const EDITOR_PAIRS: readonly ContrastPair[] = [
     text('markdownAlert.important.foreground', EDITOR, 'Markdown important alert'),
     mark('editorOverviewRuler.findMatchForeground', EDITOR, 'Overview ruler find match marks'),
     ui('debugIcon.breakpointForeground', EDITOR, 'Breakpoint icon'),
+    text('editor.foreground', 'chat.findMatchBackground', 'Chat current find match', EDITOR),
+    text('editor.foreground', 'chat.findMatchHighlightBackground', 'Chat other find matches', EDITOR),
+    ui('mergeEditor.conflict.handledUnfocused.border', EDITOR, 'Merge editor handled conflict outline'),
+    ui('mergeEditor.conflict.unhandledUnfocused.border', EDITOR, 'Merge editor unhandled conflict outline'),
+    ui('testing.coveredBorder', EDITOR, 'Covered code outline'),
+    ui('testing.uncoveredBorder', EDITOR, 'Uncovered code outline'),
+    mark('testing.coveredGutterBackground', EDITOR, 'Gutter covered marker'),
+    mark('testing.uncoveredGutterBackground', EDITOR, 'Gutter uncovered marker'),
+    ui('testing.coveredMinimapBackground', EDITOR, 'Minimap covered marker'),
+    ui('testing.uncoveredMinimapBackground', EDITOR, 'Minimap uncovered marker'),
 ];
 
 const WIDGET_PAIRS: readonly ContrastPair[] = [
@@ -161,6 +173,18 @@ const SIDEBAR_PAIRS: readonly ContrastPair[] = [
     ui('focusBorder', SIDEBAR, 'Focus ring on side bar'),
     ui('list.focusOutline', SIDEBAR, 'List focus outline'),
     text('foreground', 'list.hoverBackground', 'Hovered list row', SIDEBAR),
+    text('descriptionForeground', 'list.hoverBackground', 'Hovered list row description', SIDEBAR),
+    text('errorForeground', 'list.hoverBackground', 'Hovered list row error', SIDEBAR),
+    text('textLink.foreground', 'list.hoverBackground', 'Hovered list row link', SIDEBAR),
+    text('list.invalidItemForeground', 'list.hoverBackground', 'Hovered list row invalid item', SIDEBAR),
+    dimmed('list.deemphasizedForeground', 'list.hoverBackground', 'Hovered list row de-emphasized item', SIDEBAR),
+    dimmed('disabledForeground', 'list.hoverBackground', 'Hovered list row disabled item', SIDEBAR),
+    text('gitDecoration.addedResourceForeground', 'list.hoverBackground', 'Hovered git added', SIDEBAR),
+    text('gitDecoration.modifiedResourceForeground', 'list.hoverBackground', 'Hovered git modified', SIDEBAR),
+    text('gitDecoration.deletedResourceForeground', 'list.hoverBackground', 'Hovered git deleted', SIDEBAR),
+    text('gitDecoration.untrackedResourceForeground', 'list.hoverBackground', 'Hovered git untracked', SIDEBAR),
+    text('gitDecoration.conflictingResourceForeground', 'list.hoverBackground', 'Hovered git conflicting', SIDEBAR),
+    ui('symbolIcon.functionForeground', 'list.hoverBackground', 'Hovered function symbol icon', SIDEBAR),
     ui('activityBar.foreground', 'modernActivityBarItem.hoverBackground', 'Hovered activity bar item'),
     text('list.highlightForeground', SIDEBAR, 'List filter match'),
     text('list.focusHighlightForeground', SIDEBAR, 'Focused list row filter match'),
@@ -195,8 +219,9 @@ const CHROME_PAIRS: readonly ContrastPair[] = [
     text('statusBarItem.warningForeground', EDITOR, 'Warning status item'),
     text('tab.activeForeground', 'tab.activeBackground', 'Active tab'),
     text('tab.inactiveForeground', EDITOR, 'Inactive tab'),
-    text('tab.inactiveForeground', 'modernTab.hoverBackground', 'Hovered tab'),
-    text('tab.activeForeground', 'modernEditorTab.activeHoverBackground', 'Hovered active tab'),
+    text('tab.inactiveForeground', 'modernTab.hoverBackground', 'Hovered tab', EDITOR),
+    text('tab.inactiveForeground', 'modernEditorTab.hoverBackground', 'Hovered editor tab', EDITOR),
+    text('tab.activeForeground', 'modernEditorTab.activeHoverBackground', 'Hovered active tab', EDITOR),
     text('tab.selectedForeground', 'tab.activeBackground', 'Selected tab'),
     text('tab.unfocusedActiveForeground', 'tab.unfocusedActiveBackground', 'Unfocused active tab'),
     text('tab.unfocusedInactiveForeground', EDITOR, 'Unfocused inactive tab'),
@@ -430,4 +455,39 @@ export const DISTINGUISHABLE_GROUPS: Readonly<Record<string, readonly string[]>>
     ansiMagentaTiers: ['terminal.ansiMagenta', 'terminal.ansiBrightMagenta'],
     ansiCyanTiers: ['terminal.ansiCyan', 'terminal.ansiBrightCyan'],
     ansiGreys: ['terminal.ansiBrightBlack', 'terminal.ansiWhite', 'terminal.ansiBrightWhite'],
+    coverageBorders: ['testing.coveredBorder', 'testing.uncoveredBorder'],
+    coverageGutter: ['testing.coveredGutterBackground', 'testing.uncoveredGutterBackground'],
+    coverageMinimap: ['testing.coveredMinimapBackground', 'testing.uncoveredMinimapBackground'],
+    mergeConflicts: ['mergeEditor.conflict.handledUnfocused.border', 'mergeEditor.conflict.unhandledUnfocused.border'],
 };
+
+/**
+ * A stack of backgrounds drawn behind editor text. `layers` are composited
+ * in order onto `editor.background`, so a word highlight painted over a line
+ * highlight is measured as the viewer sees it.
+ */
+export interface TokenOverlay {
+    readonly layers: readonly string[];
+    readonly description: string;
+}
+
+/**
+ * Overlays on which every syntax token foreground and `editor.foreground`
+ * must stay inside the text band. The dimmest token sits near 8:1 on black,
+ * so any overlay behind code has almost no luminance budget.
+ */
+export const TOKEN_OVERLAYS: readonly TokenOverlay[] = [
+    { layers: ['chat.findMatchBackground'], description: 'Chat current find match' },
+    { layers: ['chat.findMatchHighlightBackground'], description: 'Chat other find matches' },
+    { layers: ['mergeEditor.conflictingLines.background'], description: 'Merge editor conflicting lines' },
+    { layers: ['mergeEditor.change.background'], description: 'Merge editor changed lines' },
+    {
+        layers: ['mergeEditor.change.background', 'mergeEditor.change.word.background'],
+        description: 'Merge editor changed words on changed lines',
+    },
+    { layers: ['mergeEditor.changeBase.background'], description: 'Merge editor base changed lines' },
+    {
+        layers: ['mergeEditor.changeBase.background', 'mergeEditor.changeBase.word.background'],
+        description: 'Merge editor base changed words on changed lines',
+    },
+];
