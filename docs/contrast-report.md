@@ -39,6 +39,18 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Gutter deleted marker | mark | `editorGutter.deletedBackground` #f16b50 | `editor.background` #000000 | 6.96 | 4.5 | 7 | AAA |
 | PASS | Active indent guide | mark | `editorIndentGuide.activeBackground1` #949494 | `editor.background` #000000 | 6.92 | 4.5 | 7 | AAA |
 | PASS | Indent guides | mark | `editorIndentGuide.background1` #7c7c7c | `editor.background` #000000 | 5.03 | 4.5 | 7 | AAA |
+| PASS | Tree indent guides | mark | `tree.indentGuidesStroke` #949494 | `sideBar.background` #000000 | 6.92 | 4.5 | 7 | AAA |
+| PASS | Inactive tree indent guides | mark | `tree.inactiveIndentGuidesStroke` #7c7c7c | `sideBar.background` #000000 | 5.03 | 4.5 | 7 | AAA |
+| PASS | Private extension icon | ui | `extensionIcon.privateForeground` #b3b3b3 | `sideBar.background` #000000 | 10.02 | 4.5 | 15.5 | AAA |
+| PASS | Extension button separator | ui | `extensionButton.separator` #7c7c7c | `sideBar.background` #000000 | 5.03 | 4.5 | 15.5 | AAA |
+| PASS | Text separators | mark | `textSeparator.foreground` #7c7c7c | `sideBar.background` #000000 | 5.03 | 4.5 | 7 | AAA |
+| PASS | Retired skipped test icon | dimmed | `testing.iconSkipped.retired` #7c7c7c | `sideBar.background` #000000 | 5.03 | 4.5 | 14 | AAA |
+| PASS | Retired unset test icon | dimmed | `testing.iconUnset.retired` #7c7c7c | `sideBar.background` #000000 | 5.03 | 4.5 | 14 | AAA |
+| PASS | SCM graph lane 1 | ui | `scmGraph.foreground1` #ffb000 | `sideBar.background` #000000 | 11.46 | 4.5 | 15.5 | AAA |
+| PASS | SCM graph lane 2 | ui | `scmGraph.foreground2` #dc267f | `sideBar.background` #000000 | 4.63 | 4.5 | 15.5 | AAA |
+| PASS | SCM graph lane 3 | ui | `scmGraph.foreground3` #b75e00 | `sideBar.background` #000000 | 4.61 | 4.5 | 15.5 | AAA |
+| PASS | SCM graph lane 4 | ui | `scmGraph.foreground4` #40b0a6 | `sideBar.background` #000000 | 7.98 | 4.5 | 15.5 | AAA |
+| PASS | SCM graph lane 5 | ui | `scmGraph.foreground5` #b66dff | `sideBar.background` #000000 | 6.62 | 4.5 | 15.5 | AAA |
 | PASS | Rendered whitespace | mark | `editorWhitespace.foreground` #7c7c7c | `editor.background` #000000 | 5.03 | 4.5 | 7 | AAA |
 | PASS | Editor rulers | mark | `editorRuler.foreground` #7c7c7c | `editor.background` #000000 | 5.03 | 4.5 | 7 | AAA |
 | PASS | Overview ruler comment marks | mark | `editorOverviewRuler.commentForeground` #949494 | `editor.background` #000000 | 6.92 | 4.5 | 7 | AAA |
@@ -54,20 +66,32 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Bracket pair level 3 | text | `editorBracketHighlight.foreground3` #87cefa | `editor.background` #000000 | 12.24 | 7 | 14 | AAA |
 | PASS | Unexpected bracket | text | `editorBracketHighlight.unexpectedBracket.foreground` #ff7474 | `editor.background` #000000 | 8.00 | 7 | 14 | AAA |
 | PASS | Folding control | ui | `editorGutter.foldingControlForeground` #b3b3b3 | `editor.background` #000000 | 10.02 | 4.5 | 15.5 | AAA |
-| PASS | Gutter item glyph | text | `editorGutter.itemGlyphForeground` #000000 | `editorGutter.itemBackground` #d2d2d2 | 13.89 | 7 | 14 | AAA |
+| PASS | Gutter item glyph | text | `editorGutter.itemGlyphForeground` #d2d2d2 | `editorGutter.itemBackground` #00000000 | 13.89 | 7 | 14 | AAA |
+| PASS | Gutter comment range bar | mark | `editorGutter.commentRangeForeground` #7c7c7c | `editor.background` #000000 | 5.03 | 4.5 | 7 | AAA |
+| PASS | Gutter comment glyph | ui | `editorGutter.commentGlyphForeground` #000000 | `editorGutter.commentRangeForeground` #7c7c7c | 5.03 | 4.5 | 15.5 | AAA |
+| PASS | Gutter draft comment glyph | ui | `editorGutter.commentDraftGlyphForeground` #000000 | `editorGutter.commentRangeForeground` #7c7c7c | 5.03 | 4.5 | 15.5 | AAA |
+| PASS | Gutter unresolved comment glyph | ui | `editorGutter.commentUnresolvedGlyphForeground` #000000 | `editorGutter.commentRangeForeground` #7c7c7c | 5.03 | 4.5 | 15.5 | AAA |
+| PASS | Overview ruler added marks | mark | `editorOverviewRuler.addedForeground` #4b8402 | `editor.background` #000000 | 4.60 | 4.5 | 7 | AAA |
+| PASS | Overview ruler modified marks | mark | `editorOverviewRuler.modifiedForeground` #1b7fa5 | `editor.background` #000000 | 4.63 | 4.5 | 7 | AAA |
+| PASS | Overview ruler deleted marks | mark | `editorOverviewRuler.deletedForeground` #ae6151 | `editor.background` #000000 | 4.63 | 4.5 | 7 | AAA |
+| PASS | Overview ruler range highlight marks | mark | `editorOverviewRuler.rangeHighlightForeground` #007acb | `editor.background` #000000 | 4.65 | 4.5 | 7 | AAA |
+| PASS | Overview ruler border | mark | `editorOverviewRuler.border` #7c7c7c | `editor.background` #000000 | 5.03 | 4.5 | 7 | AAA |
+| PASS | Terminal overview ruler border | mark | `terminalOverviewRuler.border` #7c7c7c | `editor.background` #000000 | 5.03 | 4.5 | 7 | AAA |
+| PASS | Terminal overview ruler find match marks | mark | `terminalOverviewRuler.findMatchForeground` #b35e00 | `editor.background` #000000 | 4.52 | 4.5 | 7 | AAA |
+| PASS | Chat chart line | ui | `chart.line` #297ea7 | `editor.background` #000000 | 4.64 | 4.5 | 15.5 | AAA |
 | PASS | Error squiggle | ui | `editorError.foreground` #f48771 | `editor.background` #000000 | 8.55 | 4.5 | 15.5 | AAA |
 | PASS | Warning squiggle | ui | `editorWarning.foreground` #ffcb58 | `editor.background` #000000 | 13.94 | 4.5 | 15.5 | AAA |
 | PASS | Info squiggle | ui | `editorInfo.foreground` #59a4f9 | `editor.background` #000000 | 8.10 | 4.5 | 15.5 | AAA |
 | PASS | Focus ring on editor surface | ui | `focusBorder` #ffb000 | `editor.background` #000000 | 11.46 | 4.5 | 15.5 | AAA |
 | PASS | High contrast element outline | boundary | `contrastBorder` #007a1f | `editor.background` #000000 | 3.80 | 3 | 15.5 | AAA |
-| PASS | High contrast active element outline | ui | `contrastActiveBorder` #ffb000 | `editor.background` #000000 | 11.46 | 4.5 | 15.5 | AAA |
+| PASS | High contrast active element outline | ui | `contrastActiveBorder` #00ff41 | `editor.background` #000000 | 15.38 | 4.5 | 15.5 | AAA |
 | PASS | Links in text | text | `textLink.foreground` #21a6ff | `editor.background` #000000 | 7.96 | 7 | 14 | AAA |
 | PASS | Active links in text | text | `textLink.activeForeground` #21a6ff | `editor.background` #000000 | 7.96 | 7 | 14 | AAA |
 | PASS | Inline code | text | `textPreformat.foreground` #d2d2d2 | `editor.background` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Settings headers | text | `settings.headerForeground` #d2d2d2 | `editor.background` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Keybinding labels | text | `keybindingLabel.foreground` #d2d2d2 | `editor.background` #000000 | 13.89 | 7 | 14 | AAA |
-| PASS | Chat edited file label | text | `chat.editedFileForeground` #e2c08d | `editor.background` #000000 | 12.16 | 7 | 14 | AAA |
-| PASS | Chat slash command | text | `chat.slashCommandForeground` #000000 | `chat.slashCommandBackground` #d2d2d2 | 13.89 | 7 | 14 | AAA |
+| PASS | Chat edited file label | text | `chat.editedFileForeground` #c58a32 | `editor.background` #000000 | 7.06 | 7 | 14 | AAA |
+| PASS | Chat slash command | text | `chat.slashCommandForeground` #00f33e | `chat.slashCommandBackground` #001806 | 12.26 | 7 | 14 | AAA |
 | PASS | Markdown important alert | text | `markdownAlert.important.foreground` #ba8fdc | `editor.background` #000000 | 8.05 | 7 | 14 | AAA |
 | PASS | Overview ruler find match marks | mark | `editorOverviewRuler.findMatchForeground` #b35e00 | `editor.background` #000000 | 4.52 | 4.5 | 7 | AAA |
 | PASS | Breakpoint icon | ui | `debugIcon.breakpointForeground` #e81400 | `editor.background` #000000 | 4.53 | 4.5 | 15.5 | AAA |
@@ -94,10 +118,14 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Peek editor match outline | ui | `peekViewEditor.matchHighlightBorder` #00ff41 | `peekViewEditor.background` #000000 | 15.38 | 4.5 | 15.5 | AAA |
 | PASS | Suggest widget | text | `editorSuggestWidget.foreground` #d2d2d2 | `editorSuggestWidget.background` #0c141f | 12.23 | 7 | 14 | AAA |
 | PASS | Suggest match highlight | text | `editorSuggestWidget.highlightForeground` #00f33e | `editorSuggestWidget.background` #0c141f | 12.23 | 7 | 14 | AAA |
-| PASS | Suggest selected row | text | `editorSuggestWidget.selectedForeground` #0c141f | `editorSuggestWidget.selectedBackground` #d2d2d2 | 12.23 | 7 | 14 | AAA |
+| PASS | Suggest selected row | text | `editorSuggestWidget.selectedForeground` #00f33e | `editorSuggestWidget.selectedBackground` #0c141f | 12.23 | 7 | 14 | AAA |
 | PASS | Suggest widget status | text | `editorSuggestWidgetStatus.foreground` #b3b3b3 | `editorSuggestWidget.background` #0c141f | 8.82 | 7 | 14 | AAA |
-| PASS | Profile badge | text | `profileBadge.foreground` #000000 | `profileBadge.background` #d2d2d2 | 13.89 | 7 | 14 | AAA |
-| PASS | Suggest focus outline | ui | `editorSuggestWidget.focusOutline` #ffb000 | `editorSuggestWidget.background` #0c141f | 10.09 | 4.5 | 15.5 | AAA |
+| PASS | Profile badge | text | `profileBadge.foreground` #00f33e | `profileBadge.background` #001806 | 12.26 | 7 | 14 | AAA |
+| PASS | Suggest focus outline | ui | `editorSuggestWidget.focusOutline` #00ff41 | `editorSuggestWidget.background` #0c141f | 13.55 | 4.5 | 15.5 | AAA |
+| PASS | Suggest selected row outline | ui | `editorSuggestWidget.focusOutline` #00ff41 | `editorSuggestWidget.selectedBackground` #0c141f | 13.55 | 4.5 | 15.5 | AAA |
+| PASS | Suggest selected icon | ui | `editorSuggestWidget.selectedIconForeground` #00f33e | `editorSuggestWidget.selectedBackground` #0c141f | 12.23 | 4.5 | 15.5 | AAA |
+| PASS | Suggest selected row match highlight | text | `editorSuggestWidget.focusHighlightForeground` #ffb000 | `editorSuggestWidget.selectedBackground` #0c141f | 10.09 | 7 | 14 | AAA |
+| PASS | Notification separators | ui | `notifications.border` #00ad2c | `notifications.background` #0c141f | 6.18 | 4.5 | 15.5 | AAA |
 | PASS | Peek result file names | text | `peekViewResult.fileForeground` #d2d2d2 | `peekViewResult.background` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Peek result lines | text | `peekViewResult.lineForeground` #d2d2d2 | `peekViewResult.background` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Peek selected result | text | `peekViewResult.selectionForeground` #d2d2d2 | `peekViewResult.background` #000000 | 13.89 | 7 | 14 | AAA |
@@ -131,10 +159,10 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Hovered list row de-emphasized item | dimmed | `list.deemphasizedForeground` #a7a8a9 | `list.hoverBackground` #00000000 | 8.82 | 4.5 | 14 | AAA |
 | PASS | Hovered list row disabled item | dimmed | `disabledForeground` #a5a5a5 | `list.hoverBackground` #00000000 | 8.53 | 4.5 | 14 | AAA |
 | PASS | Hovered git added | text | `gitDecoration.addedResourceForeground` #9fe2ab | `list.hoverBackground` #00000000 | 13.94 | 7 | 14 | AAA |
-| PASS | Hovered git modified | text | `gitDecoration.modifiedResourceForeground` #e2c08d | `list.hoverBackground` #00000000 | 12.16 | 7 | 14 | AAA |
+| PASS | Hovered git modified | text | `gitDecoration.modifiedResourceForeground` #c58a32 | `list.hoverBackground` #00000000 | 7.06 | 7 | 14 | AAA |
 | PASS | Hovered git deleted | text | `gitDecoration.deletedResourceForeground` #d67d6d | `list.hoverBackground` #00000000 | 7.01 | 7 | 14 | AAA |
-| PASS | Hovered git untracked | text | `gitDecoration.untrackedResourceForeground` #73c991 | `list.hoverBackground` #00000000 | 10.49 | 7 | 14 | AAA |
-| PASS | Hovered git conflicting | text | `gitDecoration.conflictingResourceForeground` #d67d6d | `list.hoverBackground` #00000000 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered git untracked | text | `gitDecoration.untrackedResourceForeground` #6ac68a | `list.hoverBackground` #00000000 | 10.06 | 7 | 14 | AAA |
+| PASS | Hovered git conflicting | text | `gitDecoration.conflictingResourceForeground` #ffb000 | `list.hoverBackground` #00000000 | 11.46 | 7 | 14 | AAA |
 | PASS | Hovered function symbol icon | ui | `symbolIcon.functionForeground` #b180d7 | `list.hoverBackground` #00000000 | 6.94 | 4.5 | 15.5 | AAA |
 | PASS | Hovered activity bar item | ui | `activityBar.foreground` #d2d2d2 | `modernActivityBarItem.hoverBackground` #004913 | 7.08 | 4.5 | 15.5 | AAA |
 | PASS | List filter match | text | `list.highlightForeground` #00f33e | `sideBar.background` #000000 | 13.89 | 7 | 14 | AAA |
@@ -143,12 +171,12 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | List invalid items | text | `list.invalidItemForeground` #b89500 | `sideBar.background` #000000 | 7.34 | 7 | 14 | AAA |
 | PASS | List de-emphasized items | dimmed | `list.deemphasizedForeground` #a7a8a9 | `sideBar.background` #000000 | 8.82 | 4.5 | 14 | AAA |
 | PASS | Git added | text | `gitDecoration.addedResourceForeground` #9fe2ab | `sideBar.background` #000000 | 13.94 | 7 | 14 | AAA |
-| PASS | Git modified | text | `gitDecoration.modifiedResourceForeground` #e2c08d | `sideBar.background` #000000 | 12.16 | 7 | 14 | AAA |
+| PASS | Git modified | text | `gitDecoration.modifiedResourceForeground` #c58a32 | `sideBar.background` #000000 | 7.06 | 7 | 14 | AAA |
 | PASS | Git deleted | text | `gitDecoration.deletedResourceForeground` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | 14 | AAA |
-| PASS | Git untracked | text | `gitDecoration.untrackedResourceForeground` #73c991 | `sideBar.background` #000000 | 10.49 | 7 | 14 | AAA |
-| PASS | Git conflicting | text | `gitDecoration.conflictingResourceForeground` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | Git untracked | text | `gitDecoration.untrackedResourceForeground` #6ac68a | `sideBar.background` #000000 | 10.06 | 7 | 14 | AAA |
+| PASS | Git conflicting | text | `gitDecoration.conflictingResourceForeground` #ffb000 | `sideBar.background` #000000 | 11.46 | 7 | 14 | AAA |
 | PASS | Git staged deleted | text | `gitDecoration.stageDeletedResourceForeground` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | 14 | AAA |
-| PASS | Git staged modified | text | `gitDecoration.stageModifiedResourceForeground` #e2c08d | `sideBar.background` #000000 | 12.16 | 7 | 14 | AAA |
+| PASS | Git staged modified | text | `gitDecoration.stageModifiedResourceForeground` #c58a32 | `sideBar.background` #000000 | 7.06 | 7 | 14 | AAA |
 | PASS | SCM graph deletions count | text | `scmGraph.historyItemHoverDeletionsForeground` #da8c7e | `sideBar.background` #000000 | 8.03 | 7 | 14 | AAA |
 | PASS | SCM graph ref badge | text | `scmGraph.historyItemHoverLabelForeground` #000000 | `scmGraph.historyItemRefColor` #59a4f9 | 8.10 | 7 | 14 | AAA |
 | PASS | SCM graph remote ref badge | text | `scmGraph.historyItemHoverLabelForeground` #000000 | `scmGraph.historyItemRemoteRefColor` #b282d7 | 7.07 | 7 | 14 | AAA |
@@ -217,6 +245,10 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Checkbox mark | text | `checkbox.foreground` #d2d2d2 | `checkbox.background` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Checkbox border | boundary | `checkbox.border` #007a1f | `checkbox.background` #000000 | 3.80 | 3 | 15.5 | AAA |
 | PASS | Focus ring change over the checkbox border (WCAG 2.4.13) | boundary | `focusBorder` #ffb000 | `checkbox.border` #007a1f | 3.01 | 3 | 15.5 | AAA |
+| PASS | Disabled checkbox mark | dimmed | `checkbox.disabled.foreground` #000000 | `checkbox.disabled.background` #7c7c7c | 5.03 | 4.5 | 14 | AAA |
+| PASS | Disabled checkbox fill | dimmed | `checkbox.disabled.background` #7c7c7c | `editor.background` #000000 | 5.03 | 4.5 | 14 | AAA |
+| PASS | Unselected radio border | ui | `radio.inactiveBorder` #7c7c7c | `editor.background` #000000 | 5.03 | 4.5 | 15.5 | AAA |
+| PASS | Button separator | ui | `button.separator` #7c7c7c | `button.background` #000000 | 5.03 | 4.5 | 15.5 | AAA |
 | PASS | Dropdown text | text | `dropdown.foreground` #d2d2d2 | `dropdown.background` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | Dropdown border | boundary | `dropdown.border` #007a1f | `dropdown.background` #000000 | 3.80 | 3 | 15.5 | AAA |
 | PASS | Focus ring change over the dropdown border (WCAG 2.4.13) | boundary | `focusBorder` #ffb000 | `dropdown.border` #007a1f | 3.01 | 3 | 15.5 | AAA |
@@ -230,51 +262,58 @@ not exceed 15.5:1 (14:1 when dimmed); passive marks stay between 4.5:1 and 7:1. 
 | PASS | Chart blue series | ui | `charts.blue` #59a4f9 | `editor.background` #000000 | 8.10 | 4.5 | 15.5 | AAA |
 | PASS | Chart green series | ui | `charts.green` #89d185 | `editor.background` #000000 | 11.52 | 4.5 | 15.5 | AAA |
 | PASS | Chart purple series | ui | `charts.purple` #b180d7 | `editor.background` #000000 | 6.94 | 4.5 | 15.5 | AAA |
-| PASS | Chart red series | ui | `charts.red` #f48771 | `editor.background` #000000 | 8.55 | 4.5 | 15.5 | AAA |
+| PASS | Chart red series | ui | `charts.red` #dc3311 | `editor.background` #000000 | 4.52 | 4.5 | 15.5 | AAA |
 | PASS | Chart yellow series | ui | `charts.yellow` #ffcb58 | `editor.background` #000000 | 13.94 | 4.5 | 15.5 | AAA |
 | PASS | Problems error icon | ui | `problemsErrorIcon.foreground` #f48771 | `editor.background` #000000 | 8.55 | 4.5 | 15.5 | AAA |
 | PASS | Problems warning icon | ui | `problemsWarningIcon.foreground` #ffcb58 | `editor.background` #000000 | 13.94 | 4.5 | 15.5 | AAA |
 | PASS | Problems info icon | ui | `problemsInfoIcon.foreground` #59a4f9 | `editor.background` #000000 | 8.10 | 4.5 | 15.5 | AAA |
-| PASS | ANSI red | text | `terminal.ansiRed` #ff5e5e | `editor.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | ANSI red | text | `terminal.ansiRed` #ff6161 | `editor.background` #000000 | 7.13 | 7 | 14 | AAA |
 | PASS | ANSI green | text | `terminal.ansiGreen` #00ad2c | `editor.background` #000000 | 7.01 | 7 | 14 | AAA |
-| PASS | ANSI yellow | text | `terminal.ansiYellow` #c78900 | `editor.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | ANSI yellow | text | `terminal.ansiYellow` #ff9547 | `editor.background` #000000 | 9.64 | 7 | 14 | AAA |
 | PASS | ANSI blue | text | `terminal.ansiBlue` #8888ff | `editor.background` #000000 | 7.01 | 7 | 14 | AAA |
 | PASS | ANSI magenta | text | `terminal.ansiMagenta` #ff29ff | `editor.background` #000000 | 7.01 | 7 | 14 | AAA |
-| PASS | ANSI cyan | text | `terminal.ansiCyan` #00a6a6 | `editor.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | ANSI cyan | text | `terminal.ansiCyan` #00b8b8 | `editor.background` #000000 | 8.55 | 7 | 14 | AAA |
 | PASS | ANSI white | text | `terminal.ansiWhite` #b3b3b3 | `editor.background` #000000 | 10.02 | 7 | 14 | AAA |
 | PASS | ANSI bright black | text | `terminal.ansiBrightBlack` #959595 | `editor.background` #000000 | 7.01 | 7 | 14 | AAA |
 | PASS | ANSI bright red | text | `terminal.ansiBrightRed` #ff9696 | `editor.background` #000000 | 10.05 | 7 | 14 | AAA |
 | PASS | ANSI bright green | text | `terminal.ansiBrightGreen` #00f33e | `editor.background` #000000 | 13.89 | 7 | 14 | AAA |
-| PASS | ANSI bright yellow | text | `terminal.ansiBrightYellow` #d9d900 | `editor.background` #000000 | 13.88 | 7 | 14 | AAA |
-| PASS | ANSI bright blue | text | `terminal.ansiBrightBlue` #ababff | `editor.background` #000000 | 10.00 | 7 | 14 | AAA |
+| PASS | ANSI bright yellow | text | `terminal.ansiBrightYellow` #b8b800 | `editor.background` #000000 | 9.89 | 7 | 14 | AAA |
+| PASS | ANSI bright blue | text | `terminal.ansiBrightBlue` #c4caff | `editor.background` #000000 | 13.24 | 7 | 14 | AAA |
 | PASS | ANSI bright magenta | text | `terminal.ansiBrightMagenta` #ff85ff | `editor.background` #000000 | 10.05 | 7 | 14 | AAA |
-| PASS | ANSI bright cyan | text | `terminal.ansiBrightCyan` #00eaea | `editor.background` #000000 | 13.96 | 7 | 14 | AAA |
+| PASS | ANSI bright cyan | text | `terminal.ansiBrightCyan` #00d6a4 | `editor.background` #000000 | 11.15 | 7 | 14 | AAA |
 | PASS | ANSI bright white | text | `terminal.ansiBrightWhite` #d2d2d2 | `editor.background` #000000 | 13.89 | 7 | 14 | AAA |
-| PASS | Hovered link in ANSI red | text | `terminal.ansiRed` #ff5e5e | `terminal.hoverHighlightBackground` #add6ff00 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered link in ANSI red | text | `terminal.ansiRed` #ff6161 | `terminal.hoverHighlightBackground` #add6ff00 | 7.13 | 7 | 14 | AAA |
 | PASS | Hovered link in ANSI green | text | `terminal.ansiGreen` #00ad2c | `terminal.hoverHighlightBackground` #add6ff00 | 7.01 | 7 | 14 | AAA |
-| PASS | Hovered link in ANSI yellow | text | `terminal.ansiYellow` #c78900 | `terminal.hoverHighlightBackground` #add6ff00 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered link in ANSI yellow | text | `terminal.ansiYellow` #ff9547 | `terminal.hoverHighlightBackground` #add6ff00 | 9.64 | 7 | 14 | AAA |
 | PASS | Hovered link in ANSI blue | text | `terminal.ansiBlue` #8888ff | `terminal.hoverHighlightBackground` #add6ff00 | 7.01 | 7 | 14 | AAA |
 | PASS | Hovered link in ANSI magenta | text | `terminal.ansiMagenta` #ff29ff | `terminal.hoverHighlightBackground` #add6ff00 | 7.01 | 7 | 14 | AAA |
-| PASS | Hovered link in ANSI cyan | text | `terminal.ansiCyan` #00a6a6 | `terminal.hoverHighlightBackground` #add6ff00 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered link in ANSI cyan | text | `terminal.ansiCyan` #00b8b8 | `terminal.hoverHighlightBackground` #add6ff00 | 8.55 | 7 | 14 | AAA |
 | PASS | Hovered link in ANSI bright black | text | `terminal.ansiBrightBlack` #959595 | `terminal.hoverHighlightBackground` #add6ff00 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered sticky scroll in ANSI red | text | `terminal.ansiRed` #ff6161 | `terminalStickyScrollHover.background` #00000000 | 7.13 | 7 | 14 | AAA |
+| PASS | Hovered sticky scroll in ANSI green | text | `terminal.ansiGreen` #00ad2c | `terminalStickyScrollHover.background` #00000000 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered sticky scroll in ANSI yellow | text | `terminal.ansiYellow` #ff9547 | `terminalStickyScrollHover.background` #00000000 | 9.64 | 7 | 14 | AAA |
+| PASS | Hovered sticky scroll in ANSI blue | text | `terminal.ansiBlue` #8888ff | `terminalStickyScrollHover.background` #00000000 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered sticky scroll in ANSI magenta | text | `terminal.ansiMagenta` #ff29ff | `terminalStickyScrollHover.background` #00000000 | 7.01 | 7 | 14 | AAA |
+| PASS | Hovered sticky scroll in ANSI cyan | text | `terminal.ansiCyan` #00b8b8 | `terminalStickyScrollHover.background` #00000000 | 8.55 | 7 | 14 | AAA |
+| PASS | Hovered sticky scroll in ANSI brightblack | text | `terminal.ansiBrightBlack` #959595 | `terminalStickyScrollHover.background` #00000000 | 7.01 | 7 | 14 | AAA |
 | PASS | GitLens added decoration | text | `gitlens.decorations.addedForegroundColor` #9fe2ab | `sideBar.background` #000000 | 13.94 | 7 | 14 | AAA |
 | PASS | GitLens branch ahead | text | `gitlens.decorations.branchAheadForegroundColor` #00f350 | `sideBar.background` #000000 | 13.94 | 7 | 14 | AAA |
 | PASS | GitLens branch behind | text | `gitlens.decorations.branchBehindForegroundColor` #ff874c | `sideBar.background` #000000 | 8.82 | 7 | 14 | AAA |
 | PASS | GitLens branch diverged | text | `gitlens.decorations.branchDivergedForegroundColor` #d8af1b | `sideBar.background` #000000 | 10.07 | 7 | 14 | AAA |
 | PASS | GitLens branch missing upstream | text | `gitlens.decorations.branchMissingUpstreamForegroundColor` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | 14 | AAA |
-| PASS | GitLens copied decoration | text | `gitlens.decorations.copiedForegroundColor` #73c991 | `sideBar.background` #000000 | 10.49 | 7 | 14 | AAA |
+| PASS | GitLens copied decoration | text | `gitlens.decorations.copiedForegroundColor` #6ac68a | `sideBar.background` #000000 | 10.06 | 7 | 14 | AAA |
 | PASS | GitLens deleted decoration | text | `gitlens.decorations.deletedForegroundColor` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | 14 | AAA |
 | PASS | GitLens ignored decoration | dimmed | `gitlens.decorations.ignoredForegroundColor` #a7a8a9 | `sideBar.background` #000000 | 8.82 | 4.5 | 14 | AAA |
-| PASS | GitLens modified decoration | text | `gitlens.decorations.modifiedForegroundColor` #e2c08d | `sideBar.background` #000000 | 12.16 | 7 | 14 | AAA |
-| PASS | GitLens renamed decoration | text | `gitlens.decorations.renamedForegroundColor` #73c991 | `sideBar.background` #000000 | 10.49 | 7 | 14 | AAA |
-| PASS | GitLens merge conflict status | text | `gitlens.decorations.statusMergingOrRebasingConflictForegroundColor` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | 14 | AAA |
+| PASS | GitLens modified decoration | text | `gitlens.decorations.modifiedForegroundColor` #c58a32 | `sideBar.background` #000000 | 7.06 | 7 | 14 | AAA |
+| PASS | GitLens renamed decoration | text | `gitlens.decorations.renamedForegroundColor` #6ac68a | `sideBar.background` #000000 | 10.06 | 7 | 14 | AAA |
+| PASS | GitLens merge conflict status | text | `gitlens.decorations.statusMergingOrRebasingConflictForegroundColor` #ffb000 | `sideBar.background` #000000 | 11.46 | 7 | 14 | AAA |
 | PASS | GitLens merging status | text | `gitlens.decorations.statusMergingOrRebasingForegroundColor` #d8af1b | `sideBar.background` #000000 | 10.07 | 7 | 14 | AAA |
 | PASS | GitLens paused operation status | text | `gitlens.decorations.statusPausedOperationReadyForegroundColor` #3fb950 | `sideBar.background` #000000 | 8.27 | 7 | 14 | AAA |
-| PASS | GitLens untracked decoration | text | `gitlens.decorations.untrackedForegroundColor` #73c991 | `sideBar.background` #000000 | 10.49 | 7 | 14 | AAA |
+| PASS | GitLens untracked decoration | text | `gitlens.decorations.untrackedForegroundColor` #6ac68a | `sideBar.background` #000000 | 10.06 | 7 | 14 | AAA |
 | PASS | GitLens current workspace | text | `gitlens.decorations.workspaceCurrentForegroundColor` #00f350 | `sideBar.background` #000000 | 13.94 | 7 | 14 | AAA |
 | PASS | GitLens missing workspace repo | text | `gitlens.decorations.workspaceRepoMissingForegroundColor` #d2d2d2 | `sideBar.background` #000000 | 13.89 | 7 | 14 | AAA |
 | PASS | GitLens open workspace repo | text | `gitlens.decorations.workspaceRepoOpenForegroundColor` #00f350 | `sideBar.background` #000000 | 13.94 | 7 | 14 | AAA |
-| PASS | GitLens worktree changes | text | `gitlens.decorations.worktreeHasUncommittedChangesForegroundColor` #e2c08d | `sideBar.background` #000000 | 12.16 | 7 | 14 | AAA |
+| PASS | GitLens worktree changes | text | `gitlens.decorations.worktreeHasUncommittedChangesForegroundColor` #c58a32 | `sideBar.background` #000000 | 7.06 | 7 | 14 | AAA |
 | PASS | GitLens missing worktree | text | `gitlens.decorations.worktreeMissingForegroundColor` #d67d6d | `sideBar.background` #000000 | 7.01 | 7 | 14 | AAA |
 | PASS | GitLens gutter blame | text | `gitlens.gutterForegroundColor` #bebebe | `gitlens.gutterBackgroundColor` #ffffff13 | 10.00 | 7 | 14 | AAA |
 | PASS | GitLens uncommitted blame | text | `gitlens.gutterUncommittedForegroundColor` #00bcf2 | `gitlens.gutterBackgroundColor` #ffffff13 | 8.38 | 7 | 14 | AAA |
@@ -439,13 +478,13 @@ Closest pair inside each semantic group, per vision type. Delta E (CIE76) below 
 
 | Status | Group | Vision | Closest pair | Delta E |
 | --- | --- | --- | --- | --- |
-| WARN | gitDecorations | normal | `gitDecoration.deletedResourceForeground` vs `gitDecoration.conflictingResourceForeground` | 0.0 |
-| WARN | gitDecorations | protanopia | `gitDecoration.deletedResourceForeground` vs `gitDecoration.conflictingResourceForeground` | 0.0 |
-| WARN | gitDecorations | deuteranopia | `gitDecoration.deletedResourceForeground` vs `gitDecoration.conflictingResourceForeground` | 0.0 |
-| WARN | gitDecorations | tritanopia | `gitDecoration.deletedResourceForeground` vs `gitDecoration.conflictingResourceForeground` | 0.0 |
+| ok | gitDecorations | normal | `gitDecoration.addedResourceForeground` vs `gitDecoration.untrackedResourceForeground` | 14.4 |
+| ok | gitDecorations | protanopia | `gitDecoration.addedResourceForeground` vs `gitDecoration.untrackedResourceForeground` | 11.1 |
+| ok | gitDecorations | deuteranopia | `gitDecoration.deletedResourceForeground` vs `gitDecoration.untrackedResourceForeground` | 11.1 |
+| ok | gitDecorations | tritanopia | `gitDecoration.modifiedResourceForeground` vs `gitDecoration.deletedResourceForeground` | 12.0 |
 | ok | charts | normal | `charts.blue` vs `charts.purple` | 35.0 |
 | ok | charts | protanopia | `charts.blue` vs `charts.purple` | 10.1 |
-| WARN | charts | deuteranopia | `charts.green` vs `charts.red` | 8.4 |
+| ok | charts | deuteranopia | `charts.blue` vs `charts.purple` | 16.7 |
 | ok | charts | tritanopia | `charts.blue` vs `charts.green` | 20.6 |
 | ok | diagnostics | normal | `editorError.foreground` vs `editorWarning.foreground` | 48.9 |
 | ok | diagnostics | protanopia | `editorError.foreground` vs `editorWarning.foreground` | 45.7 |
@@ -455,10 +494,10 @@ Closest pair inside each semantic group, per vision type. Delta E (CIE76) below 
 | ok | accentsVersusAdded | protanopia | `focusBorder` vs `editor.findMatchBorder` | 21.9 |
 | ok | accentsVersusAdded | deuteranopia | `focusBorder` vs `editor.findMatchBorder` | 15.8 |
 | ok | accentsVersusAdded | tritanopia | `editor.findMatchBorder` vs `charts.green` | 30.5 |
-| ok | accentsVersusUntracked | normal | `contrastBorder` vs `gitDecoration.untrackedResourceForeground` | 37.3 |
+| ok | accentsVersusUntracked | normal | `contrastBorder` vs `gitDecoration.untrackedResourceForeground` | 34.6 |
 | ok | accentsVersusUntracked | protanopia | `focusBorder` vs `editor.findMatchBorder` | 21.9 |
 | ok | accentsVersusUntracked | deuteranopia | `focusBorder` vs `editor.findMatchBorder` | 15.8 |
-| ok | accentsVersusUntracked | tritanopia | `editor.findMatchBorder` vs `gitDecoration.untrackedResourceForeground` | 26.3 |
+| ok | accentsVersusUntracked | tritanopia | `editor.findMatchBorder` vs `gitDecoration.untrackedResourceForeground` | 25.6 |
 | ok | accentsVersusGutter | normal | `contrastBorder` vs `editorGutter.addedBackground` | 26.6 |
 | ok | accentsVersusGutter | protanopia | `focusBorder` vs `editorGutter.addedBackground` | 16.5 |
 | ok | accentsVersusGutter | deuteranopia | `focusBorder` vs `editor.findMatchBorder` | 15.8 |
@@ -467,30 +506,50 @@ Closest pair inside each semantic group, per vision type. Delta E (CIE76) below 
 | ok | focusVersusDiagnostics | protanopia | `focusBorder` vs `editorWarning.foreground` | 13.8 |
 | ok | focusVersusDiagnostics | deuteranopia | `focusBorder` vs `editorWarning.foreground` | 17.8 |
 | ok | focusVersusDiagnostics | tritanopia | `focusBorder` vs `editorWarning.foreground` | 15.9 |
-| ok | ansiRedTiers | normal | `terminal.ansiRed` vs `terminal.ansiBrightRed` | 29.4 |
-| ok | ansiRedTiers | protanopia | `terminal.ansiRed` vs `terminal.ansiBrightRed` | 18.4 |
-| ok | ansiRedTiers | deuteranopia | `terminal.ansiRed` vs `terminal.ansiBrightRed` | 20.5 |
-| ok | ansiRedTiers | tritanopia | `terminal.ansiRed` vs `terminal.ansiBrightRed` | 33.6 |
+| ok | ansiRedTiers | normal | `terminal.ansiRed` vs `terminal.ansiBrightRed` | 27.8 |
+| ok | ansiRedTiers | protanopia | `terminal.ansiRed` vs `terminal.ansiBrightRed` | 17.4 |
+| ok | ansiRedTiers | deuteranopia | `terminal.ansiRed` vs `terminal.ansiBrightRed` | 19.3 |
+| ok | ansiRedTiers | tritanopia | `terminal.ansiRed` vs `terminal.ansiBrightRed` | 31.9 |
 | ok | ansiGreenTiers | normal | `terminal.ansiGreen` vs `terminal.ansiBrightGreen` | 33.3 |
 | ok | ansiGreenTiers | protanopia | `terminal.ansiGreen` vs `terminal.ansiBrightGreen` | 30.9 |
 | ok | ansiGreenTiers | deuteranopia | `terminal.ansiGreen` vs `terminal.ansiBrightGreen` | 26.5 |
 | ok | ansiGreenTiers | tritanopia | `terminal.ansiGreen` vs `terminal.ansiBrightGreen` | 25.5 |
-| ok | ansiYellowTiers | normal | `terminal.ansiYellow` vs `terminal.ansiBrightYellow` | 43.9 |
-| ok | ansiYellowTiers | protanopia | `terminal.ansiYellow` vs `terminal.ansiBrightYellow` | 32.7 |
-| ok | ansiYellowTiers | deuteranopia | `terminal.ansiYellow` vs `terminal.ansiBrightYellow` | 25.0 |
-| ok | ansiYellowTiers | tritanopia | `terminal.ansiYellow` vs `terminal.ansiBrightYellow` | 37.2 |
-| ok | ansiBlueTiers | normal | `terminal.ansiBlue` vs `terminal.ansiBrightBlue` | 23.9 |
-| ok | ansiBlueTiers | protanopia | `terminal.ansiBlue` vs `terminal.ansiBrightBlue` | 20.1 |
-| ok | ansiBlueTiers | deuteranopia | `terminal.ansiBlue` vs `terminal.ansiBrightBlue` | 22.3 |
-| ok | ansiBlueTiers | tritanopia | `terminal.ansiBlue` vs `terminal.ansiBrightBlue` | 14.0 |
+| ok | ansiYellowTiers | normal | `terminal.ansiYellow` vs `terminal.ansiBrightYellow` | 53.6 |
+| ok | ansiYellowTiers | protanopia | `terminal.ansiYellow` vs `terminal.ansiBrightYellow` | 22.2 |
+| ok | ansiYellowTiers | deuteranopia | `terminal.ansiYellow` vs `terminal.ansiBrightYellow` | 11.4 |
+| ok | ansiYellowTiers | tritanopia | `terminal.ansiYellow` vs `terminal.ansiBrightYellow` | 43.0 |
+| ok | ansiBlueTiers | normal | `terminal.ansiBlue` vs `terminal.ansiBrightBlue` | 44.2 |
+| ok | ansiBlueTiers | protanopia | `terminal.ansiBlue` vs `terminal.ansiBrightBlue` | 37.7 |
+| ok | ansiBlueTiers | deuteranopia | `terminal.ansiBlue` vs `terminal.ansiBrightBlue` | 40.4 |
+| ok | ansiBlueTiers | tritanopia | `terminal.ansiBlue` vs `terminal.ansiBrightBlue` | 23.9 |
 | ok | ansiMagentaTiers | normal | `terminal.ansiMagenta` vs `terminal.ansiBrightMagenta` | 38.0 |
 | ok | ansiMagentaTiers | protanopia | `terminal.ansiMagenta` vs `terminal.ansiBrightMagenta` | 27.0 |
 | ok | ansiMagentaTiers | deuteranopia | `terminal.ansiMagenta` vs `terminal.ansiBrightMagenta` | 18.4 |
 | ok | ansiMagentaTiers | tritanopia | `terminal.ansiMagenta` vs `terminal.ansiBrightMagenta` | 27.0 |
-| ok | ansiCyanTiers | normal | `terminal.ansiCyan` vs `terminal.ansiBrightCyan` | 25.1 |
-| ok | ansiCyanTiers | protanopia | `terminal.ansiCyan` vs `terminal.ansiBrightCyan` | 23.7 |
-| ok | ansiCyanTiers | deuteranopia | `terminal.ansiCyan` vs `terminal.ansiBrightCyan` | 22.4 |
-| ok | ansiCyanTiers | tritanopia | `terminal.ansiCyan` vs `terminal.ansiBrightCyan` | 25.8 |
+| ok | ansiCyanTiers | normal | `terminal.ansiCyan` vs `terminal.ansiBrightCyan` | 30.9 |
+| ok | ansiCyanTiers | protanopia | `terminal.ansiCyan` vs `terminal.ansiBrightCyan` | 26.9 |
+| ok | ansiCyanTiers | deuteranopia | `terminal.ansiCyan` vs `terminal.ansiBrightCyan` | 24.6 |
+| ok | ansiCyanTiers | tritanopia | `terminal.ansiCyan` vs `terminal.ansiBrightCyan` | 10.5 |
+| ok | ansiNormal | normal | `terminal.ansiRed` vs `terminal.ansiYellow` | 37.0 |
+| ok | ansiNormal | protanopia | `terminal.ansiCyan` vs `terminal.ansiBrightBlack` | 11.0 |
+| ok | ansiNormal | deuteranopia | `terminal.ansiBlue` vs `terminal.ansiMagenta` | 10.8 |
+| ok | ansiNormal | tritanopia | `terminal.ansiGreen` vs `terminal.ansiCyan` | 11.3 |
+| ok | ansiBright | normal | `terminal.ansiBrightBlue` vs `terminal.ansiBrightWhite` | 28.1 |
+| ok | ansiBright | protanopia | `terminal.ansiBrightRed` vs `terminal.ansiBrightCyan` | 15.4 |
+| ok | ansiBright | deuteranopia | `terminal.ansiBrightBlue` vs `terminal.ansiBrightMagenta` | 11.3 |
+| ok | ansiBright | tritanopia | `terminal.ansiBrightGreen` vs `terminal.ansiBrightCyan` | 10.6 |
+| ok | overviewDirty | normal | `editorOverviewRuler.modifiedForeground` vs `editorOverviewRuler.deletedForeground` | 66.7 |
+| ok | overviewDirty | protanopia | `editorOverviewRuler.addedForeground` vs `editorOverviewRuler.deletedForeground` | 39.4 |
+| ok | overviewDirty | deuteranopia | `editorOverviewRuler.addedForeground` vs `editorOverviewRuler.deletedForeground` | 23.0 |
+| ok | overviewDirty | tritanopia | `editorOverviewRuler.addedForeground` vs `editorOverviewRuler.modifiedForeground` | 15.8 |
+| ok | scmGraphLanes | normal | `scmGraph.foreground1` vs `scmGraph.foreground3` | 38.1 |
+| ok | scmGraphLanes | protanopia | `scmGraph.foreground2` vs `scmGraph.foreground4` | 34.3 |
+| ok | scmGraphLanes | deuteranopia | `scmGraph.foreground2` vs `scmGraph.foreground4` | 14.8 |
+| ok | scmGraphLanes | tritanopia | `scmGraph.foreground2` vs `scmGraph.foreground3` | 26.9 |
+| ok | focusVersusActive | normal | `focusBorder` vs `contrastActiveBorder` | 102.9 |
+| ok | focusVersusActive | protanopia | `focusBorder` vs `contrastActiveBorder` | 21.9 |
+| ok | focusVersusActive | deuteranopia | `focusBorder` vs `contrastActiveBorder` | 15.8 |
+| ok | focusVersusActive | tritanopia | `focusBorder` vs `contrastActiveBorder` | 94.9 |
 | ok | ansiGreys | normal | `terminal.ansiBrightBlack` vs `terminal.ansiWhite` | 11.2 |
 | ok | ansiGreys | protanopia | `terminal.ansiBrightBlack` vs `terminal.ansiWhite` | 11.2 |
 | ok | ansiGreys | deuteranopia | `terminal.ansiBrightBlack` vs `terminal.ansiWhite` | 11.2 |

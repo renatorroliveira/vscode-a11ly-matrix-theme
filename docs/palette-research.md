@@ -314,6 +314,30 @@ GitLens graph lanes 1 and 5 were delta E 0.71 apart under deuteranopia. The ten 
 move lightness only; a coordinate search over lightness within the UI band raised the minimum separation
 across normal vision and the three simulations to 15.3, and the lanes are now a distinguishability group.
 
+### No light fills, focus versus selection, cross-hue ANSI (2026-09-22)
+
+No light background sits behind text, icons or glyphs any more. The suggest widget's inverted row is
+gone: the selected suggestion keeps the widget background and is marked by `accent.primaryText` text,
+an `accent.primary` outline and amber matched characters. The chat slash command and the profile badge
+use `accent.primaryText` on `accent.fillDim`; gutter items are unfilled with `text.primary` glyphs; the
+comment range bar is `mark.passive` with black glyphs (5.03:1), the same pattern as the disabled
+checkbox. The terminal sticky scroll hover is transparent because any fill drops the 7:1 normal ANSI tier
+below the floor. The SCM graph ref badges are the one exception: VS Code draws the badge fill and the
+graph line with the same id, so a dark badge would leave the line under 3:1; the badges keep their light
+ref colors with black labels at 7.07:1 or above. Remaining light colors are thumbs, marks, separators and
+the progress bar, none of which carry text.
+
+`contrastActiveBorder` (selected and hovered item outlines) moved from amber to `accent.primary`, so a
+focused row and a selected row differ in color as well as dashed versus solid outline. Git conflicting
+files use `accent.secondary` instead of the deleted color they shared.
+
+Adding `ansiNormal` and `ansiBright` groups showed cross-hue minima of 4.45 (bright green versus bright
+yellow under protanopia). With the tier order kept and green fixed to its roles, lightness alone reached
+6.32, so yellow (41 to 25 degrees), bright cyan (180 to 166) and bright blue (240 to 234) moved hue; a
+coordinate search over hue and lightness brought the minimum to 10.50. `charts.red` moved to `#dc3311` and
+git modified and untracked to `#c58a32` and `#6ac68a` (lightness only), clearing the last
+distinguishability warnings, including one the identical deleted and conflicting colors had masked.
+
 ## Follow-ups
 
 - `scripts/audit/fix.ts` rewrites single- or double-quoted hex literals, but not role references such as

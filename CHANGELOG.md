@@ -35,6 +35,15 @@ All notable changes to the A11y Matrix Theme are documented here. The format fol
   hover, linked editing, snippet, GitLens line and Error Lens tints were lowered until every token keeps
   7:1; the Error Lens range and terminal link hover tints are transparent and the Error Lens messages
   lighter. Five low contrast borders, the SCM graph ref badges and the GitLens graph lanes were retuned.
+- No light background sits behind text: the suggest widget marks the selected row with green text and a green
+  outline, and the chat slash command, profile badge, gutter items, comment range bar and terminal sticky scroll
+  hover are dark. The SCM graph ref badges are the documented exception.
+- Selected and hovered outlines are green, focus stays amber. Git conflicting files are amber instead of sharing
+  the deleted color. ANSI yellow, bright cyan and bright blue shift hue so every ANSI hue stays distinguishable
+  under color vision deficiency simulation; charts.red and git modified and untracked are retuned. The gate now
+  reports no distinguishability warnings.
+- Overview ruler marks, tree indent guides, separators, the unselected radio border, the disabled checkbox,
+  retired test icons, chart lines and SCM graph lane 3 moved into their contrast bands.
 - Contrast contract grew to 166 pairs (terminal selection and find matches, inactive selection, workbench
   text selection, focus and highlight outlines) plus four accent distinguishability groups.
 - Chat "lines added" unified onto the standard added green `#89d185`.

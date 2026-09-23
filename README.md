@@ -20,8 +20,11 @@
 
 - **High contrast by construction.** The theme is built on the `hc-black` base and starts from VS Code's own Dark High
   Contrast defaults, then lifts every color that falls short of AAA.
-- **Verified, not eyeballed.** Every shipped foreground/background pair is measured with the exact WCAG 2.x formula at
-  build time. A single pair below 7:1 for text or 4.5:1 for UI fails the build, so the palette cannot drift.
+- **Verified, not eyeballed.** Every foreground/background pair listed in `scripts/pairs.ts`, and every syntax token
+  on each overlay drawn behind code, is measured with the exact WCAG 2.x formula at build time. A single pair below
+  7:1 for text or 4.5:1 for UI fails the build, so the palette cannot drift. The list covers the colors that carry
+  text, icons and borders on the surfaces they render on and grows with every change; it is not every id VS Code
+  defines.
 - **Bounded, not maximal.** Text also has a ceiling of 14:1, twice the floor, so the brightest and dimmest glyphs on a
   line stay within a 2:1 luminance spread. Body text is light grey `#d2d2d2`, never pure white: white next to a 7:1
   keyword is three times as luminous and suppresses its perceived contrast, and it is the strongest halation case on
@@ -29,9 +32,11 @@
 - **Matrix green, measured.** Borders and highlights are Matrix Code Green, focus rings are P3 amber phosphor, the
   pairing that shipped on VT220 tubes. Both were chosen from 40 candidates by contrast and color-vision-deficiency
   separation; see [`docs/palette-research.md`](docs/palette-research.md).
-- **Color is never the only signal.** Selection is a dark green fill under light grey text, hover and highlights use
-  outlines instead of fills, and semantically related colors are checked for separation under protanopia,
-  deuteranopia and tritanopia simulation.
+- **Color is backed by shape.** Selection is a dark green fill under light grey text, hover and highlights use
+  outlines instead of fills, focus is amber and selection green, and no light background sits behind text (the one
+  exception is the SCM graph ref badge, whose fill VS Code shares with the graph line). Semantically related colors
+  (git states, diagnostics, coverage, chart series, graph lanes, ANSI tiers and hues) are checked for separation
+  under protanopia, deuteranopia and tritanopia simulation.
 - **Nothing but a JSON file.** The extension has no runtime code and no runtime dependencies. It works in Restricted Mode,
   virtual workspaces and remote sessions.
 

@@ -63,17 +63,21 @@ the dependency pinning report and the generated contrast report.
    text's own color, uses `accent.fillDim` `#001806`; hovered rows and tabs are unfilled (the HC hover
    outline shows) because no fill keeps colored labels at 7:1; the fill itself is 1.96:1 on black because a
    fill that carries 7:1 text of luminance L can reach at most (L + 0.05) / 7 - 0.05 against black.
-   Highlights use green borders instead of fills, focus rings are amber. Every overlay drawn behind code
+   No light background sits behind text, icons or glyphs; states are marked by accent text and outlines
+   (the SCM graph ref badge is the one exception because its fill id is shared with the graph line).
+   Highlights and selected or hovered outlines (`contrastActiveBorder`) are green, focus rings are amber. Every overlay drawn behind code
    is listed in `TOKEN_OVERLAYS` (`scripts/pairs.ts`), where the gate measures every syntax token on the
    composited layer stack.
 6. Terminal ANSI colors are gated as text (7:1 to 14:1) so the AAA claim holds even when the user
    disables `terminal.integrated.minimumContrastRatio` (its default lifts only to 4.5:1). The normal
-   tier sits at the floor (red `#ff5e5e`, green `accent.border`, yellow `#c78900`, blue `#8888ff`,
-   magenta `#ff29ff`, cyan `#00a6a6`, bright black `#959595`), the bright tier at 10:1 or above
-   (bright red `#ff9696`, bright blue `#ababff`, bright magenta `#ff85ff`) or at the ceiling (bright
-   green `accent.primaryText`, bright cyan `#00eaea`, bright yellow `#d9d900`, `ansiBrightWhite`
-   `text.primary`, `ansiWhite` `text.secondary`). Each hue's two tiers form a `DISTINGUISHABLE_GROUPS`
-   entry. `ansiBlack` stays `#000000` and is not gated: it is the terminal's own background and only
+   tier sits between the floor and 10:1 (red `#ff6161`, green `accent.border`, yellow `#ff9547`, blue
+   `#8888ff`, magenta `#ff29ff`, cyan `#00b8b8`, bright black `#959595`), the bright tier above it (bright
+   red `#ff9696`, bright yellow `#b8b800`, bright cyan `#00d6a4`, bright blue `#c4caff`, bright magenta
+   `#ff85ff`, bright green `accent.primaryText`, `ansiBrightWhite` `text.primary`, `ansiWhite`
+   `text.secondary`). Yellow, bright cyan and bright blue were shifted in hue (2026-09-22) because no
+   lightness-only set separated the hues under color vision deficiency simulation. Each hue's two tiers
+   form a `DISTINGUISHABLE_GROUPS` entry, and `ansiNormal` and `ansiBright` keep the hues apart within
+   each tier. `ansiBlack` stays `#000000` and is not gated: it is the terminal's own background and only
    shows as an inverse-video or background color. Extension ids shipped in the theme (`gitlens.*`,
    `errorLens.*`, `markdownAlert.*`) are gated with the same kinds as the core ids they mirror; graph
    lanes and minimap markers are `ui` like chart series.
