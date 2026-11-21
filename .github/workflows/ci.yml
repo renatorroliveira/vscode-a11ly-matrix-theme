@@ -34,14 +34,14 @@ jobs:
       # comes from setup-node (which bundles npm) rather than from pnpm's
       # runtime manager (which does not).
       - name: Set up Node.js 24
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
 
       # Reads the pnpm version from the packageManager field, restores the
       # store cache keyed on pnpm-lock.yaml and runs `pnpm install --frozen-lockfile`.
       - name: Set up pnpm and install dependencies
-        uses: pnpm/setup@703c52620218391530e48b9e8870d5c0082e1b9b # v2.1.0
+        uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
         with:
           cache: true
           require-lockfile: true
@@ -59,14 +59,14 @@ jobs:
         run: pnpm exec vsce package
 
       - name: Upload the VSIX
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: vsix
           path: '*.vsix'
           if-no-files-found: error
 
       - name: Upload the contrast report
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: contrast-report
           path: docs/contrast-report.md

@@ -17,7 +17,7 @@
     "type": "module",
     "engines": {
         "vscode": "^1.125.0",
-        "node": ">=24.0.0"
+        "node": "^24.0.0 || >=26.0.0"
     },
     "categories": [
         "Themes"
@@ -74,18 +74,19 @@
     },
     "devDependencies": {
         "@eslint/js": "10.0.1",
-        "@types/node": "24.13.3",
-        "@vitest/coverage-v8": "4.1.11",
-        "@vscode/vsce": "3.9.2",
-        "eslint": "10.9.1",
+        "@types/node": "24.19.2",
+        "@vitest/coverage-v8": "5.1.0",
+        "@vscode/vsce": "4.1.0",
+        "eslint": "10.14.0",
         "eslint-config-prettier": "10.1.8",
-        "globals": "17.11.0",
-        "prettier": "3.9.6",
+        "globals": "17.14.0",
+        "ovsx": "1.3.0",
+        "prettier": "3.9.10",
         "typescript": "6.0.3",
-        "typescript-eslint": "8.69.0",
-        "vitest": "4.1.11"
+        "typescript-eslint": "8.72.1",
+        "vitest": "5.1.0"
     },
-    "packageManager": "pnpm@12.1.0+sha512.d9b8276d97f6ec86e49815877f91ee9f63cee61f2063b304e43b6dab8fa07ce8a9afd46d2facd39f921e6a9d06b3c75a81349c7b888c2d22886bae0229901037",
+    "packageManager": "pnpm@12.18.0+sha512.9d7882d5dc82147ecfc4e062aa34834e0ad0296710a1837a1115ae012127d36b7109e321ac1598a1dd0a65597681b1e99917e12ed0d749eae91187943363beb3",
     "vsce": {
         "dependencies": false
     }

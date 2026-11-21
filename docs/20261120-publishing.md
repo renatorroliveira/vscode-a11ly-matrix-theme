@@ -10,7 +10,11 @@ GitHub login, which changes the Open VSX first-release steps.
 
 ## Summary
 
-- **`@vscode/vsce` 3.9.2 (pinned today) cannot do OIDC.** `--oidc` landed in 4.0.0 (#1291).
+Status 2026-11-21: the toolchain part of this plan has landed. `@vscode/vsce` 4.1.0 and `ovsx` 1.3.0 are pinned,
+`pnpm audit` is at zero and the CI action pins are on the versions in section 1. Details are in
+`dependency-versions.md`. The findings below are kept as researched on 2026-11-20.
+
+- **`@vscode/vsce` 3.9.2 (pinned at research time) cannot do OIDC.** `--oidc` landed in 4.0.0 (#1291).
     - 4.0.0's token exchange omits `api-version`, so the Marketplace answers `400 No api-version was supplied`. It also
       sends `Bearer` where the Marketplace expects `FederatedToken`.
     - #1337 fixed both and shipped in 4.1.0. Its PR says live end-to-end publishing was untested, but a public
@@ -19,10 +23,8 @@ GitHub login, which changes the Open VSX first-release steps.
       becomes eligible on 2026-11-27 [1][2][3][4].
 - **`ovsx` 1.3.0 is the newest eligible ovsx and requires `@vscode/vsce ^4.0.0`.** Pairing it with the current 3.9.2
   pin would install a second vsce. Bump both together: `@vscode/vsce` 4.1.0 + `ovsx` 1.3.0 [5].
-- **`pnpm audit` fails on `main` today: 45 advisories (15 high), all published after CI last passed on 2026-09-23.**
-  The CI audit step and any release workflow will fail until the lockfile is refreshed. A scratch resolution showed the
-  vsce/ovsx bump plus a transitive refresh leaves 3 moderate findings, fixable with `vitest` 4.1.12 and a `minimatch`
-  override (section 2).
+- **`pnpm audit` failed on `main` on 2026-11-20: 45 advisories (15 high), all published after CI last passed on
+  2026-09-23.** Cleared on 2026-11-21 by the toolchain upgrade and a scoped `minimatch` override (section 2).
 - **Global Azure DevOps PATs now retire on 2027-01-27, not 2026-12-01.** The VS Code publishing page (updated
   2026-11-18) still says 2026-12-01; the Azure DevOps blog post records the postponement. Neither date matters for the
   OIDC path, which uses no PAT [6][7].
@@ -50,20 +52,21 @@ GitHub login, which changes the Open VSX first-release steps.
 
 ## 1. Toolchain versions
 
-Ages are measured against 2026-11-20 and the 21600-minute rule in `pnpm-workspace.yaml`.
+Ages are measured against 2026-11-20 and the 21600-minute rule in `pnpm-workspace.yaml`. The "Pinned" columns show
+the state after the 2026-11-21 upgrade.
 
 ### npm packages
 
 | Package        | Pinned | Latest | Newest eligible | Notes                                                                                |
 | -------------- | ------ | ------ | --------------- | ------------------------------------------------------------------------------------ |
-| `@vscode/vsce` | 3.9.2  | 4.1.1  | 4.1.0           | 4.1.0 published 2026-10-28; 4.1.1 (2026-11-12) only bumps `vsce-sign` and a dev dep. |
-| `ovsx`         | none   | 1.4.0  | 1.3.0           | 1.3.0 published 2026-10-16; 1.4.0 (2026-11-09) eligible on 2026-11-24.               |
+| `@vscode/vsce` | 4.1.0  | 4.1.1  | 4.1.0           | 4.1.0 published 2026-10-28; 4.1.1 (2026-11-12) only bumps `vsce-sign` and a dev dep. |
+| `ovsx`         | 1.3.0  | 1.4.0  | 1.3.0           | 1.3.0 published 2026-10-16; 1.4.0 (2026-11-09) eligible on 2026-11-24.               |
 
 What changes from vsce 3.9 to 4.1 [2][3]:
 
 - Node.js baseline raised to 22 (repo runs 24).
 - `keytar` replaced by `@napi-rs/keyring` (prebuilt binaries, no install script), with a prompted migration of legacy
-  stored PATs. The `keytar: false` entry in `allowBuilds` becomes dead once 3.9.2 is gone.
+  stored PATs. The dead `keytar: false` entry was removed from `allowBuilds` on 2026-11-21.
 - `@vscode/vsce-sign` is still a hard dependency with a `postinstall`; keep it denied. Issue #1353 asks to make it
   optional [11].
 - `glob`, `chalk`, `form-data`, `leven`, `parse-semver`, `cheerio` and `markdown-it` are gone from the tree, which
@@ -81,20 +84,21 @@ Known defects on the vsce tracker (none is a regression introduced in 4.1.0):
 | Action                            | Pinned in `ci.yml` | Latest | Newest eligible | Full SHA of newest eligible                |
 | --------------------------------- | ------------------ | ------ | --------------- | ------------------------------------------ |
 | `actions/checkout`                | v7.0.1             | v7.0.1 | v7.0.1          | `3d3c42e5aac5ba805825da76410c181273ba90b1` |
-| `actions/setup-node`              | v7.0.0             | v7.1.0 | v7.1.0          | `949feb2413d6458794dcd2491c4babbbce0c15c1` |
-| `pnpm/setup`                      | v2.1.0             | v3.2.0 | v3.1.2          | `fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e` |
-| `actions/upload-artifact`         | v7.0.1             | v7.0.2 | v7.0.2          | `cf430e030ddbb5b0abf93d22962f4752f3646cd9` |
+| `actions/setup-node`              | v7.1.0             | v7.1.0 | v7.1.0          | `949feb2413d6458794dcd2491c4babbbce0c15c1` |
+| `pnpm/setup`                      | v3.1.2             | v3.2.0 | v3.1.2          | `fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e` |
+| `actions/upload-artifact`         | v7.0.2             | v7.0.2 | v7.0.2          | `cf430e030ddbb5b0abf93d22962f4752f3646cd9` |
 | `actions/download-artifact`       | none               | v8.0.2 | v8.0.2          | `9000827ccba6bdab643e8b6fd33ac0654aef8333` |
 | `actions/attest-build-provenance` | none               | v4.2.2 | v4.2.2          | `4d101475d8b20a2381f78447822ac1eab6504dd8` |
 
 `pnpm/setup` v3.0.0 (2026-09-20) is a major with two breaking changes: the run id is now part of the cache key, and
 Node.js version files are detected automatically. v3.2.0 becomes eligible on 2026-11-27. Several cache-scoping issues
 are open against v3 (#101, #102, #103). They don't affect a release job that disables the cache, which it should
-anyway to avoid cache poisoning [13]. Upgrading the existing CI pins is optional and separate from publishing.
+anyway to avoid cache poisoning [13]. `ci.yml` moved to v3.1.2 on 2026-11-21; the repo has no Node.js version file, so
+v3's detection installs nothing next to `actions/setup-node`.
 
 ## 2. Repository gaps before the first publish
 
-1. **Audit is red.** Measured on a scratch copy of the lockfile:
+1. **Audit was red (cleared 2026-11-21).** Measured on a scratch copy of the lockfile on 2026-11-20:
 
     | State                                                  | Advisories | Severity               |
     | ------------------------------------------------------ | ---------- | ---------------------- |
@@ -109,7 +113,9 @@ anyway to avoid cache poisoning [13]. Upgrading the existing CI pins is optional
       `overrides` entry onto 11.x.
     - 11.0.1, the first patched release, is already past the age rule, so no waiver is involved. The general "latest
       eligible" rule would pick the newest eligible 11.x instead (11.0.5 when checked).
-    - Whether vsce and ESLint run correctly on minimatch 11 has **not** been tested.
+    - Resolution on 2026-11-21: a fresh resolution with vitest 5.1.0 left only the `minimatch` finding, and the
+      override `minimatch@<11.0.1` -> 11.0.5 cleared it. With and without the override, ESLint linted the same 34
+      files with the same results and `vsce package` produced a byte-identical VSIX.
 
 2. **No icon.** Add a PNG of at least 128x128 px and `"icon"` in `package.json`. SVG is rejected [10].
 3. **Broken README image.** `README.md` line 15 embeds `docs/screenshot.png`, which is still a TODO. vsce rewrites the
@@ -324,8 +330,8 @@ From the second release on, both registries publish from the workflow with no st
 
 Trigger on a `v*` tag. The workflow packages once, publishes the same VSIX to both registries from separate jobs (so a
 failure in one can be re-run alone), verifies the Marketplace publish, then creates a GitHub Release carrying the VSIX.
-Action pins use the newest eligible versions from section 1, except `pnpm/setup`, which stays on `ci.yml`'s v2.1.0 so CI
-and release use the same installer (the v3 upgrade is separate). The cache is disabled in every job.
+Action pins use the newest eligible versions from section 1, the same ones `ci.yml` uses. The cache is disabled in every
+job.
 
 The jobs install the pinned toolchain from the lockfile instead of the docs' `npx @vscode/vsce` and `npx ovsx`, which
 would fetch unpinned versions outside the age rule.
@@ -359,7 +365,7 @@ jobs:
             - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
               with:
                   node-version: 24
-            - uses: pnpm/setup@703c52620218391530e48b9e8870d5c0082e1b9b # v2.1.0
+            - uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
               with:
                   cache: false
                   require-lockfile: true
@@ -392,7 +398,7 @@ jobs:
             - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
               with:
                   node-version: 24
-            - uses: pnpm/setup@703c52620218391530e48b9e8870d5c0082e1b9b # v2.1.0
+            - uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
               with:
                   cache: false
                   require-lockfile: true
@@ -433,7 +439,7 @@ jobs:
             - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
               with:
                   node-version: 24
-            - uses: pnpm/setup@703c52620218391530e48b9e8870d5c0082e1b9b # v2.1.0
+            - uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
               with:
                   cache: false
                   require-lockfile: true
@@ -478,9 +484,7 @@ Notes on the sketch:
 
 ## 6. First release checklist
 
-1. Refresh the lockfile until `pnpm audit` reports zero findings: bump `@vscode/vsce` to 4.1.0, add `ovsx` 1.3.0, pin
-   `vitest` and `@vitest/coverage-v8` to 4.1.12, decide on the `minimatch` override, then run `pnpm check` and
-   `pnpm audit`.
+1. Done on 2026-11-21: the lockfile is refreshed and `pnpm audit` reports zero findings (`dependency-versions.md`).
 2. Add the icon, fix or drop the screenshot, and set the release version and CHANGELOG entry.
 3. Create (or confirm) the Marketplace publisher `renatorroliveira`, and the Trusted Publishing policy bound to `release.yml`
    and environment `marketplace`.
@@ -502,7 +506,6 @@ Notes on the sketch:
   name to outside services during research. The first publish fails if it is taken.
 - Whether a first Open VSX version uploaded through the browser satisfies trusted publishing's "existing active version"
   prerequisite. Inferred from the prerequisite's wording; the page only describes the token route.
-- Whether vsce 4.1.0 and ESLint 10.9.1 work with `minimatch` 11.0.1 forced through `overrides`.
 - The Marketplace-side cause of the 404 in vsmarketplace#2316, still under investigation on 2026-11-10.
 - Whether the Marketplace signs packages on upload. The docs read don't say.
 - The scope of the Open VSX Marketplace namespace check. The code says namespace-wide, the wiki and blog say

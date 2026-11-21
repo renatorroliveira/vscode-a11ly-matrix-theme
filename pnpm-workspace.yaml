@@ -2,7 +2,11 @@ packages:
   - .
 
 allowBuilds:
-  keytar: false
   '@vscode/vsce-sign': false
 
 minimumReleaseAge: 21600
+
+overrides:
+  # GHSA-g3hv-75wg-m249 is fixed only in minimatch 11; ESLint 10.14 and vsce 4.1 still declare ^10.2.6.
+  # Dated note in CLAUDE.md. Remove once both accept ^11.
+  'minimatch@<11.0.1': 11.0.5

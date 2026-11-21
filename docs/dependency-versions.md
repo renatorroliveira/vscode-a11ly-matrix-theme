@@ -1,51 +1,141 @@
 # Pinned Dev Dependency Versions
 
-Research date: 2026-09-15. Runtime: Node v24.21.0, npm 11.19.0, corepack 0.36.0.
-The minimum release age was 30 days when the research ran (cutoff 2026-08-16) and
-was lowered to 15 days the same day (cutoff 2026-08-31T18:18Z, measured to the
-minute like pnpm does). The table below reflects the 15-day policy; see "Policy
-change to 15 days" for what moved.
+Last refresh: 2026-11-21. Runtime: Node v24.22.3, pnpm 12.18.0, corepack 0.36.0. The 15-day cutoff for the
+refresh was 2026-11-06T22:00Z, measured to the minute like pnpm does. The first research ran on 2026-09-15; its
+sections are kept below, marked as history.
 
 ## Selection rules applied
 
-1. Only versions published at least 15 days ago (from `npm view <pkg> time --json`).
+1. Only versions published at least 15 days ago (from the npm registry `time` field).
 2. Latest stable among those, including latest major. No pre-release tags.
-3. No known security advisory (npm audit on a scratch project, npm registry bulk
-   advisory endpoint, GitHub Advisory Database where rate limits allowed).
+3. No known security advisory (`pnpm audit`, which queries the npm bulk advisory endpoint, plus the GitHub Advisory
+   Database).
 4. No widely reported breaking regression for the exact version.
 5. Mutually compatible peer dependency ranges.
 
-## Summary table
+## Summary table (2026-11-21)
 
-| Package                | Pinned  | Published  | Latest today                                             | Reason if not latest                                                                                                                                                          | Advisory check                                                       | Peer-compat notes                                                                                                        |
-| ---------------------- | ------- | ---------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| typescript             | 6.0.3   | 2026-04-16 | 7.0.2 (2026-07-08)                                       | typescript-eslint 8.x peer range is `>=4.8.4 <6.1.0`; TS 7 support closed as "not planned" (typescript-eslint#12518). 7.0.2 also passes rule 1 but fails rule 5.              | none                                                                 | Works with @types/vscode 1.125.0 and @types/node 24.13.3 (tsc smoke test passed).                                        |
-| @types/node            | 24.13.3 | 2026-07-08 | 26.6.0 (2026-09-15); newest 24.x is 24.13.4 (2026-09-09) | Pinned to the Node 24 line per runtime. 24.13.4 is younger than 15 days.                                                                                                      | none                                                                 | vitest peer `>=24.0.0` satisfied.                                                                                        |
-| @types/vscode          | 1.125.0 | 2026-06-17 | 1.137.0 (2026-09-09)                                     | 1.137.0 and 1.136.x are younger than 15 days. Implies `engines.vscode: ^1.125.0`.                                                                                             | none                                                                 | No peers.                                                                                                                |
-| eslint                 | 10.9.1  | 2026-08-24 | 10.10.0 (2026-09-04)                                     | 10.10.0 is younger than 15 days.                                                                                                                                              | none                                                                 | engines `^20.19.0 \|\| ^22.13.0 \|\| >=24`. Optional peer `jiti` not needed for `.mjs` config.                           |
-| @eslint/js             | 10.0.1  | 2026-02-06 | 10.0.1                                                   | Is latest.                                                                                                                                                                    | none                                                                 | peer `eslint ^10.0.0` satisfied by 10.8.1.                                                                               |
-| typescript-eslint      | 8.69.0  | 2026-08-31 | 8.70.0 (2026-09-07)                                      | 8.70.0 is younger than 15 days.                                                                                                                                               | none                                                                 | peers `eslint ^8.57 \|\| ^9 \|\| ^10` and `typescript >=4.8.4 <6.1.0`; both satisfied.                                   |
-| eslint-config-prettier | 10.1.8  | 2025-07-18 | 10.1.8                                                   | Is latest. 10.1.6 and 10.1.7 carried malicious code (GHSA-r568-chxc-crfm, GHSA-f29h-pxvx-f335); 10.1.8 is the clean re-release.                                               | none for 10.1.8                                                      | peer `eslint >=7.0.0`.                                                                                                   |
-| prettier               | 3.9.6   | 2026-07-21 | 3.9.6                                                    | Is latest.                                                                                                                                                                    | none                                                                 | No peers.                                                                                                                |
-| vitest                 | 4.1.11  | 2026-08-18 | 5.0.1 (2026-09-15)                                       | 5.0.0 (2026-09-03) and 5.0.1 are younger than 15 days; 5.0.0 becomes eligible on 2026-09-18. 4.1.11 satisfies rule 1 under the 15-day policy without a waiver.                | none for 4.1.11; 4.1.10 hit GHSA-82fw-gwwq-j7x9 (moderate, CVSS 5.9) | engines `^20 \|\| ^22 \|\| >=24`. Non-optional peer `vite ^6 \|\| ^7 \|\| ^8`, resolved automatically (installed 8.3.0). |
-| @vitest/coverage-v8    | 4.1.11  | 2026-08-18 | 5.0.1                                                    | Must match vitest exactly (peer `vitest: 4.1.11`). Keep, do not skip.                                                                                                         | none                                                                 | Exact-version peer on vitest.                                                                                            |
-| @vscode/vsce           | 3.9.2   | 2026-06-03 | 4.0.0 (2026-09-14)                                       | 4.0.0 is one day old and raises the Node baseline to 22; eligible on 2026-09-29. It swaps keytar for @napi-rs/keyring and drops @secretlint/node but keeps typed-rest-client. | none                                                                 | engines `>= 20`.                                                                                                         |
-| globals                | 17.11.0 | 2026-08-12 | 17.12.0 (2026-09-01)                                     | 17.12.0 is younger than 15 days.                                                                                                                                              | none                                                                 | engines `>=18`.                                                                                                          |
-| pnpm                   | 12.1.0  | 2026-08-29 | 12.4.2 (2026-09-15)                                      | 12.2.0 (2026-08-31T23:59Z) misses the 15-day cutoff by six hours; 12.3.x and 12.4.x are younger.                                                                              | none                                                                 | engines `node >=18`. Rejects unrecognised `pnpm-workspace.yaml` settings; all five in use are recognised.                |
+| Package                | Pinned  | Published  | Latest today         | Reason if not latest                                                                                     | Peer and engine notes                                                                            |
+| ---------------------- | ------- | ---------- | -------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| typescript             | 6.0.3   | 2026-04-16 | 7.0.2 (2026-07-08)   | typescript-eslint 8.72.1 still declares `typescript >=4.8.4 <6.1.0` (rule 5). 6.0.3 is the newest 6.0.x. | Works with @types/node 24.19.2.                                                                  |
+| @types/node            | 24.19.2 | 2026-10-09 | 26.6.6 (2026-10-28)  | Pinned to the Node 24 line per runtime. 24.19.2 is the newest 24.x.                                      | vitest 5.1.0 peer `^22.0.0 \|\| >=24.0.0`.                                                       |
+| eslint                 | 10.14.0 | 2026-10-30 | 10.15.0 (2026-11-13) | 10.15.0 is eligible on 2026-11-28.                                                                       | engines `^20.19.0 \|\| ^22.13.0 \|\| >=24`. Optional peer `jiti` not needed.                     |
+| @eslint/js             | 10.0.1  | 2026-02-06 | 10.0.1               | Is latest.                                                                                               | peer `eslint ^10.0.0`.                                                                           |
+| typescript-eslint      | 8.72.1  | 2026-10-26 | 8.73.0 (2026-11-16)  | 8.72.2 is eligible on 2026-11-24, 8.73.0 on 2026-12-01.                                                  | peers `eslint ^8.57.0 \|\| ^9.0.0 \|\| ^10.0.0` and `typescript >=4.8.4 <6.1.0`.                 |
+| eslint-config-prettier | 10.1.8  | 2025-07-18 | 10.1.8               | Is latest. 10.1.6 and 10.1.7 carried malicious code (GHSA-r568-chxc-crfm, GHSA-f29h-pxvx-f335).          | peer `eslint >=7.0.0`.                                                                           |
+| prettier               | 3.9.10  | 2026-10-10 | 3.10.1 (2026-11-12)  | 3.10.0 is eligible on 2026-11-26, 3.10.1 on 2026-11-27.                                                  | No peers. Reformatted nothing in the repo.                                                       |
+| vitest                 | 5.1.0   | 2026-11-02 | 5.1.1 (2026-11-18)   | 5.1.1 is eligible on 2026-12-03.                                                                         | engines `^22.12.0 \|\| ^24.0.0 \|\| >=26.0.0` (excludes Node 25). Peer `vite` resolved to 8.3.6. |
+| @vitest/coverage-v8    | 5.1.0   | 2026-11-02 | 5.1.1                | Must equal vitest exactly (peer `vitest: 5.1.0`).                                                        | Exact-version peer on vitest.                                                                    |
+| @vscode/vsce           | 4.1.0   | 2026-10-28 | 4.1.1 (2026-11-12)   | 4.1.1 is eligible on 2026-11-27. 4.1.0 is also the first release whose `--oidc` works.                   | engines `>= 22`.                                                                                 |
+| ovsx                   | 1.3.0   | 2026-10-16 | 1.4.0 (2026-11-09)   | 1.4.0 is eligible on 2026-11-24.                                                                         | engines `>=22.0.0`. Depends on `@vscode/vsce ^4`, deduped onto 4.1.0.                            |
+| globals                | 17.14.0 | 2026-11-01 | 17.14.0              | Is latest.                                                                                               | No peers.                                                                                        |
+| pnpm                   | 12.18.0 | 2026-11-05 | 12.22.0 (2026-11-17) | 12.19.0 is eligible on 2026-11-25; 12.20.0, 12.21.0 and 12.22.0 later.                                   | engines `node >=18`.                                                                             |
+| minimatch (override)   | 11.0.5  | 2026-11-05 | 11.0.9 (2026-11-16)  | Forced through `overrides`; see below. 11.0.6 is eligible on 2026-11-25.                                 | engines `20 \|\| >=22`. Parents still declare `^10.2.6`.                                         |
 
-### Vitest exception (closed)
+Advisory check: `pnpm audit` reports zero findings, and the GitHub Advisory Database has no advisory for any version
+above, nor for the transitive `@vitest/mocker` 5.1.0, `vite` 8.3.6 and `@vscode/vsce-sign` 2.1.0.
 
-Under the original 30-day rule, rules 1 and 3 conflicted for vitest:
-GHSA-82fw-gwwq-j7x9 (path traversal via `@vitest/mocker` redirect mock) affects
-every release from 2.1.0 through 4.1.10, and the first fixed release, 4.1.11,
-was 27 days old. 4.1.11 was pinned with a dated waiver. The 15-day policy makes
-4.1.11 eligible outright, so the waiver was removed the same day.
+### Refresh 2026-11-21
 
-### Transitive advisories (resolved 2026-09-15)
+`pnpm audit` on the 2026-09-15 lockfile reported 45 advisories (7 low, 23 moderate, 15 high). All of them were published
+after CI last passed on 2026-09-23, so CI's audit step failed on the next run. The refresh pinned every package in the
+table to its newest eligible version, added `ovsx` for publishing, and re-resolved the whole tree from an empty lockfile
+so every transitive package also moved to its newest eligible version.
 
-`pnpm audit` on the first lockfile reported seven findings, all reached only
-through `@vscode/vsce` 3.9.2 and all caused by rule 1: the patched releases were
-younger than 30 days, so `minimumReleaseAge` held the tree on vulnerable
+What moved: @types/node 24.13.3 to 24.19.2, eslint 10.9.1 to 10.14.0, typescript-eslint 8.69.0 to 8.72.1, prettier
+3.9.6 to 3.9.10, vitest and @vitest/coverage-v8 4.1.11 to 5.1.0 (major), @vscode/vsce 3.9.2 to 4.1.0 (major), globals
+17.11.0 to 17.14.0, pnpm 12.1.0 to 12.18.0, and ovsx 1.3.0 added. Unchanged: typescript 6.0.3, @eslint/js 10.0.1,
+eslint-config-prettier 10.1.8.
+
+- **One finding was left after the fresh resolution:** `minimatch` 10.2.6, GHSA-g3hv-75wg-m249 (medium, denial of
+  service via globparts amplification, `>=7.0.0 <11.0.1`).
+    - It is reached through ESLint (`@eslint/config-array`), typescript-estree and @vscode/vsce, all of which declare
+      `^10.2.6`. No 10.x backport exists.
+    - It is cleared by the scoped override `'minimatch@<11.0.1': 11.0.5` in `pnpm-workspace.yaml`. 11.0.5 is the newest
+      eligible 11.x; the first patched release, 11.0.1, is also past the age rule, so no waiver is involved.
+- **minimatch 11 is a breaking major, and the override was checked to be neutral here.**
+    - 11.0 removes `makeRe()`, `Minimatch#regexp`, `matchOne()`, the `AST` class and the `debug` option. All three
+      consumers only call `minimatch(path, pattern, opts)` or `new Minimatch(pattern, opts).match(path)`, which 11.x
+      keeps.
+    - With and without the override, `eslint .` linted the same 34 files with the same zero counts, `vsce ls` listed the
+      same 5 files, and `vsce package` produced a VSIX whose 7 entries were byte-identical.
+    - Remove the override once ESLint and vsce both accept `^11`.
+- **`allowBuilds`:** vsce 4 replaced `keytar` with `@napi-rs/keyring`, which ships prebuilt binaries and has no install
+  script, so the `keytar: false` entry was removed. `@vscode/vsce-sign` is still a dependency with a network
+  `postinstall` and stays denied.
+- **Deprecation, not an advisory:** pnpm warns that `@secretlint/secretlint-rule-preset-recommend` 10.2.2, reached
+  through @vscode/vsce 4.1.0, is deprecated.
+- **engines:** vitest 5.1.0 is the only package in the tree whose Node range excludes a release line (Node 25), so
+  `engines.node` moved from `>=24.0.0` to `^24.0.0 || >=26.0.0`.
+- **CI:** `actions/setup-node` v7.0.0 to v7.1.0, `actions/upload-artifact` v7.0.1 to v7.0.2 and `pnpm/setup` v2.1.0 to
+  v3.1.2 (major). v3 keeps the `cache` and `require-lockfile` inputs. Its automatic Node.js version-file detection finds
+  nothing in this repo, so Node still comes only from `actions/setup-node`.
+- **Correction:** the 2026-09-15 table listed `@types/vscode` 1.125.0, but it was never added to `package.json`. The
+  theme ships no extension code, so it isn't needed.
+
+### Advisories outside the database (2026-11-21)
+
+Some maintainers publish repository advisories that have not yet reached the global GitHub Advisory Database, so
+`pnpm audit` can't see them. The refresh clears two that hit the old pins:
+
+- GHSA-jg5c-8mvg-5wph (critical): pnpm `>=12.0.0 <12.10.0`, a path traversal that only applies with
+  `enableGlobalVirtualStore`. The old pin was 12.1.0.
+- GHSA-4cm8-f57v-mqm6 (medium): prettier `>=3.9.0 <=3.9.9`, quadratic CPU on GFM tables. The old pin was 3.9.6.
+
+Three minimatch repository advisories still cover the pinned 11.0.5. **No waiver was taken**, because no eligible
+release is free of them and none can be triggered here:
+
+| Advisory            | Affected            | Fixed in | Why it doesn't apply here                                                    |
+| ------------------- | ------------------- | -------- | ---------------------------------------------------------------------------- |
+| GHSA-cf2h-pxjq-68xw | `>=11.0.0 <=11.0.6` | 11.0.7   | Quadratic compile time for patterns with thousands of `*` parts.             |
+| GHSA-hqmv-qgp3-jx75 | `>=11.0.3 <=11.0.7` | 11.0.8   | The pattern cache grows only with untrusted patterns; ours come from config. |
+| GHSA-c859-jr93-m5j4 | `>=7.4.0 <=11.0.7`  | 11.0.8   | Bugs in `minimatch.escape()`; none of the three consumers calls it.          |
+
+- They also cover 10.2.6, the version the override replaces, for GHSA-c859.
+- 11.0.8 fixes all three and becomes eligible on 2026-11-26T09:50Z. Move the override to it then; no waiver is needed.
+- If the global database ingests these advisories before that date, `pnpm audit` and CI fail until the move.
+
+### Regression checks (rule 4, 2026-11-21)
+
+Each version's release notes and every later release were read, and its issue tracker was searched for the version
+with "regression". None of the regressions found applies to this repo, which follows the 2026-09-15 precedent of
+keeping TypeScript 6.0.3 despite an open regression that didn't apply.
+
+- **typescript-eslint 8.72.1:** issue #13109 (open, triage) reports duplicated Programs and higher memory in
+  single-run mode when tsconfigs overlap. It is unfixed in 8.73.0. The triggers are overlapping or referenced
+  tsconfigs, shebang files, and linted files outside their tsconfig. This repo has one tsconfig, no shebangs, and its
+  two config files use `disableTypeChecked`.
+- **minimatch 11.0.5:** issue #343 (open). Since 11.0.5, a numeric brace range of 100 or more values inside `!()`,
+  `*()` or `+()` matches the wrong strings. No pattern in the repo or its tools' configs uses one.
+- **vitest 5.1.0:** four regressions are fixed in 5.1.1, which is still too new: `vi.spyOn` on `WeakMap.prototype`,
+  a `.d.ts` import that breaks with Vite 7, webdriverio and browser mode. This repo runs node tests with v8 coverage
+  on Vite 8.3.6 and uses none of them.
+    - The 5.0 breaking changes that matter for a node setup (`clearMocks` on by default, unawaited `resolves`/`rejects`
+      failing, removed `test.sequential`) touch no test here; all 80 pass.
+- **eslint 10.14.0:** the release-tracking issue (#21425) was closed with no regressions reported.
+- **prettier 3.9.10:** a single security fix. It inherits open #20199 from 3.9.9 (Markdown `$…$` is no longer parsed
+  as math); the repo's formatted Markdown has no `$` outside code, and `prettier --check` passes unchanged.
+- **pnpm 12.18.0:** no regression in the features used here. Later releases fix bugs that 12.1.0 also had, and none of
+  them affects this setup.
+    - #17723: a spurious `ERR_PNPM_NO_MATCHING_VERSION` under `minimumReleaseAge`, fixed in 12.19.0.
+    - #18184: `pnpm audit` dropping string-id advisories, which only affects custom registries.
+- **pnpm/setup v3.1.2:** open issues #101 to #103 and #110 are about cache efficiency, not correctness. With `cache`
+  enabled, #110 probably re-saves the store on every run.
+- **globals 17.14.0** (data only), **@types/node 24.19.2**, **actions/setup-node v7.1.0**,
+  **actions/upload-artifact v7.0.2**, **ovsx 1.3.0** and **@vscode/vsce 4.1.0**: nothing found beyond vsce#1354,
+  which affects every vsce version (see `20261120-publishing.md`).
+
+### Vitest exception (closed, history)
+
+Under the original 30-day rule, rules 1 and 3 conflicted for vitest: GHSA-82fw-gwwq-j7x9 (path traversal via
+`@vitest/mocker` redirect mock) affects every release from 2.1.0 through 4.1.10, and the first fixed release, 4.1.11,
+was 27 days old. 4.1.11 was pinned with a dated waiver. The 15-day policy made 4.1.11 eligible outright, so the waiver
+was removed the same day.
+
+### Transitive advisories (resolved 2026-09-15, history)
+
+`pnpm audit` on the first lockfile reported seven findings, all reached only through `@vscode/vsce` 3.9.2 and all
+caused by rule 1: the patched releases were younger than 30 days, so `minimumReleaseAge` held the tree on vulnerable
 versions.
 
 | Package  | Vulnerable | Path                                             | Advisories                                                                         | First patched | Published  |
@@ -54,150 +144,102 @@ versions.
 | js-yaml  | 4.3.1      | vsce > @secretlint/node > rc-config-loader       | GHSA-2883-xcg3-v3hh                                                                | 4.3.2         | 2026-08-26 |
 | qs       | 6.15.3     | vsce > azure-devops-node-api > typed-rest-client | GHSA-x5fp-wj9c-mxmx, GHSA-4mjr-xmp4-gh2g                                           | 6.16.0        | 2026-08-29 |
 
-They were first fixed with dated `minimumReleaseAgeExclude` waivers plus a
-scoped `overrides: 'fast-uri@3': 3.1.6` entry, because a bare waiver selects the
-newest release (fast-uri 3.1.8, published the same day) rather than the first
-patched one. Under the 15-day policy all three patched releases satisfy rule 1,
-so the waivers and the override were removed. The age rule now resolves
-fast-uri 3.1.6 (3.1.7 is 2026-09-02), js-yaml 4.3.2 and qs 6.16.0 on its own,
-and `pnpm audit` is clean.
+They were first fixed with dated `minimumReleaseAgeExclude` waivers plus a scoped `overrides: 'fast-uri@3': 3.1.6`
+entry, because a bare waiver selects the newest release (fast-uri 3.1.8, published the same day) rather than the first
+patched one. Under the 15-day policy all three patched releases satisfied rule 1, so the waivers and the override were
+removed.
 
-### Policy change to 15 days (2026-09-15)
+### Policy change to 15 days (2026-09-15, history)
 
-Lowering `minimumReleaseAge` from 43200 to 21600 minutes moved the cutoff to
-2026-08-31T18:18Z and changed the following:
-
-- eslint 10.8.1 to 10.9.1 (2026-08-24). 10.9.1 fixes a `no-loss-of-precision`
-  false positive; no regressions reported.
-- typescript-eslint 8.67.0 to 8.69.0 (2026-08-31T17:08Z, one hour inside the
-  cutoff). Adds `flagUnions` to `no-misused-promises`; still declares
-  `typescript >=4.8.4 <6.1.0`, so TypeScript 7.0.2 stays blocked by rule 5.
-- pnpm 11.22.0 to 12.1.0 (2026-08-29). 12.0.0 rejects unrecognised
-  `pnpm-workspace.yaml` settings, drops `--frozen-lockfile false` in favour of
-  `--no-frozen-lockfile`, and tightens `engineStrict`; none affect this repo.
-  `pnpm audit` no longer accepts `--prod=false`; the default already covers
-  devDependencies (`--dev` restricts to them).
-- All four age waivers and the fast-uri override removed (see above).
-
-Unchanged: typescript 6.0.3, @types/node 24.13.3, @eslint/js 10.0.1,
-eslint-config-prettier 10.1.8, prettier 3.9.6, vitest and @vitest/coverage-v8
-4.1.11, @vscode/vsce 3.9.2, globals 17.11.0. Upcoming eligibility under the
-15-day rule: vitest 5.0.0 on 2026-09-18, globals 17.12.0 on 2026-09-16,
-eslint 10.10.0 on 2026-09-19, typescript-eslint 8.70.0 on 2026-09-22,
-@types/node 24.13.4 on 2026-09-24, @vscode/vsce 4.0.0 on 2026-09-29.
-
-### Regression checks performed (rule 4)
-
-- typescript 6.0.3: one open type-checker regression (microsoft/TypeScript#64197,
-  excess property checks at reverse-mapped-type inference sites, Prisma-shaped
-  types). Not relevant to this repo. No compiler crashes reported.
-- eslint 10.9.1: patch release fixing one rule false positive. No regressions reported.
-- typescript-eslint 8.69.0: feature release (`flagUnions` option). No regressions.
-- prettier 3.9.6: preserves quotes on methods named `new`, supports `import defer`.
-  No later 3.9.x exists, so no post-release fixes were needed.
-- vitest 4.1.11: one third-party report of Windows path handling with a
-  Solid-specific virtual module after moving 3.2.4 to 4.1.11; not attributed to
-  4.1.11 specifically and not applicable here.
-- @vscode/vsce 3.9.2, globals 17.11.0, pnpm 12.1.0, @eslint/js 10.0.1,
-  eslint-config-prettier 10.1.8: release notes show no regressions or reverts.
+Lowering `minimumReleaseAge` from 43200 to 21600 minutes moved the cutoff to 2026-08-31T18:18Z. eslint moved 10.8.1 to
+10.9.1, typescript-eslint 8.67.0 to 8.69.0 and pnpm 11.22.0 to 12.1.0, and all four age waivers and the fast-uri
+override were removed. pnpm 12.0.0 rejects unrecognised `pnpm-workspace.yaml` settings, drops
+`--frozen-lockfile false` in favour of `--no-frozen-lockfile`, and its `pnpm audit` no longer accepts `--prod=false`;
+the default already covers devDependencies.
 
 ## devDependencies block
 
 ```json
 "devDependencies": {
-  "@eslint/js": "10.0.1",
-  "@types/node": "24.13.3",
-  "@types/vscode": "1.125.0",
-  "@vitest/coverage-v8": "4.1.11",
-  "@vscode/vsce": "3.9.2",
-  "eslint": "10.9.1",
-  "eslint-config-prettier": "10.1.8",
-  "globals": "17.11.0",
-  "prettier": "3.9.6",
-  "typescript": "6.0.3",
-  "typescript-eslint": "8.69.0",
-  "vitest": "4.1.11"
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.19.2",
+    "@vitest/coverage-v8": "5.1.0",
+    "@vscode/vsce": "4.1.0",
+    "eslint": "10.14.0",
+    "eslint-config-prettier": "10.1.8",
+    "globals": "17.14.0",
+    "ovsx": "1.3.0",
+    "prettier": "3.9.10",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1",
+    "vitest": "5.1.0"
 }
+```
+
+## pnpm-workspace.yaml overrides
+
+```yaml
+overrides:
+    'minimatch@<11.0.1': 11.0.5
 ```
 
 ## packageManager field
 
-The hex is the base64-decoded `dist.integrity` field from the npm registry for
-pnpm@12.1.0 (`pnpm view pnpm@12.1.0 dist.integrity`), the same sha512 format
-that `corepack use` emits.
+The hex is the base64-decoded `dist.integrity` field from the npm registry for pnpm@12.18.0
+(`npm view pnpm@12.18.0 dist.integrity`), the same sha512 format that `corepack use` emits. The same decoding
+reproduces the previous 12.1.0 pin exactly.
 
 ```json
-"packageManager": "pnpm@12.1.0+sha512.d9b8276d97f6ec86e49815877f91ee9f63cee61f2063b304e43b6dab8fa07ce8a9afd46d2facd39f921e6a9d06b3c75a81349c7b888c2d22886bae0229901037"
+"packageManager": "pnpm@12.18.0+sha512.9d7882d5dc82147ecfc4e062aa34834e0ad0296710a1837a1115ae012127d36b7109e321ac1598a1dd0a65597681b1e99917e12ed0d749eae91187943363beb3"
 ```
 
 ## engines block
 
 ```json
 "engines": {
-  "node": ">=24.0.0",
-  "vscode": "^1.125.0"
+    "vscode": "^1.125.0",
+    "node": "^24.0.0 || >=26.0.0"
 }
 ```
 
-Node `>=24.0.0` is the intersection of all pinned engines (strictest is pnpm
-`>=22.13` and eslint `>=24` for the 24 line). `vscode ^1.125.0` follows from
-@types/vscode 1.125.0; the API typings must not exceed the minimum VS Code the
-extension declares.
+The Node range is the intersection of the engines in the lockfile with the repo's Node 24 floor (native type
+stripping): vitest 5.1.0 is the only package that excludes a line, Node 25. `vscode ^1.125.0` is the minimum VS Code
+the theme declares; there is no `@types/vscode` to keep in step with it.
 
-## How this was verified
+## How this was verified (2026-11-21)
 
-All work was done in `/tmp/dep-research`; nothing was installed in the repo.
-
-```bash
-node --version; npm --version; corepack --version        # v24.21.0, 11.19.0, 0.36.0
-npm view <pkg> time --json                              # publish timestamps, all 13 packages
-npm view <pkg> dist-tags --json                         # current latest tag
-npm view <pkg>@<ver> peerDependencies peerDependenciesMeta engines dist.integrity --json
-npm view @types/node time --json                        # filtered to 24.x line
-npm view vitest time --json                             # dates for 4.1.10, 4.1.11, 5.0.0, 5.0.1
-npm view pnpm time --json                               # dates for 11.22.0, 12.0.0
-corepack use pnpm@11.22.0                               # in scratch dir, yields packageManager string
-node -e 'Buffer.from(<dist.integrity base64>,"base64").toString("hex")'  # hash cross-check
-curl -s "https://api.github.com/advisories?ecosystem=npm&affects=<pkg>@<ver>"  # 0 hits for 12 packages; rate-limited before vitest could be re-queried
-curl -s -X POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk -d '{"<pkg>":["<ver>"],...}'  # second advisory source, not rate-limited
-npm install --ignore-scripts && npm audit --json        # scratch project with the exact set
-```
-
-Scratch audit results: with vitest 4.1.10 the audit reported 3 moderate findings,
-all GHSA-82fw-gwwq-j7x9. With vitest and @vitest/coverage-v8 at 4.1.11 the audit
-reported 0 findings.
-
-Toolchain smoke test in the scratch project with the exact pinned set: `tsc
---noEmit` on a file importing `vscode` (TypeScript 6.0.3), `eslint` with a flat
-config combining @eslint/js, typescript-eslint, eslint-config-prettier and
-globals (ESLint 10.8.1), `prettier --check`, `vitest run --coverage` (1 test
-passed, V8 coverage report produced) and `vsce --version` (3.9.2). All ran.
-
-Release notes were read from GitHub release pages and the Prettier CHANGELOG;
-regression reports were searched on the web per package and version.
+- Versions and ages: a script read each package's `time` field from the npm registry and compared every stable release
+  with the 21600-minute rule. A second script did the same for the GitHub Actions releases and resolved each tag to
+  its commit SHA through the GitHub API.
+- Peer and engine ranges: `npm view <pkg>@<ver> peerDependencies engines --json` for every candidate, and a scan of
+  every `engines.node` in `pnpm-lock.yaml` with `semver` against Node 24.0.0, 24.22.3, 25.0.0 and 26.0.0.
+- Resolution: the candidate set was first resolved in a scratch copy, then in the repo from an empty lockfile with
+  pnpm 12.18.0. `pnpm install` enforces the age rule on the whole tree ("Lockfile passes supply-chain policies").
+- Advisories: `pnpm audit` (zero findings) and
+  `gh api "advisories?ecosystem=npm&affects=<pkg>@<ver>"` for every pinned version (zero).
+- Override check: the ESLint JSON report, `vsce ls` and the VSIX contents were captured with and without the
+  override and compared with `diff` and `cmp`.
+- Gate: `pnpm check` (typecheck, lint, 80 tests, build with the contrast audit), `pnpm test:coverage` and
+  `vsce package` all pass, and the generated `themes/` and `docs/contrast-report.md` are unchanged.
 
 ## Re-verification procedure (quarterly)
 
-1. Set `CUTOFF` to now minus 15 days, to the minute. For each package run
-   `npm view <pkg> time --json` and pick the highest `x.y.z` version (no
-   pre-release suffix) with a publish date on or before `CUTOFF`. For
-   `@types/node`, restrict to the major matching the runtime Node line.
-2. Run `npm view <pkg>@<ver> peerDependencies engines --json` for each candidate.
-   Confirm typescript-eslint's `typescript` range includes the chosen
-   TypeScript, `@eslint/js` and eslint-config-prettier ranges include the chosen
+1. Set `CUTOFF` to now minus 15 days, to the minute. For each package, pick the highest `x.y.z` version (no
+   pre-release suffix) published on or before `CUTOFF`. For `@types/node`, restrict to the major matching the runtime
+   Node line. Do the same for every action in `.github/workflows/` and resolve the tag to its commit SHA.
+2. Run `npm view <pkg>@<ver> peerDependencies engines --json` for each candidate. Confirm typescript-eslint's
+   `typescript` range includes the chosen TypeScript, `@eslint/js` and eslint-config-prettier ranges include the chosen
    ESLint, and `@vitest/coverage-v8` equals the vitest version exactly.
-3. Create `/tmp/dep-research/audit/package.json` with the candidate set as exact
-   `devDependencies`, then run `npm install --ignore-scripts` and
-   `npm audit --json`. Require zero findings. Cross-check with the npm bulk
-   advisory endpoint shown above. If a version has an advisory, take the first
-   patched version; if that is younger than 15 days, record a dated waiver and,
-   if it is not the newest in its range, a scoped `overrides` entry.
-4. Read the GitHub release page for each chosen version and search for
-   `<pkg> <version> regression`. Skip a version only for a confirmed regression
-   in that exact version.
-5. Run the smoke test (tsc, eslint, prettier, vitest with coverage, vsce) in the
-   scratch project.
-6. Run `corepack use pnpm@<ver>` in the scratch project and copy the resulting
-   `packageManager` string. Verify the hex matches `npm view pnpm@<ver>
-dist.integrity` decoded from base64.
-7. Update `engines.vscode` to `^<@types/vscode version>` and update this document.
+3. In a scratch copy of `package.json`, `pnpm-workspace.yaml` and `.npmrc`, pin the candidate set, delete the lockfile
+   and run `pnpm install --lockfile-only`, then `pnpm audit`. Require zero findings and cross-check each version in the
+   GitHub Advisory Database. If a version has an advisory, take the first patched version; if that is younger than 15
+   days, record a dated waiver and, if it is not the newest in its range, a scoped `overrides` entry.
+4. Re-check every entry under `overrides`: remove it when the parents' declared ranges accept the patched version.
+5. Read the GitHub release page for each chosen version and search its issue tracker for that version together with
+   "regression". Skip a version only for a confirmed regression in that exact version.
+6. Apply the set in the repo, delete `pnpm-lock.yaml`, run `pnpm install`, then `pnpm audit`, `pnpm check`,
+   `pnpm test:coverage` and `pnpm exec vsce package`.
+7. For a new pnpm, decode `npm view pnpm@<ver> dist.integrity` from base64 to hex for the `packageManager` string, and
+   check that the same decoding reproduces the current pin.
+8. Re-derive `engines.node` from the lockfile's engine ranges and update this document and the dated notes in
+   `CLAUDE.md`.

@@ -101,12 +101,16 @@ the dependency pinning report and the generated contrast report.
 - Waivers to the age rule go in `minimumReleaseAgeExclude` with a dated note here. A waiver always
   selects the first patched release, never the newest; when the first patched release is not the
   newest in its range, pin it with a scoped `overrides` entry. Remove a waiver the day the age rule
-  would select the same version on its own. Current waivers: none (as of 2026-09-15).
+  would select the same version on its own. Current waivers: none (as of 2026-11-21).
+- Current overrides: `minimatch@<11.0.1` -> `11.0.5` (2026-11-21). GHSA-g3hv-75wg-m249 is fixed only in
+  minimatch 11 and ESLint 10.14 and vsce 4.1 still declare `^10.2.6`; forcing 11 left ESLint's linted files
+  and the VSIX byte-identical. Remove it once both accept `^11`. On or after 2026-11-26T09:50Z move it to
+  `11.0.8` (fixes repo advisories GHSA-cf2h, GHSA-hqmv and GHSA-c859, which aren't yet in the global database or
+  `pnpm audit`).
 - `pnpm audit` must report zero findings before every commit that touches the lockfile.
 - Dependency build scripts are denied by default. `allowBuilds` in `pnpm-workspace.yaml` lists every
-  package that asked to run one and whether it may (`keytar` and `@vscode/vsce-sign` are denied;
-  vsce-sign's postinstall downloads a binary over the network and is only needed for publish-time
-  signing).
+  package that asked to run one and whether it may (`@vscode/vsce-sign` is denied: its postinstall
+  downloads a binary over the network and is only needed for publish-time signing).
 - Prefer the latest major that satisfies the age rule and has no advisory in the GitHub Advisory
   Database or `pnpm audit`. Step down one version at a time until clean.
 - No dependency with a known regression on its release page or issue tracker for that exact version.
