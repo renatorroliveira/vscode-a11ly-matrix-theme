@@ -17,22 +17,14 @@ the dependency pinning report and the generated contrast report.
 
 ## Commands (pnpm only, never npm or yarn)
 
-| Command                                                  | Purpose                                                                                             |
-| -------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `corepack enable pnpm && pnpm install --frozen-lockfile` | Install pinned dependencies.                                                                        |
-| `pnpm dev`                                               | Watch `src/` and regenerate `themes/` on every change. Pair with `F5` (Extension Development Host). |
-| `pnpm generate`                                          | Emit `themes/a11y-matrix-dark-color-theme.json` once.                                               |
-| `pnpm audit:contrast`                                    | Run the contrast gate, write `docs/contrast-report.md`, exit 1 on failure.                          |
-| `pnpm audit:contrast --fix`                              | Same, then write minimal color repairs into `src/`. Re-run without `--fix` to confirm.              |
-| `pnpm build`                                             | `generate` + `audit:contrast`. This is what `vscode:prepublish` runs.                               |
-| `pnpm typecheck`                                         | `tsc --noEmit` with the strict config.                                                              |
-| `pnpm lint` / `pnpm lint:fix`                            | ESLint (flat config, type-checked) and Prettier check / fix.                                        |
-| `pnpm format`                                            | Prettier write.                                                                                     |
-| `pnpm test` / `pnpm test:watch` / `pnpm test:coverage`   | Vitest unit tests.                                                                                  |
-| `pnpm check`                                             | typecheck + lint + test + build. Run before every commit.                                           |
-| `pnpm package`                                           | `check` then `vsce package` producing the release `.vsix` in the repo root.                         |
-| `pnpm publish:marketplace`                               | `check` then `vsce publish`. Prefer `--oidc` or `--azure-credential` over a PAT.                    |
-| `pnpm import:seed`                                       | Re-import `docs/dark-high-contrast.json` into `src/`, promoting commented defaults. Destructive.    |
+| Command                                                  | Purpose                                                                                                 |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `corepack enable pnpm && pnpm install --frozen-lockfile` | Install pinned dependencies.                                                                            |
+| `pnpm audit:contrast --fix`                              | Run the contrast gate, then write minimal color repairs into `src/`. Re-run without `--fix` to confirm. |
+| `pnpm check`                                             | typecheck + lint + test + build. Run before every commit.                                               |
+| `pnpm package`                                           | `check` then `vsce package` producing the release `.vsix` in the repo root.                             |
+| `pnpm publish:marketplace`                               | `check` then `vsce publish`. Prefer `--oidc` or `--azure-credential` over a PAT.                        |
+| `pnpm import:seed`                                       | Re-import `docs/dark-high-contrast.json` into `src/`, promoting commented defaults. Destructive.        |
 
 ## Color accessibility rules (enforced by the build)
 
@@ -129,11 +121,19 @@ the dependency pinning report and the generated contrast report.
   `actions/setup-node` because `vsce` runs `vscode:prepublish` through `npm run` and pnpm's runtime manager
   does not bundle npm.
 
+## Publishing gotchas (research in `docs/20261120-publishing.md`)
+
+- `vsce publish --oidc` needs `@vscode/vsce` >= 4.1.0; 4.0.0 has the flag but its token exchange fails with HTTP 400.
+- `vsce publish` can print "Published" on a server-side 404 (vsce#1354); confirm with `vsce show <id> --json`.
+- `ovsx` >= 1.3.0 depends on `@vscode/vsce ^4`; bump both together or pnpm installs a second vsce.
+- Open VSX trusted publishing can't make an extension's first upload (use the open-vsx.org browser upload or an access token) and needs a verified namespace.
+- Never change `publisher`: Marketplace publisher IDs can't be renamed, and the Open VSX namespace and both trusted-publisher registrations are keyed to `renatorroliveira`.
+- Do the first Open VSX upload before the first Marketplace publish, or the namespace check quarantines it while `ovsx` exits 0.
+- Never set `OVSX_PAT` in a trusted-publishing workflow: a token always takes precedence over the OIDC exchange.
+- Neither registry's trusted-publisher policy can filter by branch or tag; bind both to a GitHub environment limited to `v*` tags.
+
 ## Coding conventions
 
-- TypeScript strict, `erasableSyntaxOnly`, `verbatimModuleSyntax`, `.ts` extensions in imports.
 - Immutable, specific types: `readonly`, `as const`, template literal types (`HexColor`). No `any`.
 - Public functions before private ones in every file. JSDoc on every exported symbol.
-- Cyclomatic complexity <= 10, nesting <= 3 (ESLint enforces both).
-- Prettier: 120 columns, 4 spaces, LF, single quotes, arrow parens always, trailing commas.
 - Conventional Commits, wrapped at 72 columns, no `Co-Authored-By`.
