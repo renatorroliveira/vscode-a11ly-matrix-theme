@@ -1,0 +1,178 @@
+# Release workflow for the A11y Matrix Theme extension.
+#
+# A `v*.*.*` tag packages the VSIX once and publishes the same bytes to the
+# VS Code Marketplace and Open VSX through OIDC trusted publishing, with no
+# stored token. Both registries' trusted-publisher policies are bound to this
+# file name and to the `marketplace` and `openvsx` environments, which only
+# allow `v*` tags. The first release follows docs/20261120-publishing.md
+# section 4: the Open VSX job stays off until OPENVSX_TRUSTED_PUBLISHING is
+# set to 'true'. Actions are pinned to full commit SHAs (tag in a comment) and
+# follow the repository's 15-day age rule. No job restores a cache.
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions: {}
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  package:
+    name: Check and package
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Check out the tag
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+
+      - name: Set up pnpm and install dependencies
+        uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
+        with:
+          cache: false
+          require-lockfile: true
+
+      - name: Audit dependencies
+        run: pnpm audit
+
+      - name: Typecheck, lint, test and build
+        run: pnpm check
+
+      - name: Verify the generated theme and contrast report are committed
+        run: git diff --exit-code -- themes docs/contrast-report.md
+
+      - name: Require the tag to match package.json
+        run: test "v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
+
+      # --out treats the path as a directory only if it already exists.
+      # --githubBranch points the listing's relative README links at the tag.
+      - name: Package the extension
+        run: mkdir -p dist && pnpm exec vsce package --githubBranch "$GITHUB_REF_NAME" --out dist/
+
+      - name: Upload the VSIX
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: vsix
+          path: dist/*.vsix
+          if-no-files-found: error
+
+  marketplace:
+    name: Publish to the VS Code Marketplace
+    needs: package
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: marketplace
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Check out the tag
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+
+      - name: Set up pnpm and install dependencies
+        uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
+        with:
+          cache: false
+          require-lockfile: true
+
+      - name: Download the VSIX
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: vsix
+          path: dist
+
+      # vsce >= 4.1.0 exchanges the job's OIDC token for a 15-minute Marketplace credential.
+      - name: Publish
+        run: pnpm exec vsce publish --oidc --skip-duplicate --packagePath dist/*.vsix
+
+      # vsce#1354: vsce can report success on a server-side 404, so confirm the listing.
+      # New versions can sit in "Verifying..." for about 10 minutes (vsmarketplace#2316).
+      - name: Confirm the version is listed
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          for attempt in $(seq 1 40); do
+            if pnpm exec vsce show renatorroliveira.vscode-a11ly-matrix-theme --json | node -e '
+              let s = ""; process.stdin.on("data", (d) => (s += d)).on("end", () =>
+                process.exit(JSON.parse(s).versions.some((v) => v.version === process.argv[1]) ? 0 : 1));
+            ' "$version"; then exit 0; fi
+            sleep 30
+          done
+          echo "::error::$version is not listed on the Marketplace after 20 minutes"
+          exit 1
+
+  openvsx:
+    name: Publish to Open VSX
+    needs: package
+    if: vars.OPENVSX_TRUSTED_PUBLISHING == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: openvsx
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Check out the tag
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+
+      - name: Set up pnpm and install dependencies
+        uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
+        with:
+          cache: false
+          require-lockfile: true
+
+      - name: Download the VSIX
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: vsix
+          path: dist
+
+      # Never set OVSX_PAT here: a token always takes precedence over the OIDC exchange.
+      - name: Publish
+        run: pnpm exec ovsx publish dist/*.vsix --trusted-publishing --skip-duplicate
+
+  github-release:
+    name: Attach the VSIX to a GitHub Release
+    needs: [marketplace, openvsx]
+    if: ${{ !cancelled() && needs.marketplace.result == 'success' && needs.openvsx.result != 'failure' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Download the VSIX
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: vsix
+          path: dist
+
+      - name: Create the release
+        run: gh release create "$GITHUB_REF_NAME" dist/*.vsix --repo "$GITHUB_REPOSITORY" --verify-tag --notes "See CHANGELOG.md."
+        env:
+          GH_TOKEN: ${{ github.token }}

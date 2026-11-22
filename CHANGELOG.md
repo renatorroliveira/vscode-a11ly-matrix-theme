@@ -12,6 +12,9 @@ All notable changes to the A11y Matrix Theme are documented here. The format fol
 - Build-time WCAG 2.x contrast gate over curated foreground/background pairs.
 - GitHub Actions CI workflow that audits dependencies, runs `pnpm check`, verifies the generated files are
   committed and uploads the packaged VSIX and the contrast report as artifacts.
+- Release workflow: a `v*.*.*` tag publishes the same VSIX to the VS Code Marketplace and Open VSX through
+  OIDC trusted publishing, then attaches it to a GitHub Release.
+- Extension icon and a README screenshot for the Marketplace and Open VSX listings.
 
 ### Changed
 

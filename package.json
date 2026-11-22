@@ -13,6 +13,7 @@
         "url": "git+ssh://git@github.com/renatorroliveira/vscode-a11ly-matrix-theme.git"
     },
     "license": "MIT",
+    "icon": "images/icon.png",
     "private": true,
     "type": "module",
     "engines": {

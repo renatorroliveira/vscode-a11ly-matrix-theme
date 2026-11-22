@@ -1,6 +1,6 @@
 <div align="center">
 
-# A11y Matrix Theme
+<h1><picture><img src="images/icon.png" width="64" height="64" alt="" align="absmiddle"></picture> A11y Matrix Theme</h1>
 
 **An accessibility-first high contrast dark theme for Visual Studio Code, verified against WCAG 2.x AAA on every build.**
 
@@ -10,9 +10,7 @@
 [![Visual Studio Marketplace version](https://img.shields.io/visual-studio-marketplace/v/renatorroliveira.vscode-a11ly-matrix-theme)](https://marketplace.visualstudio.com/items?itemName=renatorroliveira.vscode-a11ly-matrix-theme)
 [![Visual Studio Marketplace installs](https://img.shields.io/visual-studio-marketplace/i/renatorroliveira.vscode-a11ly-matrix-theme)](https://marketplace.visualstudio.com/items?itemName=renatorroliveira.vscode-a11ly-matrix-theme)
 
-<!-- TODO: capture docs/screenshot.png from the Extension Development Host (editor, terminal, sidebar and a diff view). -->
-
-![A11y Matrix Dark applied to a TypeScript file, the integrated terminal and the Explorer sidebar](docs/screenshot.png)
+![A11y Matrix Dark in VS Code: the Explorer sidebar with green-outlined buttons, the Command Palette open on Toggle Terminal, and the welcome page](docs/screenshot.png)
 
 </div>
 

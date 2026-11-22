@@ -18,3 +18,4 @@ src/**
 test/**
 tsconfig.json
 vitest.config.ts
+dist/**

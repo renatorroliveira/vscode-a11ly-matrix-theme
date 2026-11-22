@@ -33,8 +33,8 @@ Status 2026-11-21: the toolchain part of this plan has landed. `@vscode/vsce` 4.
   publish right after it was lost (see the next point), so a stable first publish through OIDC is not yet proven [8].
 - **`vsce publish` can print "Published" when the Marketplace actually rejected the upload** (open issue #1354,
   root cause in `typed-rest-client`). The release workflow must confirm the version exists afterwards [8][9].
-- **Listing gaps:** no `icon` (the Marketplace shows a default), and the README embeds `docs/screenshot.png`, which
-  does not exist, so the listing would show a broken image. `"private": true` does not block vsce; vsce has no check
+- **Listing gaps (both fixed on 2026-11-21):** no `icon` (the Marketplace shows a default), and the README embeds
+  `docs/screenshot.png`, which did not exist, so the listing would show a broken image. `"private": true` does not block vsce; vsce has no check
   for it, and it keeps `npm publish` from ever uploading the repo to npm [10].
 - **Open VSX trusted publishing is live (GitHub Actions only, ovsx 1.2.0 or later), but it can't make the first
   upload.**
@@ -117,10 +117,13 @@ v3's detection installs nothing next to `actions/setup-node`.
       override `minimatch@<11.0.1` -> 11.0.5 cleared it. With and without the override, ESLint linted the same 34
       files with the same results and `vsce package` produced a byte-identical VSIX.
 
-2. **No icon.** Add a PNG of at least 128x128 px and `"icon"` in `package.json`. SVG is rejected [10].
-3. **Broken README image.** `README.md` line 15 embeds `docs/screenshot.png`, which is still a TODO. vsce rewrites the
-   relative path to `https://github.com/<owner>/<repo>/raw/HEAD/docs/screenshot.png` (confirmed in the existing
-   0.1.0 VSIX, built with vsce 3.9.2), so the listing would show a broken image. Capture the screenshot or drop the line before publishing.
+2. **Icon (fixed 2026-11-21).** A PNG of at least 128x128 px is required; SVG is rejected [10]. `images/icon.png` is a
+   256x256 PNG, and `package.json` points `icon` at it. The README also shows it beside the title, inside `<picture>` so
+   GitHub doesn't wrap it in a link with no accessible name.
+3. **README screenshot (fixed 2026-11-21).** `docs/screenshot.png` now exists. vsce rewrites relative README images to
+   `https://github.com/<owner>/<repo>/raw/<branch>/...`. A test package built like the release job (vsce 4.1.0,
+   `--githubBranch v0.1.0`) rewrote both the Markdown screenshot and the HTML `<img>` icon to `raw/v0.1.0/` URLs, so
+   both files must be committed before the tag.
 4. **README badges are fine.** `img.shields.io` is on vsce's trusted SVG host list, and the CI badge matches vsce's
    GitHub workflow badge pattern [14]. All other images must be HTTPS and not SVG.
 5. **Link base.** Relative README links resolve against `HEAD`. Passing `--githubBranch v<version>` at package time
@@ -326,7 +329,7 @@ upload into quarantine. So the first release publishes to Open VSX **before** th
 
 From the second release on, both registries publish from the workflow with no stored secret.
 
-## 5. Proposed release workflow (sketch, not committed)
+## 5. Release workflow
 
 Trigger on a `v*` tag. The workflow packages once, publishes the same VSIX to both registries from separate jobs (so a
 failure in one can be re-run alone), verifies the Marketplace publish, then creates a GitHub Release carrying the VSIX.
@@ -336,144 +339,17 @@ job.
 The jobs install the pinned toolchain from the lockfile instead of the docs' `npx @vscode/vsce` and `npx ovsx`, which
 would fetch unpinned versions outside the age rule.
 
-```yaml
-# .github/workflows/release.yml
-name: Release
+The workflow is in `.github/workflows/release.yml`, committed on 2026-11-21 from the draft that used to be here. It has
+four jobs: `package` (audit, `pnpm check`, generated files committed, tag equals `package.json` version, `vsce package
+--githubBranch <tag>`), `marketplace` (environment `marketplace`, `vsce publish --oidc`, then the listing check),
+`openvsx` (environment `openvsx`, off until `OPENVSX_TRUSTED_PUBLISHING` is `true`) and `github-release`.
 
-on:
-    push:
-        tags:
-            - 'v*.*.*'
-
-permissions: {}
-
-concurrency:
-    group: release
-    cancel-in-progress: false
-
-jobs:
-    package:
-        name: Check and package
-        runs-on: ubuntu-latest
-        timeout-minutes: 15
-        permissions:
-            contents: read
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-              with:
-                  persist-credentials: false
-            - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-              with:
-                  node-version: 24
-            - uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
-              with:
-                  cache: false
-                  require-lockfile: true
-            - run: pnpm audit
-            - run: pnpm check
-            - run: git diff --exit-code -- themes docs/contrast-report.md
-            - name: Require the tag to match package.json
-              run: test "v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
-            # --out treats the path as a directory only if it already exists.
-            - run: mkdir -p dist && pnpm exec vsce package --githubBranch "$GITHUB_REF_NAME" --out dist/
-            - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-              with:
-                  name: vsix
-                  path: dist/*.vsix
-                  if-no-files-found: error
-
-    marketplace:
-        name: Publish to the VS Code Marketplace
-        needs: package
-        runs-on: ubuntu-latest
-        timeout-minutes: 30
-        environment: marketplace
-        permissions:
-            contents: read
-            id-token: write
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-              with:
-                  persist-credentials: false
-            - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-              with:
-                  node-version: 24
-            - uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
-              with:
-                  cache: false
-                  require-lockfile: true
-            - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
-              with:
-                  name: vsix
-                  path: dist
-            - run: pnpm exec vsce publish --oidc --skip-duplicate --packagePath dist/*.vsix
-            # vsce#1354: vsce can report success on a server-side 404, so confirm the listing.
-            - name: Confirm the version is listed
-              run: |
-                  version="${GITHUB_REF_NAME#v}"
-                  # New versions can sit in "Verifying..." for about 10 minutes (vsmarketplace#2316).
-                  for attempt in $(seq 1 40); do
-                    if pnpm exec vsce show renatorroliveira.vscode-a11ly-matrix-theme --json | node -e '
-                      let s = ""; process.stdin.on("data", (d) => (s += d)).on("end", () =>
-                        process.exit(JSON.parse(s).versions.some((v) => v.version === process.argv[1]) ? 0 : 1));
-                    ' "$version"; then exit 0; fi
-                    sleep 30
-                  done
-                  echo "::error::$version is not listed on the Marketplace after 20 minutes"
-                  exit 1
-
-    openvsx:
-        name: Publish to Open VSX
-        needs: package
-        if: vars.OPENVSX_TRUSTED_PUBLISHING == 'true'
-        runs-on: ubuntu-latest
-        timeout-minutes: 20
-        environment: openvsx
-        permissions:
-            contents: read
-            id-token: write
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-              with:
-                  persist-credentials: false
-            - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-              with:
-                  node-version: 24
-            - uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
-              with:
-                  cache: false
-                  require-lockfile: true
-            - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
-              with:
-                  name: vsix
-                  path: dist
-            # No OVSX_PAT anywhere: a token would take precedence over the OIDC exchange.
-            - run: pnpm exec ovsx publish dist/*.vsix --trusted-publishing --skip-duplicate
-
-    github-release:
-        name: Attach the VSIX to a GitHub Release
-        needs: [marketplace, openvsx]
-        if: ${{ !cancelled() && needs.marketplace.result == 'success' && needs.openvsx.result != 'failure' }}
-        runs-on: ubuntu-latest
-        timeout-minutes: 10
-        permissions:
-            contents: write
-        steps:
-            - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
-              with:
-                  name: vsix
-                  path: dist
-            - run: gh release create "$GITHUB_REF_NAME" dist/*.vsix --repo "$GITHUB_REPOSITORY" --verify-tag --notes "See CHANGELOG.md."
-              env:
-                  GH_TOKEN: ${{ github.token }}
-```
-
-Notes on the sketch:
+Notes on the workflow:
 
 - **Environments.** Create `marketplace` and `openvsx` with deployment rules limited to tags matching `v*`, and bind
   both trusted-publisher registrations to them. Neither registry's policy can restrict by ref, so this is the ref
   filter. A required reviewer on `marketplace` also provides the pause the first release needs.
-- **Not run.** The sketch has never been executed. What was checked against the vsce 4.1.0 source:
+- **Not run yet.** The first `v*` tag is its first execution. What was checked against the vsce 4.1.0 source:
     - `--out` appends the default file name only when the path is an existing directory.
     - `show --json` prints the Gallery extension object with `versions[].version`. An unknown extension prints
       `undefined`, which makes the parse throw and the loop retry.
@@ -485,14 +361,15 @@ Notes on the sketch:
 ## 6. First release checklist
 
 1. Done on 2026-11-21: the lockfile is refreshed and `pnpm audit` reports zero findings (`dependency-versions.md`).
-2. Add the icon, fix or drop the screenshot, and set the release version and CHANGELOG entry.
-3. Create (or confirm) the Marketplace publisher `renatorroliveira`, and the Trusted Publishing policy bound to `release.yml`
-   and environment `marketplace`.
+2. Icon and screenshot done on 2026-11-21. Still to do: set the release version and move the CHANGELOG's
+   `[Unreleased]` entries under it.
+3. Done on 2026-11-21: the Marketplace publisher `renatorroliveira` and its Trusted Publishing policy bound to
+   `release.yml` and environment `marketplace`.
 4. Create the Eclipse account with the GitHub username filled in, log in to open-vsx.org, and sign the Publisher
    Agreement (section 4).
-5. In GitHub > Settings > Environments, create `marketplace` (with yourself as required reviewer) and `openvsx`.
-   Limit both to tags matching `v*`. Don't create `OPENVSX_TRUSTED_PUBLISHING` yet.
-6. Commit `release.yml` and push a `v<version>` tag that matches `package.json`. Follow "Order of operations for the
+5. Done on 2026-11-21: the `marketplace` (with a required reviewer) and `openvsx` environments, both limited to tags
+   matching `v*`. Don't create `OPENVSX_TRUSTED_PUBLISHING` yet.
+6. `release.yml` is committed (2026-11-21). Push a `v<version>` tag that matches `package.json`. Follow "Order of operations for the
    first release" in section 4: Open VSX by hand first, then approve the Marketplace job and watch the verify step.
 7. Claim the Open VSX namespace, register the trusted publisher, set the variable, and delete the token if one was
    made.
