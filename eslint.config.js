@@ -4,7 +4,8 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-    { ignores: ['node_modules/', 'themes/', 'coverage/', '*.vsix'] },
+    // docs/icon/ is a browser canvas script outside tsconfig, so the type-checked rules can't load it.
+    { ignores: ['node_modules/', 'themes/', 'coverage/', '*.vsix', 'docs/icon/'] },
     js.configs.recommended,
     ...tseslint.configs.strictTypeChecked,
     ...tseslint.configs.stylisticTypeChecked,

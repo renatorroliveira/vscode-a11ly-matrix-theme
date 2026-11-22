@@ -361,12 +361,11 @@ Notes on the workflow:
 ## 6. First release checklist
 
 1. Done on 2026-11-21: the lockfile is refreshed and `pnpm audit` reports zero findings (`dependency-versions.md`).
-2. Icon and screenshot done on 2026-11-21. Still to do: set the release version and move the CHANGELOG's
-   `[Unreleased]` entries under it.
+2. Done on 2026-11-21: icon, screenshot, and the CHANGELOG's `[0.1.0]` entry for the `package.json` version.
 3. Done on 2026-11-21: the Marketplace publisher `renatorroliveira` and its Trusted Publishing policy bound to
    `release.yml` and environment `marketplace`.
-4. Create the Eclipse account with the GitHub username filled in, log in to open-vsx.org, and sign the Publisher
-   Agreement (section 4).
+4. Done on 2026-11-21: the Eclipse account with the GitHub username filled in, the open-vsx.org login, and the
+   signed Publisher Agreement (section 4).
 5. Done on 2026-11-21: the `marketplace` (with a required reviewer) and `openvsx` environments, both limited to tags
    matching `v*`. Don't create `OPENVSX_TRUSTED_PUBLISHING` yet.
 6. `release.yml` is committed (2026-11-21). Push a `v<version>` tag that matches `package.json`. Follow "Order of operations for the

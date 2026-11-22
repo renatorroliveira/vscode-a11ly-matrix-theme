@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=VT323&family=JetBrains+Mono:wght@800&display=block"
+        />
+        <script src="icons.js"></script>
+    </head>
+    <body>
+        <pre id="out">pending</pre>
+        <script>
+            // Renders every design (or ?id=...) at ?size= (default 256) and writes PNG data URLs into #out.
+            const params = new URLSearchParams(location.search);
+            const size = Number(params.get('size') || 256);
+            const ids = params.get('id') ? [params.get('id')] : A11yIcons.designs.map((d) => d.id);
+            A11yIcons.fontsReady().then(() => {
+                const fontsOk = document.fonts.check('32px VT323') && document.fonts.check('800 32px "JetBrains Mono"');
+                const lines = [`fonts ${fontsOk ? 'ok' : 'MISSING'}`];
+                for (const id of ids) {
+                    const c = document.createElement('canvas');
+                    A11yIcons.draw(id, c, size);
+                    lines.push(`${id} ${c.toDataURL('image/png')}`);
+                }
+                document.getElementById('out').textContent = lines.join('\n');
+            });
+        </script>
+    </body>
+</html>

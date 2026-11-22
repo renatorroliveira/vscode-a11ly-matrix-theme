@@ -54,9 +54,10 @@ code --install-extension renatorroliveira.vscode-a11ly-matrix-theme
 
 **From a VSIX**
 
-Every CI run on `main` publishes a `vsix` artifact on the
-[Actions tab](https://github.com/renatorroliveira/vscode-a11ly-matrix-theme/actions/workflows/ci.yml). Download it,
-unzip the archive and install the file inside:
+Every [GitHub Release](https://github.com/renatorroliveira/vscode-a11ly-matrix-theme/releases) carries the published
+VSIX. Builds of unreleased changes are the `vsix` artifact of each CI run on `main` on the
+[Actions tab](https://github.com/renatorroliveira/vscode-a11ly-matrix-theme/actions/workflows/ci.yml); unzip that
+archive first. Then install the file:
 
 ```sh
 code --install-extension vscode-a11ly-matrix-theme-<version>.vsix
@@ -129,14 +130,15 @@ changed the same way through `editor.tokenColorCustomizations`.
 | `themes/`        | Generated theme JSON consumed by VS Code. Never edit by hand.                                                                        |
 | `test/`          | Vitest unit tests for the color library.                                                                                             |
 | `docs/`          | Research reports, the accessibility manual, the seed themes and the generated contrast report.                                       |
-| `.github/`       | GitHub Actions CI: audit, typecheck, lint, test, build and package on every push and pull request.                                   |
+| `.github/`       | GitHub Actions: CI on every push and pull request, and the release workflow that publishes on a version tag.                         |
 
 ## Development
 
-Requires Node.js 24 or later; the TypeScript sources run natively through type stripping, so there is no transpile step.
+Requires Node.js 24, or 26 and later; the TypeScript sources run natively through type stripping, so there is no
+transpile step.
 
 ```sh
-corepack enable pnpm            # picks pnpm 12.1.0 from the packageManager field
+corepack enable pnpm            # picks pnpm 12.18.0 from the packageManager field
 pnpm install --frozen-lockfile  # exact pins, 15-day minimum release age, no build scripts
 pnpm dev                        # regenerate themes/ on every source change
 pnpm build                      # generate + contrast gate
@@ -160,14 +162,17 @@ rationale for each pin is in [`docs/dependency-versions.md`](docs/dependency-ver
 the same `pnpm check` plus `pnpm audit`, verifies that the generated files are committed, and uploads the packaged VSIX
 and the contrast report as artifacts.
 
-## Packaging
+## Packaging and releases
 
 ```sh
 pnpm package      # runs pnpm check, then produces vscode-a11ly-matrix-theme-<version>.vsix
 ```
 
-Publishing uses `pnpm publish:marketplace`. Prefer `vsce publish --oidc` or `--azure-credential` over a Personal Access
-Token; Azure DevOps global PATs are retired on 2026-12-01.
+Releases come from [`.github/workflows/release.yml`](.github/workflows/release.yml). A `v<version>` tag that matches
+`package.json` packages the VSIX once. The workflow publishes it to the VS Code Marketplace and Open VSX through OIDC
+trusted publishing, with no stored token, and attaches it to a GitHub Release. The Marketplace job waits for approval
+in the `marketplace` environment. The publishing research is in
+[`docs/20261120-publishing.md`](docs/20261120-publishing.md).
 
 ## License
 
