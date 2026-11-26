@@ -129,6 +129,7 @@ the dependency pinning report and the generated contrast report.
 
 - `vsce publish --oidc` needs `@vscode/vsce` >= 4.1.0; 4.0.0 has the flag but its token exchange fails with HTTP 400.
 - `vsce publish` can print "Published" on a server-side 404 (vsce#1354); confirm with `vsce show <id> --json`.
+- `vsce show` lists a version before Marketplace validation ends (flags lack `validated`, item page 404); that check proves acceptance, not that the page is live.
 - `ovsx` >= 1.3.0 depends on `@vscode/vsce ^4`; bump both together or pnpm installs a second vsce.
 - Open VSX trusted publishing can't make an extension's first upload (use the open-vsx.org browser upload or an access token) and needs a verified namespace.
 - Never change `publisher`: Marketplace publisher IDs can't be renamed, and the Open VSX namespace and both trusted-publisher registrations are keyed to `renatorroliveira`.

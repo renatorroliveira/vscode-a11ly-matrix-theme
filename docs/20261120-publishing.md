@@ -368,8 +368,9 @@ Notes on the workflow:
    signed Publisher Agreement (section 4).
 5. Done on 2026-11-21: the `marketplace` (with a required reviewer) and `openvsx` environments, both limited to tags
    matching `v*`. Don't create `OPENVSX_TRUSTED_PUBLISHING` yet.
-6. `release.yml` is committed (2026-11-21). Push a `v<version>` tag that matches `package.json`. Follow "Order of operations for the
-   first release" in section 4: Open VSX by hand first, then approve the Marketplace job and watch the verify step.
+6. Done on 2026-11-21: `v0.1.0` tagged, uploaded to Open VSX by hand (public, not quarantined), then published to the
+   Marketplace by run 44973760597. Both registries and the GitHub Release carry the same VSIX (SHA-256
+   `9b60c8fa1929decb59c1dd9d9f139efd4310aa9dae60e87315df7a89887c797d`).
 7. Claim the Open VSX namespace, register the trusted publisher, set the variable, and delete the token if one was
    made.
 8. Confirm the extension installs from both registries: run
@@ -389,9 +390,9 @@ Notes on the workflow:
   first Open VSX upload alone (inferred from the scanner code). The first-release order in section 4 avoids depending on
   either answer.
 - Whether a namespace can be claimed before its first publish. The "Managing Namespaces" wiki says to publish first.
-- Whether `vsce show` lists a version while the hub still shows it as "Verifying". If it doesn't, the verify loop
-  waits up to 20 minutes. If verification takes longer, the job goes red even though the publish succeeded; re-running
-  is safe because of `--skip-duplicate`.
+- Resolved on 2026-11-21 with 0.1.0: `vsce show` lists a version while it is still verifying. The gallery flags lack
+  `validated` and the item page returns 404 until the scan finishes (about 4 minutes for 0.1.0). So the workflow's
+  listing check proves the upload was accepted, not that the page is live.
 - How long the asynchronous Argus scan delays activation in practice.
 - The 90-day Open VSX token expiry comes from the production configuration file, not a live check.
 
